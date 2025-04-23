@@ -1,0 +1,30 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Create a New Account{% endblock title %}
+
+{% block content %}
+<div class="d-flex align-items-center justify-content-center vh-100 bg-light mt-5 mb-5">
+  <div class="w-100" style="max-width: 400px;">
+    <div class="text-center mb-4">
+      <h2 class="fw-semibold">Register</h2>
+      <p class="text-muted">Create an account to use our services.</p>
+    </div>
+
+    <form method="POST" novalidate class="p-4 border rounded bg-white">
+      {% csrf_token %}
+
+      {{ form | crispy }}
+
+      <div class="d-grid pt-3">
+        <button type="submit" class="btn btn-success">Register</button>
+      </div>
+
+      <p class="text-center text-muted small mt-3">
+        Already have an account? <a href="{% url "login" %}">Log In</a>
+      </p>
+    </form>
+  </div>
+</div>
+{% endblock %}
