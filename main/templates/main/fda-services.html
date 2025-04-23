@@ -1,0 +1,86 @@
+{% extends "main/base.html" %}
+
+{% block title %}FDA Services{% endblock title %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero text-center">
+  <div class="container">
+    <h1 class="fw-bold">FDA Services</h1>
+    <p class="lead">We simplify your FDA product registration process so you can focus on growing your business.</p>
+  </div>
+</section>
+
+<!-- Challenges + Solution Section -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="row align-items-start g-4">
+      <div class="col-md-6">
+        <h3 class="fw-bold mb-3">Common Challenges with FDA Processes</h3>
+        <ul class="list-unstyled">
+          <li class="mb-2"><i class="bi bi-x-circle-fill text-danger me-2"></i>Confusing documentation and requirements</li>
+          <li class="mb-2"><i class="bi bi-x-circle-fill text-danger me-2"></i>Long delays due to errors or missing information</li>
+          <li class="mb-2"><i class="bi bi-x-circle-fill text-danger me-2"></i>Uncertainty about the right application path</li>
+          <li class="mb-2"><i class="bi bi-x-circle-fill text-danger me-2"></i>No way to track application progress</li>
+        </ul>
+      </div>
+      <div class="col-md-6">
+        <h3 class="fw-bold mb-3">Our Solution</h3>
+        <p>Our platform guides you step-by-step through the FDA registration process. You can:</p>
+        <ul class="list-unstyled">
+          <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Create an account and get a personal dashboard</li>
+          <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Submit product details with clear instructions</li>
+          <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Upload documents and track status in real-time</li>
+          <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Receive email notifications at every stage</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works -->
+<section class="py-5">
+  <div class="container text-center">
+    <h2 class="fw-bold mb-4">How It Works</h2>
+    <div class="row g-4">
+      <div class="col-md-3">
+        <div class="card p-3 h-100">
+          <div class="icon-box mb-3"><i class="bi bi-person-plus-fill"></i></div>
+          <h5>Create Account</h5>
+          <p>Sign up for free and access your personalized dashboard.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card p-3 h-100">
+          <div class="icon-box mb-3"><i class="bi bi-wallet2"></i></div>
+          <h5>Make Payment</h5>
+          <p>Securely pay for the service to unlock submission access.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card p-3 h-100">
+          <div class="icon-box mb-3"><i class="bi bi-cloud-upload"></i></div>
+          <h5>Submit Application</h5>
+          <p>Fill in details, upload documents, and track your progress.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card p-3 h-100">
+          <div class="icon-box mb-3"><i class="bi bi-bell-fill"></i></div>
+          <h5>Get Notified</h5>
+          <p>We'll notify you as your application moves through stages.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="bg-success text-white text-center py-5">
+  <div class="container">
+    <h2 class="fw-bold mb-3">Ready to Get Started?</h2>
+    <p class="mb-4">Let us take the stress out of your FDA product registration.</p>
+    <a href="{% url "login-redirect" %}" class="btn btn-light btn-lg"><i class="bi bi-rocket-takeoff"></i> Start Now</a>
+  </div>
+</section>
+{% endblock content %}
