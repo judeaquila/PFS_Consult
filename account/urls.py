@@ -1,13 +1,16 @@
 from django.urls import path
-from .views import login_view, sign_up_view, logout_view
+from .views import login_view, sign_up_view, logout_view, user_dashboard
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
+    path('dashboard/', user_dashboard, name='user-dashboard'),
+
+    # Auth Paths
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
     path('sign_up/', sign_up_view, name='sign_up'),
 
-    # Built-in Functionalities
+    # Built-in Auth Functionalities
     path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
