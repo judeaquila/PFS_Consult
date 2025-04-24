@@ -1,0 +1,52 @@
+{% extends 'account/base.html' %}
+
+{% load static %}
+
+{% block title %}FDA Application Details {% endblock title %}
+
+{% block content %}
+<main class="main-content" id="mainContent">
+    <div class="pt-4">
+      <h2 class="fw-bold mb-4 mt-2">FDA Application Details</h2>
+      <p class="lead">View the details of submitted FDA applications.</p>
+    
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">Business Information</h5>
+          <p><strong>Business Name:</strong> {{ fda_application.business_name }}</p>
+          <p><strong>Location:</strong> {{ fda_application.location }}</p>
+        </div>
+      </div>
+    
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">Documents &amp; Uploads</h5>
+          <p><strong>Certificate:</strong> <a href="{{ fda_application.business_certificate.url }}" target="_blank">View Document</a></p>
+          <p><strong>Logo:</strong> <img src="{{ fda_application.logo.url }}" alt="Business Logo" class="img-thumbnail" style="height: 100px;"></p>
+          <p><strong>Labels:</strong> <a href="{{ fda_application.product_labels.url }}" target="_blank">View</a></p>
+          <p><strong>Food Handler's Cert:</strong> <a href="{{ fda_application.food_handler_cert.url }}" target="_blank">View</a></p>
+          {% if fda_application.lab_results %}
+          <p><strong>Lab Results:</strong> <a href="{{ fda_application.lab_results.url }}" target="_blank">View</a></p>
+          {% endif %}
+        </div>
+      </div>
+    
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">Product &amp; Facility Info</h5>
+          <p><strong>Products:</strong> {{ fda_application.products }}</p>
+          <p><strong>Process Description:</strong> {{ fda_application.process_description }}</p>
+          {% if fda_application.facility_video %}
+          <p><strong>Facility Video:</strong> <a href="{{ fda_application.facility_video.url }}" target="_blank">Watch</a></p>
+          {% endif %}
+          <p><strong>Items &amp; Equipment:</strong> {{ fda_application.items_equipment }}</p>
+          <p><strong>Staff &amp; Roles:</strong> {{ fda_application.staff_roles }}</p>
+        </div>
+      </div>
+    
+      <div class="text-end">
+        <a href="{% url 'user-dashboard' %}" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Back to Dashboard</a>
+      </div>
+    </div>
+</main>
+{% endblock content %}

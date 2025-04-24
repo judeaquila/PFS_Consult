@@ -1,0 +1,111 @@
+{% extends "account/base.html" %}
+
+{% block title %}Create a New FDA Application{% endblock title %}
+
+{% load form_tags %}
+
+{% block content %}
+<main class="main-content" id="mainContent">
+    <div class="pt-4">
+      <h2 class="fw-bold mb-4 mt-2">Create a New FDA Application</h2>
+      <p class="lead">Complete the form below to begin your application process.</p>
+  
+      <div class="row g-3 mb-4 mt-5">
+        <div class="container">
+            <form action="" class="form-section" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label for="id_business_certificate" class="form-label">Business Certificate</label>
+                    {{ form.business_certificate|add_class:"form-control" }}
+                    {{ form.business_certificate.errors }}
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="id_business_name" class="form-label">Business Name</label>
+                    {{ form.business_name|add_class:"form-control" }}
+                    {{ form.business_name.errors }}
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="id_location" class="form-label">Business Location</label>
+                    {{ form.location|add_class:"form-control" }}
+                    {{ form.location.errors }}
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="id_products" class="form-label">List of Products</label>
+                    {{ form.products|add_class:"form-control" }}
+                    {{ form.products.errors }}
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="id_logo" class="form-label">Business Logo (high-resolution)</label>
+                    {{ form.logo|add_class:"form-control" }}
+                    {{ form.logo.errors }}
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="id_lab_results" class="form-label">Laboratory Results (if available)</label>
+                    {{ form.lab_results|add_class:"form-control" }}
+                    {{ form.lab_results.errors }}
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="id_product_labels" class="form-label">Product Labels (soft copies)</label>
+                    {{ form.product_labels|add_class:"form-control" }}
+                    {{ form.product_labels.errors }}
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="id_food_handlers_certificate" class="form-label">Food Handler's Certificate</label>
+                    {{ form.food_handler_cert|add_class:"form-control" }}
+                    {{ form.food_handler_cert.errors }}
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="id_process_description" class="form-label">Detailed Process Description (written or voice note)</label>
+                    {{ form.process_description|add_class:"form-control" }}
+                    {{ form.process_description.errors }}
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="id_facility_video" class="form-label">Slow Motion Video of Facility</label>
+                    {{ form.facility_video|add_class:"form-control" }}
+                    {{ form.facility_video.errors }}
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="id_equipment_list" class="form-label">List of Items and Equipment</label>
+                    {{ form.items_equipment|add_class:"form-control" }}
+                    {{ form.items_equipment.errors }}
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="id_staff_roles" class="form-label">List of Staff and Roles</label>
+                    {{ form.staff_roles|add_class:"form-control" }}
+                    {{ form.staff_roles.errors }}
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="id_lab_results" class="form-label">Samples for Lab Analysis (6 to 8)</label>
+                    {{ form.lab_results|add_class:"form-control" }}
+                    {{ form.lab_results.errors }}
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="id_product_labels" class="form-label">Samples for FDA Submission (8 to 10)</label>
+                    {{ form.product_labels|add_class:"form-control" }}
+                    {{ form.product_labels.errors }}
+                  </div>
+                  
+
+                <div class="col-12 text-center">
+                    <button class="btn btn-success btn-lg btn-custom"><i class="bi bi-check-circle"></i> Submit Application</button>
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>
+</main>
+{% endblock content %}

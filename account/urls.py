@@ -1,9 +1,11 @@
 from django.urls import path
-from .views import login_view, sign_up_view, logout_view, user_dashboard
+from .views import login_view, sign_up_view, logout_view, user_dashboard, create_fda_application, view_fda_application
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('dashboard/', user_dashboard, name='user-dashboard'),
+    path('fda_application/', create_fda_application, name='create-fda-application'),
+    path('application_details/<int:pk>/', view_fda_application, name='application-details'),
 
     # Auth Paths
     path('login/', login_view, name='login'),

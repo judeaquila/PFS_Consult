@@ -26,7 +26,7 @@
       top: 60px;
       left: 0;
       height: 100vh;
-      width: 220px;
+      width: 250px;
       background: #f8f9fa;
       border-right: 1px solid #dee2e6;
       padding-top: 1rem;
@@ -47,7 +47,7 @@
     }
 
     .main-content {
-      margin-left: 220px;
+      margin-left: 250px;
       padding: 80px 20px 20px;
       transition: margin-left 0.3s;
     }
@@ -116,12 +116,12 @@
 
 <!-- Top Navbar -->
 <header class="topbar">
-  <button class="btn btn-outline-secondary d-md-none" id="toggleSidebar">
+  <button class="btn btn-outline-secondary d-lg-none" id="toggleSidebar">
     <i class="bi bi-list"></i>
   </button>
-  <h5 class="m-0">
-    <a href="{% url "user-dashboard" %}" class="text-decoration-none">Dashboard</a>
-  </h5>
+  <h5 class="m-0 d-none d-lg-block">
+    <a href="{% url 'user-dashboard' %}" class="text-decoration-none">Dashboard</a>
+  </h5>  
   <div class="d-flex align-items-center gap-3 ms-auto">
     <!-- Notifications -->
     <div class="dropdown">
@@ -155,9 +155,33 @@
 
 <!-- Sidebar -->
 <nav class="sidebar" id="sidebar">
-  <a href="#"><i class="bi bi-grid-1x2"></i> Dashboard</a>
-  <a href="#"><i class="bi bi-plus-circle"></i> New Application</a>
-  <a href="#"><i class="bi bi-files"></i> My Applications</a>
+
+  <a href="{% url 'user-dashboard' %}"><i class="bi bi-grid-1x2"></i> Dashboard</a>
+
+  <a data-bs-toggle="collapse" href="#newAppMenu" role="button" aria-expanded="false" aria-controls="newAppMenu">
+    <i class="bi bi-plus-circle"></i> New Application
+    <i class="bi bi-chevron-down float-end"></i>
+  </a>
+  <div class="collapse ms-3" id="newAppMenu">
+    <a data-bs-toggle="collapse" href="#fdaGsaMenu" class="d-block" role="button" aria-expanded="false"><i class="bi-clipboard-check"></i> FDA/GSA Application <i class="bi bi-chevron-right float-end small"></i>
+    </a>
+    <div class="collapse ms-3" id="fdaGsaMenu">
+      <a href="#" class="d-block"><i class="bi-box-seam"></i> Product Registration</a>
+      <a href="#" class="d-block"><i class="bi-building"></i> Facility Registration</a>
+    </div>
+    <a href="#" class="d-block"><i class="bi-file-earmark-text"></i> Business Certificate Application</a>
+  </div>
+
+  <a data-bs-toggle="collapse" href="#myAppsMenu" role="button" aria-expanded="false" aria-controls="myAppsMenu">
+    <i class="bi bi-files"></i> My Applications
+    <i class="bi bi-chevron-down float-end"></i>
+  </a>
+  <div class="collapse ms-3" id="myAppsMenu">
+    <a href="#" class="d-block"><i class="bi-collection"></i> All Applications</a>
+    <a href="#" class="d-block"><i class="bi-patch-check"></i> FDA/GSA Applications</a>
+    <a href="#" class="d-block"><i class="bi-briefcase"></i> Business Registration Applications</a>
+  </div>
+
   <a href="#"><i class="bi bi-chat-dots"></i> Support</a>
   <a href="#"><i class="bi bi-gear"></i> Settings</a>
 </nav>
