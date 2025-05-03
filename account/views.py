@@ -53,8 +53,10 @@ def logout_view(request):
 def user_dashboard(request):
     return render(request, 'account/user-dashboard.html')
 
+
+# CREATE FDA PRODUCT APPLICATION
 @login_required
-def create_fda_application(request):
+def create_fda_product_application(request):
     if request.method == 'POST':
         form = FDAApplicationForm(request.POST, request.FILES)
         if form.is_valid():
@@ -62,7 +64,7 @@ def create_fda_application(request):
             application.user = request.user
             application.save()
             messages.success(request, "Your FDA Application has been successfully submitted!")
-            return redirect('fda-application-details', pk=application.pk)
+            return redirect('fda-product-application-details', pk=application.pk)
         
     else:
         form = FDAApplicationForm()
@@ -71,29 +73,46 @@ def create_fda_application(request):
         'form': form,
     }
 
-    return render(request, 'account/fda-application.html', context)
+    return render(request, 'account/fda-product-application.html', context)
 
+
+# VIEW FDA PRODUCT APPLICATION
 @login_required
-def view_fda_application(request, pk):
+def view_fda_product_application(request, pk):
     fda_application = get_object_or_404(FDAApplication, pk=pk, user=request.user)
 
     context = {
         'fda_application': fda_application,
     }
 
-    return render(request, 'account/fda-application-details.html', context)
+    return render(request, 'account/fda-product-application-details.html', context)
 
+
+# ALL FDA APPLICATIONS
 @login_required
 def all_fda_applications(request):
     all_fda_applications = FDAApplication.objects.filter(user=request.user)
-    all_business_cert_applications = BusinessCertificateApplication.objects.filter(user=request.user)
 
     context = {
         'all_fda_applications': all_fda_applications,
-        'all_business_cert_applications': all_business_cert_applications,
     }
 
     return render(request, 'account/user-dashboard.html', context)
+
+
+# ALL
+@login_required
+def user_applications(request):
+    fda_applications = FDAApplication.objects.filter(user=request.user)
+    business_cert_applications = BusinessCertificateApplication.objects.filter(user=request.user)
+
+    context = {
+        'fda_applications': fda_applications,
+        'business_cert_applications': business_cert_applications,
+    }
+
+    return render(request, 'account/all-user-applications.html', context)
+
 
 @login_required
 def create_business_cert_application(request):

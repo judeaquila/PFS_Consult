@@ -1,13 +1,14 @@
 from django.urls import path
-from .views import login_view, sign_up_view, logout_view, user_dashboard, create_fda_application, view_fda_application, create_business_cert_application, view_business_cert_application
+from .views import login_view, sign_up_view, logout_view, user_dashboard, create_fda_product_application, view_fda_product_application, create_business_cert_application, view_business_cert_application, user_applications
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('dashboard/', user_dashboard, name='user-dashboard'),
-    path('fda_application/', create_fda_application, name='create-fda-application'),
-    path('fda_application_details/<int:pk>/', view_fda_application, name='fda-application-details'),
+    path('fda_product_application/', create_fda_product_application, name='create-fda-product-application'),
+    path('fda_product_application_details/<int:pk>/', view_fda_product_application, name='fda-product-application-details'),
     path('business_cert_application/', create_business_cert_application, name='create-business-cert-application'),
     path('business_cert_application_details/<int:pk>/', view_business_cert_application, name='business-cert-application-details'),
+    path('my_applications/', user_applications, name='user-applications'),
 
     # Auth Paths
     path('login/', login_view, name='login'),

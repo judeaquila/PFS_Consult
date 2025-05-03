@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.utils.crypto import get_random_string
 
 # Custom User
 class CustomUser(AbstractUser):
@@ -52,6 +51,12 @@ class FDAApplication(models.Model):
 
 # New Business Certificate Registration
 class BusinessCertificateApplication(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('in_review', 'In Review'),
+        ('completed_documentation', 'Completed Documentation'),
+    ]
+        
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, )
     company_name = models.CharField(max_length=100)
     nature_of_business = models.CharField(max_length=100)
@@ -66,6 +71,7 @@ class BusinessCertificateApplication(models.Model):
     company_gps_address = models.CharField(max_length=100)
     ghana_card_number = models.CharField(max_length=100)
     tin_number = models.CharField(max_length=100)
+    application_status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='pending')
 
 
     def __str__(self):
