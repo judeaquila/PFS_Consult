@@ -3,7 +3,8 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import EmailAuthenticationForm, CustomUserCreationForm, FDAApplicationForm, BusinessCertificateForm
-from .models import FDAApplication, BusinessCertificateApplication
+from .models import FDAApplication, BusinessCertificateApplication, UserActivity
+
 
 # Log In View
 def login_view(request):
@@ -51,7 +52,37 @@ def logout_view(request):
 # USER DASHBOARD
 @login_required
 def user_dashboard(request):
-    return render(request, 'account/user-dashboard.html')
+    all_fda_applications = FDAApplication.objects.filter(user=request.user)
+    product_total_count = all_fda_applications.count()
+    product_pending_count = FDAApplication.objects.filter(user=request.user, application_status='pending').count()
+    product_in_review_count = FDAApplication.objects.filter(user=request.user, application_status='in_review').count()
+    product_completed_count = FDAApplication.objects.filter(user=request.user, application_status='completed_documentation').count()
+
+    all_business_cert_applications = BusinessCertificateApplication.objects.filter(user=request.user)
+    business_cert_total_count = all_business_cert_applications.count()
+    business_cert_pending_count = BusinessCertificateApplication.objects.filter(user=request.user, application_status='pending').count()
+    business_cert_in_review_count = BusinessCertificateApplication.objects.filter(user=request.user, application_status='in_review').count()
+    business_cert_completed_count = BusinessCertificateApplication.objects.filter(user=request.user, application_status='completed_documentation').count()
+
+    recent_activities = UserActivity.objects.filter(user=request.user).order_by('-timestamp')[:5]
+
+    context = {
+        'all_fda_applications': all_fda_applications,
+        'product_total_count': product_total_count,
+        'product_pending_count': product_pending_count,
+        'product_in_review_count': product_in_review_count,
+        'product_completed_count': product_completed_count,
+
+        'business_cert_total_count': business_cert_total_count,
+        'business_cert_pending_count': business_cert_pending_count,
+        'business_cert_in_review_count': business_cert_in_review_count,
+        'business_cert_completed_count': business_cert_completed_count,
+        'all_business_cert_applications': all_business_cert_applications,
+        
+        'recent_activites': recent_activities,
+    }
+
+    return render(request, 'account/user-dashboard.html', context)
 
 
 # CREATE FDA PRODUCT APPLICATION
@@ -63,6 +94,13 @@ def create_fda_product_application(request):
             application = form.save(commit=False)
             application.user = request.user
             application.save()
+
+            UserActivity.objects.create(
+                user=request.user,
+                activity_type='submit_product',
+                description=f"Submitted FDA application for {application.business_name}"
+            )
+
             messages.success(request, "Your FDA Application has been successfully submitted!")
             return redirect('fda-product-application-details', pk=application.pk)
         
@@ -90,18 +128,6 @@ def view_fda_product_application(request, pk):
 
 # ALL FDA APPLICATIONS
 @login_required
-def all_fda_applications(request):
-    all_fda_applications = FDAApplication.objects.filter(user=request.user)
-
-    context = {
-        'all_fda_applications': all_fda_applications,
-    }
-
-    return render(request, 'account/user-dashboard.html', context)
-
-
-# ALL
-@login_required
 def user_applications(request):
     fda_applications = FDAApplication.objects.filter(user=request.user)
     business_cert_applications = BusinessCertificateApplication.objects.filter(user=request.user)
@@ -114,6 +140,7 @@ def user_applications(request):
     return render(request, 'account/all-user-applications.html', context)
 
 
+# CREATE BUSINESS CERTIFICATE APPLICATION
 @login_required
 def create_business_cert_application(request):
     if request.method == 'POST':
@@ -122,6 +149,13 @@ def create_business_cert_application(request):
             application = form.save(commit=False)
             application.user = request.user
             application.save()
+
+            UserActivity.objects.create(
+                user=request.user,
+                activity_type='submit_business',
+                description=f"Submitted Business Certificate application for {application.company_name}"
+            )
+
             messages.success(request, "Your Business Certificate Application has been successfully submitted!")
             return redirect('business-cert-application-details', pk=application.pk)
         

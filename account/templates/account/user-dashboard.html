@@ -8,33 +8,138 @@
   <div class="pt-4">
     <h2 class="fw-bold mb-4 mt-2">Welcome, {{ request.user.first_name }}!</h2>
 
-    <!-- Application Status Cards -->
-    <div class="row g-3 mb-4">
-      <div class="col-md-4">
-        <a href="application-detail.html?id=1" class="text-decoration-none text-dark">
-          <div class="card p-3 bg-light clickable-card">
-            <h5>Pending Applications</h5>
-            <p class="fs-4 fw-bold text-danger">{{ all_fda_applications|length }}</p>
+    <!-- Tabbed Section -->
+    <h4 class="mb-4">Applications Overview</h4>
+      
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" id="applicationTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="product-tab" data-bs-toggle="tab" data-bs-target="#product" type="button" role="tab">Product Registration</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="facility-tab" data-bs-toggle="tab" data-bs-target="#facility" type="button" role="tab">Facility Registration</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="business-tab" data-bs-toggle="tab" data-bs-target="#business" type="button" role="tab">Business Certificate</button>
+          </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content mt-4" id="applicationTabsContent">
+          <!-- Product Registration -->
+          <div class="tab-pane fade show active" id="product" role="tabpanel">
+            <div class="row g-3 mb-4">
+              <div class="col-md-3">
+                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                  <div class="card p-3 bg-light clickable-card">
+                    <h5>Total Applications</h5>
+                    <p class="fs-4 fw-bold text-primary">{{ product_total_count|default:"0" }}</p>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="#" class="text-decoration-none text-dark">
+                  <div class="card p-3 bg-light clickable-card">
+                    <h5>Pending Applications</h5>
+                    <p class="fs-4 fw-bold text-danger">{{ product_pending_count|default:"0" }}</p>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                  <div class="card p-3 bg-light clickable-card">
+                    <h5>In Review</h5>
+                    <p class="fs-4 fw-bold text-warning">{{ product_in_review_count|default:"0" }}</p>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                  <div class="card p-3 bg-light clickable-card">
+                    <h5>Completed Documentation</h5>
+                    <p class="fs-4 fw-bold text-success">{{ product_completed_count|default:"0" }}</p>
+                  </div>
+                </a>
+              </div>
+            </div>
           </div>
-        </a>
-      </div>
-      <div class="col-md-4">
-        <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
-          <div class="card p-3 bg-light clickable-card">
-            <h5>In Review</h5>
-            <p class="fs-4 fw-bold text-warning">1</p>
+
+          <!-- Facility Registration -->
+          <div class="tab-pane fade" id="facility" role="tabpanel">
+            <div class="row g-3 mb-4">
+              <div class="col-md-3">
+                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                  <div class="card p-3 bg-light clickable-card">
+                    <h5>Total Applications</h5>
+                    <p class="fs-4 fw-bold text-primary">{{ total_count|default:"0" }}</p>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="#" class="text-decoration-none text-dark">
+                  <div class="card p-3 bg-light clickable-card">
+                    <h5>Pending Applications</h5>
+                    <p class="fs-4 fw-bold text-danger">{{ pending_count|default:"0" }}</p>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                  <div class="card p-3 bg-light clickable-card">
+                    <h5>In Review</h5>
+                    <p class="fs-4 fw-bold text-warning">{{ in_review_count|default:"0" }}</p>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                  <div class="card p-3 bg-light clickable-card">
+                    <h5>Completed Documentation</h5>
+                    <p class="fs-4 fw-bold text-success">{{ completed_count|default:"0" }}</p>
+                  </div>
+                </a>
+              </div>
+            </div>
           </div>
-        </a>
-      </div>
-      <div class="col-md-4">
-        <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
-          <div class="card p-3 bg-light clickable-card">
-            <h5>Approved</h5>
-            <p class="fs-4 fw-bold text-success">3</p>
+
+          <!-- Business Certificate Registration -->
+          <div class="tab-pane fade" id="business" role="tabpanel">
+            <div class="row g-3 mb-4">
+              <div class="col-md-3">
+                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                  <div class="card p-3 bg-light clickable-card">
+                    <h5>Total Applications</h5>
+                    <p class="fs-4 fw-bold text-primary">{{ business_cert_total_count|default:"0" }}</p>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="#" class="text-decoration-none text-dark">
+                  <div class="card p-3 bg-light clickable-card">
+                    <h5>Pending Applications</h5>
+                    <p class="fs-4 fw-bold text-danger">{{ business_cert_pending_count|default:"0" }}</p>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                  <div class="card p-3 bg-light clickable-card">
+                    <h5>In Review</h5>
+                    <p class="fs-4 fw-bold text-warning">{{ business_cert_in_review_count|default:"0" }}</p>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                  <div class="card p-3 bg-light clickable-card">
+                    <h5>Completed Documentation</h5>
+                    <p class="fs-4 fw-bold text-success">{{ business_cert_completed_count|default:"0" }}</p>
+                  </div>
+                </a>
+              </div>
+            </div>
           </div>
-        </a>
-      </div>
-    </div>
+        <div>
 
     <!-- Create Application Button -->
     <div class="mb-4">
@@ -66,11 +171,32 @@
     <!-- Recent Activity -->
     <div class="mb-5">
       <h4 class="fw-bold mb-3">Recent Activity</h4>
-      <ul class="list-group">
-        <li class="list-group-item border-0 ps-0">📤 Submitted application for FDA Registration - <span class="text-muted">2 hours ago</span></li>
-        <li class="list-group-item border-0 ps-0">📨 Message from Support - <span class="text-muted">1 day ago</span></li>
-        <li class="list-group-item border-0 ps-0">✅ Application approved - <span class="text-muted">3 days ago</span></li>
+      <ul class="list-group list-group-flush">
+        {% for activity in recent_activities %}
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div>
+              <i class="bi 
+                {% if activity.activity_type == 'submit_product' %}bi-check-circle-fill text-success
+                {% elif activity.activity_type == 'login' %}bi-person-fill text-primary
+                {% elif activity.activity_type == 'logout' %}bi-box-arrow-right text-warning
+                {% elif activity.activity_type == 'profile_update' %}bi-pencil-fill text-info
+                {% elif activity.activity_type == 'message_sent' %}bi-chat-dots-fill text-secondary
+                {% elif activity.activity_type == 'message_received' %}bi-chat-right-dots-fill text-secondary
+                {% elif activity.activity_type == 'submit_facility' %}bi-building-fill text-success
+                {% elif activity.activity_type == 'submit_business' %}bi-briefcase-fill text-success
+                {% elif activity.activity_type == 'status_changed' %}bi-arrow-repeat text-muted
+                {% else %}bi-info-circle
+                {% endif %}
+              "></i>
+              {{ activity.description }}
+              <br><small class="text-muted">{{ activity.timestamp|date:"M d, Y H:i" }}</small>
+            </div>
+          </li>
+        {% empty %}
+          <li class="list-group-item text-muted">No recent activity.</li>
+        {% endfor %}
       </ul>
+      
     </div>
 
     <!-- Application Table -->

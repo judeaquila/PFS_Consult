@@ -72,8 +72,32 @@ class BusinessCertificateApplication(models.Model):
     ghana_card_number = models.CharField(max_length=100)
     tin_number = models.CharField(max_length=100)
     application_status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='pending')
+    submitted_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
     def __str__(self):
         return f"{self.company_name} - {self.company_email}"
+
+
+# USER ACTIVITY
+class UserActivity(models.Model):
+    ACTIVITY_CHOICES = [
+    ('login', 'Logged In'),
+    ('logout', 'Logged Out'),
+    ('profile_update', 'Profile Updated'),
+    ('message_sent', 'Message Sent'),
+    ('message_received', 'Message Received'),
+    ('submit_product', 'Submitted Product Application'),
+    ('submit_facility', 'Submitted Facility Application'),
+    ('submit_business', 'Submitted Business Certificate Application'),
+    ('status_changed', 'Application Status Updated'),
+]
     
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    activity_type = models.CharField(max_length=50, choices=ACTIVITY_CHOICES)
+    description = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.email} - {self.activity_type} at {self.timestamp}"

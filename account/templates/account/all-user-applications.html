@@ -96,7 +96,17 @@
             <tr>
                 <td>{{ app.custom_id }}</td>
                 <td>{{ app.company_name }}</td>
-                <td><span class="text-muted">{{ app.status }}</span></td>
+                <td>
+                    {% if app.application_status == 'pending' %}
+                        <span class="badge bg-warning text-dark">Pending</span>
+                    {% elif app.application_status == 'in_review' %}
+                        <span class="badge bg-primary">In Review</span>
+                    {% elif app.application_status == 'completed' %}
+                        <span class="badge bg-success">Completed</span>
+                    {% else %}
+                        <span class="badge bg-secondary">Unknown</span>
+                    {% endif %}
+                </td>
                 <td>{{ app.submitted_at|date:"D, M d, Y h:i A" }}</td>
                 <td><a href="#" class="btn btn-sm btn-outline-secondary">View</a></td>
             </tr>
