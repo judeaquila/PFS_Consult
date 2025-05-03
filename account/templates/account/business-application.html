@@ -1,0 +1,105 @@
+{% extends "account/base.html" %}
+
+{% block title %}Apply for a Business Certificate{% endblock title %}
+
+{% load form_tags %}
+
+{% block content %}
+<main class="main-content" id="mainContent">
+    <div class="pt-4">
+      <h2 class="fw-bold mb-4 mt-2">Apply for a Business Certificate</h2>
+      <p class="lead">Complete the form below to begin your application process.</p>
+  
+      <div class="row g-3 mb-4 mt-5">
+        <div class="container">
+            <form action="" class="form-section" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label for="id_company_name" class="form-label">Company Name</label>
+                    {{ form.company_name|add_class:"form-control" }}
+                    {{ form.company_name.errors }}
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="id_nature_of_business" class="form-label">Nature of Business</label>
+                    {{ form.nature_of_business|add_class:"form-control" }}
+                    {{ form.nature_of_business.errors }}
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="id_postal_address" class="form-label">Postal Address</label>
+                    {{ form.postal_address|add_class:"form-control" }}
+                    {{ form.postal_address.errors }}
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="id_contact_number_one" class="form-label">Phone Number 1</label>
+                    {{ form.contact_number_one|add_class:"form-control" }}
+                    {{ form.contact_number_one.errors }}
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="id_contact_number_two" class="form-label">Phone Number 2</label>
+                    {{ form.contact_number_two|add_class:"form-control" }}
+                    {{ form.contact_number_two.errors }}
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="id_company_email" class="form-label">Company Email</label>
+                    {{ form.company_email|add_class:"form-control" }}
+                    {{ form.company_email.errors }}
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="id_company_building_number" class="form-label">Company Building Number</label>
+                    {{ form.company_building_number|add_class:"form-control" }}
+                    {{ form.company_building_number.errors }}
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="id_company_landmark" class="form-label">Landmark</label>
+                    {{ form.company_landmark|add_class:"form-control" }}
+                    {{ form.company_landmark.errors }}
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="id_area" class="form-label">Area</label>
+                    {{ form.area|add_class:"form-control" }}
+                    {{ form.area.errors }}
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="id_district" class="form-label">District</label>
+                    {{ form.district|add_class:"form-control" }}
+                    {{ form.district.errors }}
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="id_company_gps_address" class="form-label">Company GPS Address</label>
+                    {{ form.company_gps_address|add_class:"form-control" }}
+                    {{ form.company_gps_address.errors }}
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="id_ghana_card_number" class="form-label">Ghana Card Number</label>
+                    {{ form.ghana_card_number|add_class:"form-control" }}
+                    {{ form.ghana_card_number.errors }}
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="id_tin_number" class="form-label">TIN Number</label>
+                    {{ form.tin_number|add_class:"form-control" }}
+                    {{ form.tin_number.errors }}
+                  </div>
+                  
+
+                <div class="col-12 text-center">
+                    <button class="btn btn-success btn-lg btn-custom"><i class="bi bi-check-circle"></i> Submit Application</button>
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>
+</main>
+{% endblock content %}

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils.crypto import get_random_string
 
 # Custom User
 class CustomUser(AbstractUser):
@@ -19,6 +20,12 @@ class CustomUser(AbstractUser):
 
 # New FDA Application
 class FDAApplication(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('in_review', 'In Review'),
+        ('completed_documentation', 'Completed Documentation'),
+    ]
+
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='fda_applications')
     business_certificate = models.FileField(upload_to='fda/business_certificates/')
     business_name = models.CharField(max_length=255)
@@ -33,10 +40,34 @@ class FDAApplication(models.Model):
     facility_video = models.FileField(upload_to='fda/facility_videos/', null=True, blank=True)
     items_equipment = models.TextField()
     staff_roles = models.TextField()
+    application_status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='pending')
     
     submitted_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
     def __str__(self):
         return f"{self.business_name} - {self.user.email}"
+
+
+# New Business Certificate Registration
+class BusinessCertificateApplication(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, )
+    company_name = models.CharField(max_length=100)
+    nature_of_business = models.CharField(max_length=100)
+    postal_address = models.TextField()
+    contact_number_one = models.CharField(max_length=15)
+    contact_number_two = models.CharField(max_length=15)
+    company_email = models.CharField(max_length=50)
+    company_building_number = models.CharField(max_length=10)
+    company_landmark = models.CharField(max_length=255)
+    area = models.CharField(max_length=100)
+    district = models.CharField(max_length=100)
+    company_gps_address = models.CharField(max_length=100)
+    ghana_card_number = models.CharField(max_length=100)
+    tin_number = models.CharField(max_length=100)
+
+
+    def __str__(self):
+        return f"{self.company_name} - {self.company_email}"
     

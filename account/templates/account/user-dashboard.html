@@ -38,10 +38,30 @@
 
     <!-- Create Application Button -->
     <div class="mb-4">
-      <a href="#" class="btn btn-primary">
-        <i class="bi bi-file-plus"></i> Create New Application
-      </a>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createApplicationModal">
+        <i class="bi bi-plus-circle"></i> Create New Application
+      </button>
     </div>
+
+    <!-- Applications Modal -->
+    <div class="modal fade" id="createApplicationModal" tabindex="-1" aria-labelledby="createApplicationModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0">
+          <div class="modal-header border-0">
+            <h5 class="modal-title fw-bold" id="createApplicationModalLabel">Choose Application Type</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body text-center">
+            <div class="d-grid gap-3">
+              <a href="{% url "create-fda-application" %}" class="btn btn-outline-primary"><i class="bi bi-box-seam"></i> Product Registration</a>
+              <a href="#" class="btn btn-outline-secondary"><i class="bi bi-building"></i> Facility Registration</a>
+              <a href="{% url "create-business-cert-application" %}" class="btn btn-outline-success"><i class="bi bi-award"></i> Business Certificate Registration</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
 
     <!-- Recent Activity -->
     <div class="mb-5">
@@ -61,34 +81,26 @@
           <thead>
             <tr>
               <th>Application ID</th>
-              <th>Type</th>
+              <th>Business Name</th>
               <th>Status</th>
               <th>Date Submitted</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
+            {% for fda_application in all_fda_applications %}
             <tr>
               <td>#APP001</td>
-              <td>FDA Registration</td>
+              <td>{{ fda_application.business_name }}</td>
               <td><span class="text-success">Approved</span></td>
-              <td>2025-04-05</td>
+              <td>{{ fda_application.submitted_at }}</td>
               <td><a href="#" class="btn btn-sm btn-outline-secondary">View</a></td>
             </tr>
+            {% empty %}
             <tr>
-              <td>#APP002</td>
-              <td>Product Dev</td>
-              <td><span class="text-warning">In Review</span></td>
-              <td>2025-04-07</td>
-              <td><a href="#" class="btn btn-sm btn-outline-secondary">View</a></td>
+              <td colspan="5" class="text-center">No applications submitted yet.</td>
             </tr>
-            <tr>
-              <td>#APP003</td>
-              <td>FDA Registration</td>
-              <td><span class="text-danger">Pending</span></td>
-              <td>2025-04-09</td>
-              <td><a href="#" class="btn btn-sm btn-outline-secondary">View</a></td>
-            </tr>
+            {% endfor %}
           </tbody>
         </table>
       </div>

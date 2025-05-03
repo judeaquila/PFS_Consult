@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
-from .models import CustomUser, FDAApplication
+from .models import CustomUser, FDAApplication, BusinessCertificateApplication
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
@@ -29,4 +29,17 @@ class FDAApplicationForm(forms.ModelForm):
             'process_description': forms.Textarea(attrs={'rows': 3}),
             'items_equipment': forms.Textarea(attrs={'rows': 3}),
             'staff_roles': forms.Textarea(attrs={'rows': 3}),
+        }
+
+
+# Business Certificate Forms
+class BusinessCertificateForm(forms.ModelForm):
+    class Meta:
+        model = BusinessCertificateApplication
+        fields = [
+            'company_name', 'nature_of_business', 'postal_address', 'contact_number_one', 'contact_number_two', 'company_email', 'company_building_number', 'company_landmark', 'area', 'district', 'company_gps_address', 'ghana_card_number', 'tin_number',
+        ]
+
+        widgets = {
+            'postal_address': forms.Textarea(attrs={'rows': 3}),
         }

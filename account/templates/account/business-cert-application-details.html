@@ -1,0 +1,60 @@
+{% extends 'account/base.html' %}
+
+{% block title %}{{ business_cert_application.company_name }} Application Details {% endblock title %}
+
+{% block content %}
+<main class="main-content" id="mainContent">
+    <div class="container mt-5">
+        <div class="card border-0 shadow-sm p-4">
+            <h4 class="mb-4">Business Certificate Application Details - <strong>{{ business_cert_application.company_name }}</strong></h4>
+
+            <dl class="row">
+            <dt class="col-sm-4">Company Name</dt>
+            <dd class="col-sm-8">{{ business_cert_application.company_name }}</dd>
+
+            <dt class="col-sm-4">Nature of Business</dt>
+            <dd class="col-sm-8">{{ business_cert_application.nature_of_business }}</dd>
+
+            <dt class="col-sm-4">Postal Address</dt>
+            <dd class="col-sm-8">{{ business_cert_application.postal_address }}</dd>
+
+            <dt class="col-sm-4">Contacts</dt>
+            <dd class="col-sm-8">{{ business_cert_application.contact_number_one }}, {{ business_cert_application.contact_number_two }}</dd>
+
+            <dt class="col-sm-4">Company Email</dt>
+            <dd class="col-sm-8">{{ business_cert_application.company_email }}</dd>
+
+            <dt class="col-sm-4">Company Building Number</dt>
+            <dd class="col-sm-8">{{ business_cert_application.company_building_number }}</dd>
+
+            <dt class="col-sm-4">Landmark</dt>
+            <dd class="col-sm-8">{{ business_cert_application.company_landmark }}</dd>
+
+            <dt class="col-sm-4">Area</dt>
+            <dd class="col-sm-8">{{ business_cert_application.area }}</dd>
+
+            <dt class="col-sm-4">District</dt>
+            <dd class="col-sm-8">{{ business_cert_application.district }}</dd>
+
+            <dt class="col-sm-4">GPS Address</dt>
+            <dd class="col-sm-8">{{ business_cert_application.company_gps_address }}</dd>
+
+            <dt class="col-sm-4">Ghana Card Number</dt>
+            <dd class="col-sm-8">{{ business_cert_application.ghana_card_number }}</dd>
+
+            <dt class="col-sm-4">TIN Number</dt>
+            <dd class="col-sm-8">{{ business_cert_application.tin_number }}</dd>
+            </dl>
+
+            <div class="d-flex justify-content-between mt-4">
+            <a href="{% url 'user-dashboard' %}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left-circle"></i> Back to Dashboard
+            </a>
+            <button class="btn btn-success" onclick="window.print();">
+                <i class="bi bi-printer"></i> Print
+            </button>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
