@@ -1,20 +1,38 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 from .forms import EmailAuthenticationForm, CustomUserCreationForm, FDAApplicationForm, BusinessCertificateForm
 from .models import FDAApplication, BusinessCertificateApplication, UserActivity
 
 
+# Redirect for logged in users
+def not_logged_in(user):
+    return not user.is_authenticated
+
+
 # Log In View
+@user_passes_test(not_logged_in, login_url='user-dashboard')
 def login_view(request):
+    # Prevent logged in users from accessing login page
+    if request.user.is_authenticated:
+        if request.user.is_superuser or request.user.is_staff:
+            return redirect('admin-dashboard')
+        else:
+            return redirect('user-dashboard')
+
     if request.method == 'POST':
         form = EmailAuthenticationForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
             login(request, user)
             messages.success(request, "Successfully logged in!")
-            return redirect('user-dashboard')
+
+            # Redirect user based on status
+            if user.is_superuser or user.is_staff:
+                return redirect('admin-dashboard')
+            else:
+                return redirect('user-dashboard')
     else:
         form = EmailAuthenticationForm()
     
@@ -26,6 +44,13 @@ def login_view(request):
 
 # Sign Up View
 def sign_up_view(request):
+    # Prevent logged in users from accessing sign up page
+    if request.user.is_authenticated:
+        if request.user.is_superuser or request.user.is_staff:
+            return redirect('admin-dashboard')
+        else:
+            return redirect('user-dashboard')
+        
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
@@ -78,7 +103,7 @@ def user_dashboard(request):
         'business_cert_in_review_count': business_cert_in_review_count,
         'business_cert_completed_count': business_cert_completed_count,
         'all_business_cert_applications': all_business_cert_applications,
-        
+
         'recent_activites': recent_activities,
     }
 
@@ -177,3 +202,9 @@ def view_business_cert_application(request, pk):
     }
 
     return render(request, 'account/business-cert-application-details.html', context)
+
+
+# ADMIN DASHBOARD
+@login_required
+def admin_dashboard(request):
+    return render(request, 'account/admin-dashboard.html')
