@@ -248,3 +248,18 @@ footer {
   background-color: #ffffff;
   border: 1px solid #dee2e6;
 }
+
+
+/* Whatsapp Icon */
+.whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1050;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+}

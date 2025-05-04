@@ -2,147 +2,196 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>User Dashboard</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    /* Custom Styles */
+    body {
+      background-color: #f9f9f9;
+    }
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background-color: #ffffff;
+      border-bottom: 1px solid #dee2e6;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 1030;
+    }
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      background-color: #ffffff;
+      width: 240px;
+      transition: all 0.3s;
+      z-index: 1040;
+    }
+    .sidebar a {
+      text-decoration: none;
+      color: #333;
+      padding: 15px;
+      display: block;
+      transition: background-color 0.3s ease;
+    }
+    .sidebar a:hover {
+      background-color: #e2f3e2;
+    }
+    .sidebar .active {
+      background-color: #e2f3e2;
+    }
+    .content-wrapper {
+      margin-left: 240px;
+      padding-top: 60px;
+      padding: 20px;
+    }
+    .card {
+      border-radius: 0;
+    }
+    .tab-content {
+      background-color: #ffffff;
+      padding: 15px;
+      border-radius: 5px;
+    }
+    .green-accent {
+      color: #28a745;
+    }
+    .green-background {
+      background-color: #e2f3e2;
+    }
+    .tab-button {
+      color: #28a745;
+    }
+    .tab-button:hover {
+      background-color: #e2f3e2;
+    }
+    .badge-custom {
+      background-color: #28a745;
+      color: #fff;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="container my-5">
-        <h2 class="mb-4">Application Overview</h2>
-      
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs" id="applicationTabs" role="tablist">
-          <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="product-tab" data-bs-toggle="tab" data-bs-target="#product" type="button" role="tab">Product Registration</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="facility-tab" data-bs-toggle="tab" data-bs-target="#facility" type="button" role="tab">Facility Registration</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="business-tab" data-bs-toggle="tab" data-bs-target="#business" type="button" role="tab">Business Certificate</button>
-          </li>
-        </ul>
-      
-        <!-- Tab content -->
-        <div class="tab-content mt-4" id="applicationTabsContent">
-          <!-- Product Tab -->
-          <div class="tab-pane fade show active" id="product" role="tabpanel">
-            <div class="row g-3">
-              <div class="col-md-3">
-                <div class="card text-bg-primary text-center">
-                  <div class="card-body">
-                    <h6>Total Applications</h6>
-                    <h3>10</h3>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="card text-bg-warning text-center">
-                  <div class="card-body">
-                    <h6>Pending</h6>
-                    <h3>4</h3>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="card text-bg-info text-center">
-                  <div class="card-body">
-                    <h6>In Review</h6>
-                    <h3>3</h3>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="card text-bg-success text-center">
-                  <div class="card-body">
-                    <h6>Completed</h6>
-                    <h3>3</h3>
-                  </div>
+  <!-- Sidebar -->
+  <nav class="sidebar" id="sidebar">
+    <a href="#" class="active"><i class="bi bi-house-door"></i> Dashboard</a>
+    <a href="#" class="tab-button" data-bs-toggle="collapse" data-bs-target="#applications"><i class="bi bi-file-earmark-text"></i> Applications</a>
+    <div class="collapse" id="applications">
+      <a href="#" class="ps-4">Product Registration</a>
+      <a href="#" class="ps-4">Facility Registration</a>
+      <a href="#" class="ps-4">Business Certificate</a>
+    </div>
+    <a href="#"><i class="bi bi-chat-dots"></i> Messages</a>
+    <a href="#"><i class="bi bi-person-circle"></i> Profile</a>
+    <a href="#"><i class="bi bi-box-arrow-right"></i> Logout</a>
+  </nav>
+
+  <!-- Content Wrapper -->
+  <div class="content-wrapper">
+    <!-- Topbar -->
+    <div class="topbar">
+      <button class="btn btn-outline-secondary d-md-none" id="toggleSidebar">
+        <i class="bi bi-list"></i>
+      </button>
+      <h5 class="m-0">
+        <a href="#" class="text-decoration-none">User Dashboard</a>
+      </h5>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div class="container mt-4">
+      <!-- Application Status Tabs -->
+      <div class="row mb-4">
+        <div class="col-12">
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" id="product-tab" data-bs-toggle="tab" href="#product-tab-content">Product Registration</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="facility-tab" data-bs-toggle="tab" href="#facility-tab-content">Facility Registration</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="business-tab" data-bs-toggle="tab" href="#business-tab-content">Business Certificate</a>
+            </li>
+          </ul>
+          <div class="tab-content mt-3">
+            <div class="tab-pane active" id="product-tab-content">
+              <div class="card green-background">
+                <div class="card-body">
+                  <h5 class="card-title">Product Registration</h5>
+                  <p class="card-text">Status: <span class="green-accent">Pending</span></p>
                 </div>
               </div>
             </div>
-          </div>
-      
-          <!-- Facility Tab -->
-          <div class="tab-pane fade" id="facility" role="tabpanel">
-            <div class="row g-3">
-              <div class="col-md-3">
-                <div class="card text-bg-primary text-center">
-                  <div class="card-body">
-                    <h6>Total Applications</h6>
-                    <h3>6</h3>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="card text-bg-warning text-center">
-                  <div class="card-body">
-                    <h6>Pending</h6>
-                    <h3>2</h3>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="card text-bg-info text-center">
-                  <div class="card-body">
-                    <h6>In Review</h6>
-                    <h3>2</h3>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="card text-bg-success text-center">
-                  <div class="card-body">
-                    <h6>Completed</h6>
-                    <h3>2</h3>
-                  </div>
+            <div class="tab-pane" id="facility-tab-content">
+              <div class="card green-background">
+                <div class="card-body">
+                  <h5 class="card-title">Facility Registration</h5>
+                  <p class="card-text">Status: <span class="green-accent">In Review</span></p>
                 </div>
               </div>
             </div>
-          </div>
-      
-          <!-- Business Certificate Tab -->
-          <div class="tab-pane fade" id="business" role="tabpanel">
-            <div class="row g-3">
-              <div class="col-md-3">
-                <div class="card text-bg-primary text-center">
-                  <div class="card-body">
-                    <h6>Total Applications</h6>
-                    <h3>8</h3>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="card text-bg-warning text-center">
-                  <div class="card-body">
-                    <h6>Pending</h6>
-                    <h3>1</h3>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="card text-bg-info text-center">
-                  <div class="card-body">
-                    <h6>In Review</h6>
-                    <h3>3</h3>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="card text-bg-success text-center">
-                  <div class="card-body">
-                    <h6>Completed</h6>
-                    <h3>4</h3>
-                  </div>
+            <div class="tab-pane" id="business-tab-content">
+              <div class="card green-background">
+                <div class="card-body">
+                  <h5 class="card-title">Business Certificate</h5>
+                  <p class="card-text">Status: <span class="green-accent">Completed</span></p>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+      <!-- Recent Activities -->
+      <div class="row mb-4">
+        <div class="col-12">
+          <h4>Recent Activities</h4>
+          <ul class="list-group">
+            <li class="list-group-item">Logged in <span class="badge badge-custom float-end">Today</span></li>
+            <li class="list-group-item">Submitted Product Registration <span class="badge badge-custom float-end">2 Days Ago</span></li>
+            <li class="list-group-item">Updated Profile <span class="badge badge-custom float-end">5 Days Ago</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Notifications -->
+      <div class="row">
+        <div class="col-12">
+          <h4>Notifications</h4>
+          <ul class="list-group">
+            <li class="list-group-item">Your Business Certificate Registration has been approved.</li>
+            <li class="list-group-item">New message received from Support Team.</li>
+            <li class="list-group-item">Action required for your FDA Facility Registration.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and Dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+  
+  <!-- Toggle Sidebar JS -->
+  <script>
+    const toggleSidebar = document.getElementById('toggleSidebar');
+    toggleSidebar.addEventListener('click', function() {
+      document.getElementById('sidebar').classList.toggle('collapsed');
+      document.querySelector('.content-wrapper').classList.toggle('expanded');
+    });
+  </script>
+
 </body>
 </html>

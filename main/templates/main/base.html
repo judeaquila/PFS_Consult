@@ -68,6 +68,21 @@
   <!-- AOS (Animate on Scroll) -->
   <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
+  <style>
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1050;
+      cursor: pointer;
+      transition: transform 0.2s ease-in-out;
+    }
+    
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+    }
+  </style>
+
 </head>
 <body>
 
@@ -82,7 +97,7 @@
 <!-- Footer -->
 <footer class="bg-dark text-white py-4">
   <div class="container text-center">
-    <p>&copy; 2025 PFS Certifications Empire. All rights reserved.</p>
+    <p>&copy; 2025 PFS Certifications Empire. A proprietary service of <a href="https://www.pfsgh.com" class="text-white text-decoration-underline" target="_blank">Pneuma Food Scientifics (PFS)</a>. All rights reserved.</p>
   </div>
 </footer>
 
@@ -93,5 +108,11 @@
   AOS.init();
 </script>
 <script src="{% static "main/js/script.js" %}"></script>
+
+<!-- Whatsapp Chat icon -->
+<a href="https://wa.me/233503386203" target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">
+  <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp Chat" />
+</a>
+
 </body>
 </html>
