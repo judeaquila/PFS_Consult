@@ -12,7 +12,6 @@ def not_logged_in(user):
 
 
 # Log In View
-@user_passes_test(not_logged_in, login_url='user-dashboard')
 def login_view(request):
     # Prevent logged in users from accessing login page
     if request.user.is_authenticated:
