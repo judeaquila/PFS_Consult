@@ -203,6 +203,16 @@ def view_business_cert_application(request, pk):
     return render(request, 'account/business-cert-application-details.html', context)
 
 
+@login_required
+def support_page(request):
+    return render(request, 'account/user-support.html')
+
+@login_required
+def settings_page(request):
+    return render(request, 'account/user-settings.html')
+
+
+
 # ADMIN DASHBOARD
 @login_required
 def admin_dashboard(request):

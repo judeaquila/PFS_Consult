@@ -1,0 +1,162 @@
+{% extends 'account/base.html' %}
+
+{% block title %}Support Center {% endblock title %}
+
+{% block content %}
+<main class="main-content" id="mainContent">
+    <div class="pt-4">
+      <h2 class="fw-bold mb-4 mt-2">Support Center</h2>
+      <p class="lead">Find answers, get help, and access resources to guide you through your business registration journey.</p>
+    </div>
+  <div class="row g-4">
+    <!-- FAQs -->
+    <div class="col-lg-6">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body">
+          <h5 class="card-title">Frequently Asked Questions</h5>
+<div class="accordion" id="faqAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faq1">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
+                        Where is your office located?
+                    </button>
+                </h2>
+                <div id="collapse1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        We are at Pokuase, Accra. Close to The Festus Taxi rank. No matter where you are located, we can help you. We have served clients in Wa, Takoradi, Tarkwa, Winneba, Cape Coast, Koforidua, Ho, Assin Fosu, Accra etc. Just call us when you are ready.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faq2">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
+                        I need FDA &amp; GSA certification for my products what are the steps involved??
+                    </button>
+                </h2>
+                <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        <ul>
+                            <li>Join our <a href="https://chat.whatsapp.com/FuJZ2Jfhi4A9aJFXi8VnGc" target="_blank">WhatsApp group</a> or <a href="https://whatsapp.com/channel/0029VaZkQTtDuMcsSDc0a">Channel</a> for FREE UPDATES.</li>
+                            <li>Pay for one - on - one consulting at Ghc 100</li>
+                            <li>Visit our office at Pokuase</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faq3">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
+                        How much do you charge for your service?
+                    </button>
+                </h2>
+                <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">
+                    Our rates start from Ghc 300. This fee covers the following services:
+                    <ul>
+                      <li>Preparation of cover letter to FDA.</li>
+                      <li>Liaising with third-party labs, and co-ordinating until results are ready.</li>
+                      <li>Drafting sample forms and SOPs for submission.</li>
+                      <li>Guidance on filling out FDA registration forms.</li>
+                      <li>Basic label review.</li>
+                      <li>General consulting.</li>
+                    </ul>
+                    
+                    <p>
+                      Other details can be discussed in a meeting or phone call.
+                    </p>
+                </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faq4">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4">
+                        How long does the process take?
+                    </button>
+                </h2>
+                <div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        It actually depends on how ready you are.
+                        <ul>
+                            <li>FDA will call you 6 - 10 weeks after we submit all your documents to them.</li>
+                            <li>If you have everything we need, maximum two weeks PFS you documents can be submitted to the FDA office.</li>
+                            <li>Express service is available.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faq5">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5">
+                        I don't have a facility yet. How will I get the FDA?
+                    </button>
+                </h2>
+                <div id="collapse5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        We can partner with you to get the certification.
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Status Guide -->
+    <div class="col-lg-6">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body">
+          <h5 class="card-title">Application Status Guide</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Pending:</strong> Your application has been submitted and is waiting to be reviewed by our team.</li>
+            <li class="list-group-item"><strong>In Review:</strong> Our team is currently examining your application and verifying the provided information.</li>
+            <li class="list-group-item"><strong>Approved:</strong> Your application has been successfully reviewed and approved. You're now officially registered.</li>
+            <li class="list-group-item"><strong>Rejected:</strong> Your application was not approved. Specific reasons will be provided, and you may need to revise and resubmit.</li>
+            <li class="list-group-item"><strong>Completed Documentation:</strong> All required documents have been successfully submitted and verified. No further action is needed from your side at this stage.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="col-lg-6">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body">
+          <h5 class="card-title">Contact Support</h5>
+          <form class="mt-3">
+            <div class="mb-3">
+              <label for="supportEmail" class="form-label">Your Email</label>
+              <input type="email" class="form-control" id="supportEmail" required>
+            </div>
+            <div class="mb-3">
+              <label for="supportMessage" class="form-label">Message</label>
+              <textarea class="form-control" id="supportMessage" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tutorials -->
+    <div class="col-lg-6">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body">
+          <h5 class="card-title">User Guides &amp; Tutorials</h5>
+          <ul class="list-unstyled mt-3">
+            <li class="mb-2">
+              <i class="bi bi-play-circle me-2"></i>
+              <a href="#">Getting Started (Video)</a>
+            </li>
+            <li class="mb-2">
+              <i class="bi bi-journal-text me-2"></i>
+              <a href="#">Step-by-Step Guide (PDF)</a>
+            </li>
+            <!-- Add more resources -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+{% endblock content %}

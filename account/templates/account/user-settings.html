@@ -1,20 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Dashboard</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-</head>
-<body>
+{% extends 'account/base.html' %}
 
-<div class="container py-5">
-  <h2 class="mb-4">Settings</h2>
-  <div class="row g-4">
-    <!-- Profile Info -->
+{% block title %}Settings {% endblock title %}
+
+{% block content %}
+<main class="main-content" id="mainContent">
+    <div class="pt-4">
+      <h2 class="fw-bold mb-4 mt-2">Settings</h2>
+      <p class="lead"></p>
+    </div>
+
+        <!-- Profile Info -->
     <div class="col-md-6">
       <div class="card shadow-sm border-0">
         <div class="card-body">
@@ -85,21 +80,5 @@
     </div>
   </div>
 </div>
-
-
-
-  <!-- Bootstrap JS and Dependencies -->
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-  
-  <!-- Toggle Sidebar JS -->
-  <script>
-    const toggleSidebar = document.getElementById('toggleSidebar');
-    toggleSidebar.addEventListener('click', function() {
-      document.getElementById('sidebar').classList.toggle('collapsed');
-      document.querySelector('.content-wrapper').classList.toggle('expanded');
-    });
-  </script>
-
-</body>
-</html>
+</main>
+{% endblock content %}
