@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import user_passes_test
 from account.models import CustomUser, FDAApplication, BusinessCertificateApplication
-from account.forms import FDAApplicationForm, BusinessCertificateForm
+from account.forms import FDAApplicationForm, BusinessCertificateForm, CustomUserChangeForm
 from itertools import chain
 from django.contrib import messages
 
@@ -240,24 +240,25 @@ def add_user(request):
 
 
 @user_passes_test(lambda u: u.is_staff or u.is_superuser)
-def edit_user(request, user_id):
-    user = get_object_or_404(CustomUser, id=user_id)
+def edit_user(request, pk):
+    user = get_object_or_404(CustomUser, id=pk)
+
     if request.method == 'POST':
-        data = request.POST
-        user.first_name = data['first_name']
-        user.last_name = data.get('last_name', '')
-        user.username = data['username']
-        user.email = data['email']
-        user.phone_number = data.get('phone_number', '')
-        user.whatsapp_number = data.get('whatsapp_number', '')
-        user.instagram_handle = data.get('instagram_handle', '')
-        user.facebook_handle = data.get('facebook_handle', '')
-        user.company_name = data.get('company_name', '')
-        user.save()
-        messages.success(request, 'User updated successfully.')
-        return redirect('manage-users')
+        form = CustomUserChangeForm(request.POST, request.FILES, instance=user)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'User updated successfully.')
+            return redirect('manage-users')
+    else:
+        form = CustomUserChangeForm(instance=user)
+
+    context = {
+        'form': form,
+        'user': user,
+    }
     
-    return render(request, 'main/manage_users.html')
+    return render(request, 'main/edit-users.html', context)
 
 
 @user_passes_test(lambda u: u.is_staff or u.is_superuser)

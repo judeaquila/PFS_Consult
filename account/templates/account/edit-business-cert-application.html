@@ -1,0 +1,36 @@
+{% extends "account/base.html" %}
+
+{% block title %}Make Changes to Business Certificate{% endblock title %}
+
+{% load crispy_forms_tags %}
+
+{% load form_tags %}
+
+{% block content %}
+<main class="main-content" id="mainContent">
+    <div class="pt-4">
+      <h2 class="fw-bold mb-4 mt-2">Update Business Certificate Application</h2>
+      <p class="lead">Make changes to your business certificate application.</p>
+  
+      <div class="row g-3 mb-4 mt-5">
+        <div class="container">
+            <form method="POST">
+              {% csrf_token %}
+                {{ form | crispy }}
+
+              <div class="d-flex justify-content-between mt-4">
+                <a href="{% url 'user-dashboard' %}" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left-circle"></i> Back to Dashboard
+                </a>
+                  <button type="submit" class="btn btn-success btn-lg">
+                      <i class="bi bi-check-circle"></i> Update Application
+                  </button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+</main>
+{% endblock content %}

@@ -5,12 +5,22 @@ from .models import CustomUser, FDAApplication, BusinessCertificateApplication
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
-        fields = ['email', 'username', 'first_name',]
+        fields = [
+            'username', 'email', 'first_name', 'last_name',
+            'phone_number', 'whatsapp_number', 'instagram_handle',
+            'facebook_handle', 'business_name', 'profile_photo'
+        ]
 
 class CustomUserChangeForm(UserChangeForm):
+    password = None
+
     class Meta:
         model = CustomUser
-        fields = ('email',)
+        fields = [
+            'username', 'email', 'first_name', 'last_name',
+            'phone_number', 'whatsapp_number', 'instagram_handle',
+            'facebook_handle', 'business_name', 'profile_photo'
+        ]
 
 class EmailAuthenticationForm(AuthenticationForm):
     username = forms.EmailField(label='Email')

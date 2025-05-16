@@ -154,6 +154,28 @@ def view_fda_product_application(request, pk):
 
     return render(request, 'account/fda-product-application-details.html', context)
 
+@login_required
+def edit_fda_product_application(request, pk):
+    fda_product_application = get_object_or_404(FDAApplication, id=pk)
+
+    if request.method == 'POST':
+        form = FDAApplicationForm(request.POST, request.FILES, instance=fda_product_application)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Business Certificate Application details updated!")
+            return redirect('business-cert-application-details', pk=fda_product_application.pk)
+        
+    else:
+        form = BusinessCertificateForm(instance=fda_product_application)
+
+    context = {
+        'form': form,
+        'fda_product_application': fda_product_application,
+    }
+
+    return render(request, 'account/edit-fda-product-application-details.html', context)
+
 
 # ALL FDA APPLICATIONS
 @login_required
@@ -182,7 +204,7 @@ def create_business_cert_application(request):
             UserActivity.objects.create(
                 user=request.user,
                 activity_type='submit_business',
-                description=f"Submitted Business Certificate application for {application.company_name}"
+                description=f"Submitted Business Certificate application for {application.business_name}"
             )
 
             messages.success(request, "Your Business Certificate Application has been successfully submitted!")
@@ -207,6 +229,28 @@ def view_business_cert_application(request, pk):
 
     return render(request, 'account/business-cert-application-details.html', context)
 
+
+@login_required
+def edit_business_cert_application(request, pk):
+    business_cert_application = get_object_or_404(BusinessCertificateApplication, id=pk)
+
+    if request.method == 'POST':
+        form = BusinessCertificateForm(request.POST, instance=business_cert_application)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Business Certificate Application details updated!")
+            return redirect('business-cert-application-details', pk=business_cert_application.pk)
+        
+    else:
+        form = BusinessCertificateForm(instance=business_cert_application)
+
+    context = {
+        'form': form,
+        'business_cert_application': business_cert_application,
+    }
+
+    return render(request, 'account/edit-business-cert-application.html', context)
 
 @login_required
 def support_page(request):

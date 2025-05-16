@@ -220,7 +220,19 @@
                   {% endif %}
                 </td>
                 <td>{{ fda_application.submitted_at|date:"D, M d, Y h:i A" }}</td>
-                <td><a href="#" class="btn btn-sm btn-outline-secondary">View</a></td>
+                <td>
+                  <div class="btn-group" role="group" aria-label="Application Actions">
+                    <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View Application" onclick="window.location.href='{% url "fda-product-application-details" fda_application.id %}'">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-warning btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Application" onclick="window.location.href='{% url "edit-fda-product-application" fda_application.id %}'">
+                      <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Withdraw Application" onclick="return confirm('Are you sure you want to withdraw this application?');">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+                </td>
               </tr>
               {% endfor %}
             </tbody>
@@ -230,6 +242,8 @@
             No applications submitted yet.
           </p>
         {% endif %}
+
+        <hr class="m-4">
 
         <h6>Business Certificate Applications</h6>
         {% if all_business_cert_applications %}
@@ -247,7 +261,7 @@
               {% for business_cert_application in all_business_cert_applications %}
               <tr>
                 <td>#APP001</td>
-                <td>{{ business_cert_application.company_name }}</td>
+                <td>{{ business_cert_application.business_name }}</td>
                 <td>
                   {% if business_cert_application.application_status == 'pending' %}
                     <span class="text-warning">Pending</span>
@@ -260,7 +274,19 @@
                   {% endif %}
                 </td>
                 <td>{{ business_cert_application.submitted_at|date:"D, M d, Y h:i A" }}</td>
-                <td><a href="#" class="btn btn-sm btn-outline-secondary">View</a></td>
+                <td>
+                  <div class="btn-group" role="group" aria-label="Application Actions">
+                    <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View Application" onclick="window.location.href='{% url "business-cert-application-details" business_cert_application.id %}'">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-warning btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Application" onclick="window.location.href='{% url "edit-business-certificate-application" business_cert_application.id %}'">
+                      <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Withdraw Application" onclick="return confirm('Are you sure you want to withdraw this application?');">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+                </td>
               </tr>
               {% endfor %}
             </tbody>

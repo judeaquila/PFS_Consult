@@ -1,16 +1,16 @@
 {% extends 'account/base.html' %}
 
-{% block title %}{{ business_cert_application.company_name }} Application Details {% endblock title %}
+{% block title %}{{ business_cert_application.business_name }} Application Details {% endblock title %}
 
 {% block content %}
 <main class="main-content" id="mainContent">
     <div class="container mt-5">
         <div class="card border-0 shadow-sm p-4">
-            <h4 class="mb-4">Business Certificate Application Details - <strong>{{ business_cert_application.company_name }}</strong></h4>
+            <h4 class="mb-4">Business Certificate Application Details - <strong>{{ business_cert_application.business_name }}</strong></h4>
 
             <dl class="row">
             <dt class="col-sm-4">Company Name</dt>
-            <dd class="col-sm-8">{{ business_cert_application.company_name }}</dd>
+            <dd class="col-sm-8">{{ business_cert_application.business_name }}</dd>
 
             <dt class="col-sm-4">Nature of Business</dt>
             <dd class="col-sm-8">{{ business_cert_application.nature_of_business }}</dd>

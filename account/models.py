@@ -7,7 +7,7 @@ class CustomUser(AbstractUser):
     username = models.CharField(max_length=100)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50, blank=True, null=True)
-    company_name = models.CharField(max_length=250, blank=True, null=True)
+    business_name = models.CharField(max_length=250, blank=True, null=True)
     phone_number = models.CharField(max_length=30, blank=True)
     whatsapp_number = models.CharField(max_length=30, blank=True)
     instagram_handle = models.CharField(max_length=30, blank=True)

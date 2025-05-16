@@ -149,13 +149,13 @@
     </div>
 
     <!-- Profile Dropdown -->
-    <img src="https://via.placeholder.com/32" class="profile-img" alt="User Image">
+    <img src="{% if user.profile_photo %}{{ user.profile_photo.url }}{% else %}https://ui-avatars.com/api/?name={{ user.first_name }}+{{ user.last_name }}&background=0D8ABC&color=fff&size=40{% endif %}" alt="Profile" class="rounded-circle me-2" style="width: 40px; height: 40px; object-fit: cover;">
     <div class="dropdown">
       <a class="dropdown-toggle text-dark" href="#" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
         {{ request.user.email }}
       </a>
       <ul class="dropdown-menu dropdown-menu-end">
-        <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+        <li><a class="dropdown-item" href="{% url 'edit-user' user.id %}">Edit Profile</a></li>
         <form method="POST" action="{% url 'logout' %}">
           {% csrf_token %}
           <button class="dropdown-item" type="submit">Logout</button>
