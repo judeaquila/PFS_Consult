@@ -1,0 +1,32 @@
+{% extends "main/admin-base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Edit FDA Product Application Details | {{ request.user.first_name }}{% endblock title %}
+
+{% block content %}
+<!-- Main Content -->
+<main class="main-content">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Edit FDA Product Application</h2>
+    </div>
+
+    <!-- Submission Info -->
+    <div class="mb-4 text-muted">
+        Submitted on <strong>{{ fda_product_application.submitted_at }}</strong> by <strong>{{ fda_product_application.user.username }}</strong>
+    </div>
+
+    <div class="card-body">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+
+        <div class="d-flex justify-content-between mt-4">
+          <a href="{% url 'admin-dashboard' %}" class="btn btn-secondary">Cancel</a>
+          <button type="submit" class="btn btn-primary">Update Application</button>
+        </div>
+      </form>
+    </div>
+</main>
+{% endblock %}

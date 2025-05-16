@@ -37,7 +37,7 @@ class BusinessCertificateForm(forms.ModelForm):
     class Meta:
         model = BusinessCertificateApplication
         fields = [
-            'full_name', 'dob', 'marital_status', 'place_of_birth', 'nationality', 'occupation', 'contact_number_one', 'contact_number_two', 'email', 'company_name', 'nature_of_business', 'type_of_business', 'postal_address', 'company_email', 'company_building_number', 'company_landmark', 'area', 'district', 'company_gps_address', 'ghana_card_number', 'tin_number',
+            'full_name', 'dob', 'marital_status', 'place_of_birth', 'nationality', 'occupation', 'contact_number_one', 'contact_number_two', 'email', 'business_name', 'nature_of_business', 'type_of_business', 'postal_address', 'company_email', 'company_building_number', 'company_landmark', 'area', 'district', 'company_gps_address', 'ghana_card_number', 'tin_number',
         ]
 
         widgets = {
@@ -55,7 +55,7 @@ class BusinessCertificateForm(forms.ModelForm):
             'contact_number_one': 'Phone Number 1',
             'contact_number_two': 'Phone Number 2',
             'email': 'Email',
-            'company_name': 'Name of Business',
+            'business_name': 'Name of Business',
             'nature_of_business': 'Nature of Business',
             'type_of_business': 'Type of Business',
             'postal_address': 'Postal Address',

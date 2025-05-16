@@ -1,0 +1,149 @@
+{% extends "main/admin-base.html" %}
+
+{% block title %}Business Certificate Application Details | {{ request.user.first_name }}{% endblock title %}
+
+{% block content %}
+<!-- Main Content -->
+<main class="main-content">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Business Certificate Application</h2>
+        {% if business_cert_application.application_status == 'pending' %}
+            <span class="badge bg-warning text-dark">Pending</span>
+            {% elif business_cert_application.application_status == 'in_review' %}
+            <span class="badge bg-primary text-white">In Review</span>
+            {% elif business_cert_application.application_status == 'completed_documentation' %}
+            <span class="badge bg-secondary text-white">Completed Documentation</span>
+            {% elif business_cert_application.application_status == 'approved' %}
+            <span class="badge bg-success text-white">Approved</span>
+            {% elif business_cert_application.application_status == 'rejected' %}
+            <span class="badge bg-danger text-white">Rejected</span>
+            {% else %}
+            <span class="badge bg-light text-dark">{{ business_cert_application.application_status}}</span>
+        {% endif %}
+    </div>
+
+    <!-- Submission Info -->
+    <div class="mb-4 text-muted">
+        Submitted on <strong>{{ business_cert_application.submitted_at }}</strong> by <strong>{{ business_cert_application.user.username }}</strong>
+    </div>
+
+    <!-- Personal Info -->
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body">
+        <h5 class="text-muted mb-3">Personal Information</h5>
+        <div class="row">
+            <div class="col-md-4"><strong>Full Name:</strong> {{ business_cert_application.full_name }}</div>
+            <div class="col-md-4"><strong>Date of Birth:</strong> {{ business_cert_application.dob }}</div>
+            <div class="col-md-4"><strong>Marital Status:</strong> {{ business_cert_application.marital_status }}</div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-4"><strong>Place of Birth:</strong> {{ business_cert_application.place_of_birth }}</div>
+            <div class="col-md-4"><strong>Nationality:</strong> {{ business_cert_application.nationality }}</div>
+            <div class="col-md-4"><strong>Occupation:</strong> {{ business_cert_application.occupation }}</div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-4"><strong>Contact 1:</strong> {{ business_cert_application.contact_number_one }}</div>
+            <div class="col-md-4"><strong>Contact 2:</strong> {{ business_cert_application.contact_number_two }}</div>
+            <div class="col-md-4"><strong>Email:</strong> {{ business_cert_application.email }}</div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Business Details -->
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body">
+        <h5 class="text-muted mb-3">Business Details</h5>
+        <div class="row">
+            <div class="col-md-6"><strong>Business Name:</strong> {{ business_cert_application.business_name }}</div>
+            <div class="col-md-6"><strong>Nature of Business:</strong> {{ business_cert_application.nature_of_business }}</div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-6"><strong>Type of Business:</strong> {{ business_cert_application.type_of_business }}</div>
+            <div class="col-md-6"><strong>Company Email:</strong> {{ business_cert_application.company_email }}</div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-6"><strong>Postal Address:</strong> {{ business_cert_application.postal_address }}</div>
+            <div class="col-md-6"><strong>Building No.:</strong> {{ business_cert_application.company_building_number }}</div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-6"><strong>Landmark:</strong> {{ business_cert_application.company_landmark }}</div>
+            <div class="col-md-6"><strong>Area:</strong> {{ business_cert_application.area }}</div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-6"><strong>District:</strong> {{ business_cert_application.district }}</div>
+            <div class="col-md-6"><strong>GPS Address:</strong> {{ business_cert_application.company_gps_address }}</div>
+        </div>
+        </div>
+    </div>
+
+    <!-- ID Info -->
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body">
+        <h5 class="text-muted mb-3">Identification</h5>
+        <div class="row">
+            <div class="col-md-6"><strong>Ghana Card Number:</strong> {{ business_cert_application.ghana_card_number }}</div>
+            <div class="col-md-6"><strong>TIN Number:</strong> {{ business_cert_application.tin_number }}</div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Admin Actions -->
+    <div class="text-end mt-4">
+        <div class="text-end mt-4">
+            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#statusModal">
+                <i class="bi bi-arrow-left-right"></i> Change Application Status
+            </button>
+        </div>
+    </div>
+</main>
+
+<!-- Status Change Modal -->
+<div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-sm">
+      <div class="modal-header">
+        <h5 class="modal-title" id="statusModalLabel">Change Application Status</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <p>Choose the new status for this application:</p>
+        <div class="list-group">
+            <a href="{% url 'admin-change-business-cert-application-status' business_cert_application.id 'in_review' %}"
+                class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                onclick="return confirm('Change status to In Review?')">
+                In Review
+                <i class="bi bi-chevron-right"></i>
+            </a>
+            <a href="{% url 'admin-change-business-cert-application-status' business_cert_application.id 'completed_documentation' %}"
+                class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                onclick="return confirm('Change status to Completed Documentation?')">
+                Completed Documentation
+                <i class="bi bi-chevron-right"></i>
+            </a>
+            <a href="{% url 'admin-change-business-cert-application-status' business_cert_application.id 'approved' %}"
+                class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                onclick="return confirm('Change status to Approved?')">
+                Approved
+                <i class="bi bi-chevron-right"></i>
+            </a>
+            <a href="{% url 'admin-change-business-cert-application-status' business_cert_application.id 'rejected' %}"
+                class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                onclick="return confirm('Change status to Rejected?')">
+                Rejected
+                <i class="bi bi-chevron-right"></i>
+            </a>
+            <a href="{% url 'admin-change-business-cert-application-status' business_cert_application.id 'pending' %}"
+                class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                onclick="return confirm('Change status to Pending?')">
+                Pending
+                <i class="bi bi-chevron-right"></i>
+            </a>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

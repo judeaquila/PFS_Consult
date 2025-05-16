@@ -6,9 +6,13 @@ class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=100)
     first_name = models.CharField(max_length=50)
-    # last_name = models.CharField(max_length=50, blank=True, null=True)
-    # company_name = models.CharField(max_length=250, blank=True, null=True)
-    # phone_number = models.CharField(max_length=15, blank=True)
+    last_name = models.CharField(max_length=50, blank=True, null=True)
+    company_name = models.CharField(max_length=250, blank=True, null=True)
+    phone_number = models.CharField(max_length=30, blank=True)
+    whatsapp_number = models.CharField(max_length=30, blank=True)
+    instagram_handle = models.CharField(max_length=30, blank=True)
+    facebook_handle = models.CharField(max_length=30, blank=True)
+    profile_photo = models.ImageField(upload_to='users/profile_photos/', null=True, blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
@@ -23,6 +27,8 @@ class FDAApplication(models.Model):
         ('pending', 'Pending'),
         ('in_review', 'In Review'),
         ('completed_documentation', 'Completed Documentation'),
+        ('approved', 'Approved'),
+        ('rejected', 'Rejected'),
     ]
 
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='fda_applications')
@@ -55,6 +61,8 @@ class BusinessCertificateApplication(models.Model):
         ('pending', 'Pending'),
         ('in_review', 'In Review'),
         ('completed_documentation', 'Completed Documentation'),
+        ('approved', 'Approved'),
+        ('rejected', 'Rejected'),
     ]
 
     MARITAL_STATUS_CHOICES = [
@@ -81,7 +89,7 @@ class BusinessCertificateApplication(models.Model):
     contact_number_two = models.CharField(max_length=15, blank=True, null=True)
     email = models.EmailField(max_length=100)
 
-    company_name = models.CharField(max_length=100)
+    business_name = models.CharField(max_length=100)
     nature_of_business = models.CharField(max_length=100)
     type_of_business = models.CharField(max_length=100, choices=BUSINESS_TYPE_CHOICES)
     postal_address = models.TextField()
@@ -99,7 +107,7 @@ class BusinessCertificateApplication(models.Model):
 
 
     def __str__(self):
-        return f"{self.company_name} - {self.company_email}"
+        return f"{self.business_name} - {self.company_email}"
 
 
 

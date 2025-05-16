@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import login_view, sign_up_view, logout_view, user_dashboard, create_fda_product_application, view_fda_product_application, create_business_cert_application, view_business_cert_application, user_applications, admin_dashboard, support_page, settings_page
+from .views import login_view, sign_up_view, logout_view, user_dashboard, create_fda_product_application, view_fda_product_application, create_business_cert_application, view_business_cert_application, user_applications, support_page, settings_page
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -12,9 +12,6 @@ urlpatterns = [
     path('my_applications/', user_applications, name='user-applications'),
     path('support/', support_page, name='support'),
     path('settings/', settings_page, name='settings'),
-
-    # Admin
-    path('dashboard/admin/', admin_dashboard, name='admin-dashboard'),
 
     # Auth Paths
     path('login/', login_view, name='login'),

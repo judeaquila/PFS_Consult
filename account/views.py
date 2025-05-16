@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
+from django.contrib.messages import get_messages
 from .forms import EmailAuthenticationForm, CustomUserCreationForm, FDAApplicationForm, BusinessCertificateForm
 from .models import FDAApplication, BusinessCertificateApplication, UserActivity
 
@@ -13,6 +14,10 @@ def not_logged_in(user):
 
 # Log In View
 def login_view(request):
+    storage = get_messages(request)
+    for _ in storage:
+        pass
+
     # Prevent logged in users from accessing login page
     if request.user.is_authenticated:
         if request.user.is_superuser or request.user.is_staff:
@@ -210,10 +215,3 @@ def support_page(request):
 @login_required
 def settings_page(request):
     return render(request, 'account/user-settings.html')
-
-
-
-# ADMIN DASHBOARD
-@login_required
-def admin_dashboard(request):
-    return render(request, 'account/admin-dashboard.html')
