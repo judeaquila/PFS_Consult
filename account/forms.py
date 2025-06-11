@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import CustomUser, FDAApplication, BusinessCertificateApplication
 
 class CustomUserCreationForm(UserCreationForm):
@@ -8,19 +8,21 @@ class CustomUserCreationForm(UserCreationForm):
         fields = [
             'username', 'email', 'first_name', 'last_name',
             'phone_number', 'whatsapp_number', 'instagram_handle',
-            'facebook_handle', 'business_name', 'profile_photo'
+            'facebook_handle', 'business_name'
         ]
 
-class CustomUserChangeForm(UserChangeForm):
-    password = None
-
+class CustomUserUpdateForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = [
-            'username', 'email', 'first_name', 'last_name',
-            'phone_number', 'whatsapp_number', 'instagram_handle',
-            'facebook_handle', 'business_name', 'profile_photo'
+            'first_name', 'last_name', 'phone_number', 'email',
+            'business_name', 'whatsapp_number', 
+            'instagram_handle', 'facebook_handle',
+            'profile_photo'
         ]
+        widgets = {
+            'profile_photo': forms.FileInput(),
+        }
 
 class EmailAuthenticationForm(AuthenticationForm):
     username = forms.EmailField(label='Email')

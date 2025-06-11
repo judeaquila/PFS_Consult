@@ -1,0 +1,131 @@
+{% extends "account/base.html" %}
+
+{% block title %}Product Development Intake{% endblock title %}
+
+{% load crispy_forms_tags %}
+
+{% load form_tags %}
+
+{% block style %}
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
+{% endblock style %}
+
+
+{% block content %}
+<main class="main-content" id="mainContent">
+    <div class="pt-4">
+    <h2 class="fw-bold mb-4 mt-2">Product Development Intake Form</h2>
+    <p class="lead">Tell us more about your product idea or improvement to help us support your development process.</p>
+
+    <div class="row g-3 mb-4 mt-5">
+        <div class="container">
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="row">
+                <div class="col-md-6 mb-3">
+                    {{ form.type_of_product|as_crispy_field }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    {{ form.is_new_or_improvement|as_crispy_field }}
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    {{ form.goals|as_crispy_field }}
+                </div>
+                <div class="col-md-6 mb-3" id="other-goal-field" style="display: none;">
+                    {{ form.other_goal|as_crispy_field }}
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    {{ form.target_market|as_crispy_field }}
+                </div>
+                <div class="col-md-6 mb-3" id="other-target-market-field" style="display: none;">
+                    {{ form.other_target_market|as_crispy_field }}
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    {{ form.market_existence|as_crispy_field }}
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    {{ form.packaging_style|as_crispy_field }}
+                </div>
+
+                <div class="col-md-6 mb-3" id="custom-packaging-field" style="display: none;">
+                    {{ form.custom_packaging|as_crispy_field }}
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    {{ form.expected_launch_date|as_crispy_field }}
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    {{ form.market_testing_feedback|as_crispy_field }}
+                </div>
+
+                <div class="col-12 mb-3">
+                    {{ form.ingredient_or_dietary_notes|as_crispy_field }}
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="bi bi-send"></i> Submit Product Info
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+  </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const goalsCheckboxes = document.querySelectorAll("input[name='goals']");
+    const targetMarketCheckboxes = document.querySelectorAll("input[name='target_market']");
+    const packagingCheckboxes = document.querySelectorAll("input[name='packaging_style']");
+    
+    const otherGoalField = document.getElementById("other-goal-field");
+    const otherTargetMarketField = document.getElementById("other-target-market-field");
+    const customPackagingField = document.getElementById("custom-packaging-field");
+
+    function toggleField(checkboxes, value, field) {
+      let isChecked = false;
+      checkboxes.forEach(cb => {
+        if (cb.value === value && cb.checked) {
+          isChecked = true;
+        }
+      });
+      field.style.display = isChecked ? "block" : "none";
+    }
+
+    goalsCheckboxes.forEach(cb => {
+      cb.addEventListener("change", () => {
+        toggleField(goalsCheckboxes, "other", otherGoalField);
+      });
+    });
+
+    targetMarketCheckboxes.forEach(cb => {
+      cb.addEventListener("change", () => {
+        toggleField(targetMarketCheckboxes, "other", otherTargetMarketField);
+      });
+    });
+
+    packagingCheckboxes.forEach(cb => {
+      cb.addEventListener("change", () => {
+        toggleField(packagingCheckboxes, "custom", customPackagingField);
+      });
+    });
+
+    // Initial check on page load (in case of form re-render with errors)
+    toggleField(goalsCheckboxes, "other", otherGoalField);
+    toggleField(targetMarketCheckboxes, "other", otherTargetMarketField);
+    toggleField(packagingCheckboxes, "custom", customPackagingField);
+  });
+</script>
+
+</main>
+{% endblock content %}

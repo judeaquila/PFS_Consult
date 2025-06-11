@@ -1,4 +1,6 @@
 {% extends 'account/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
 
 {% block title %}Settings {% endblock title %}
 
@@ -6,79 +8,43 @@
 <main class="main-content" id="mainContent">
     <div class="pt-4">
       <h2 class="fw-bold mb-4 mt-2">Settings</h2>
-      <p class="lead"></p>
+      <p class="lead">Manage your personal, business, and account details all in one place.</p>
     </div>
 
-        <!-- Profile Info -->
-    <div class="col-md-6">
-      <div class="card shadow-sm border-0">
-        <div class="card-body">
-          <h5 class="card-title">User Profile</h5>
-          <form>
-            <div class="mb-3">
-              <label class="form-label">Full Name</label>
-              <input type="text" class="form-control" value="John Doe">
+    <div class="row g-4">
+        <div class="col-lg-6">
+            <div class="card profile-card text-center p-4 bg-white">
+                <div class="position-relative">
+                <img src="{% if request.user.profile_photo %}{{ request.user.profile_photo.url }}{% else %}https://ui-avatars.com/api/?name={{ request.user.first_name }}+{{ request.user.last_name }}&background=0D8ABC&color=fff&size=40{% endif %}" alt="Profile" class="rounded-circle me-2" style="width: 150px; height: 150px; object-fit: cover;">
+                </div>
+                <h3 class="mt-3">{{ request.user.first_name }} {{ request.user.last_name }}</h3>
+                <p class="text-muted">{{ request.user.email }}</p>
+                <p class="px-4">{{ profile.bio }}</p>
+                <button class="btn btn-primary btn-sm" id="editBtn">Edit Profile</button>
             </div>
-            <div class="mb-3">
-              <label class="form-label">Email Address</label>
-              <input type="email" class="form-control" value="john@example.com">
-            </div>
-            <button class="btn btn-outline-primary">Update Profile</button>
-          </form>
         </div>
-      </div>
     </div>
+    <form method="POST" class="card p-4 mt-4 bg-white d-none" id="editForm" enctype="multipart/form-data">
+        {% csrf_token %}
 
-    <!-- Password Change -->
-    <div class="col-md-6">
-      <div class="card shadow-sm border-0">
-        <div class="card-body">
-          <h5 class="card-title">Change Password</h5>
-          <form>
-            <div class="mb-3">
-              <label class="form-label">Current Password</label>
-              <input type="password" class="form-control">
-            </div>
-            <div class="mb-3">
-              <label class="form-label">New Password</label>
-              <input type="password" class="form-control">
-            </div>
-            <button class="btn btn-outline-primary">Update Password</button>
-          </form>
+        <h5 class="section-title">Personal Info</h5>
+        <div class="row g-3">
+            {{ form|crispy }}
         </div>
-      </div>
-    </div>
 
-    <!-- Business Info -->
-    <div class="col-md-12">
-      <div class="card shadow-sm border-0">
-        <div class="card-body">
-          <h5 class="card-title">Business Information</h5>
-          <form>
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label class="form-label">Business Name</label>
-                <input type="text" class="form-control" value="Acme Ventures LLC">
-              </div>
-              <div class="col-md-6 mb-3">
-                <label class="form-label">Business Type</label>
-                <select class="form-select">
-                  <option>LLC</option>
-                  <option>Corporation</option>
-                  <option>Sole Proprietorship</option>
-                </select>
-              </div>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Business Address</label>
-              <input type="text" class="form-control" value="123 Main Street, Springfield">
-            </div>
-            <button class="btn btn-outline-primary">Save Changes</button>
-          </form>
+        <div class="mt-4 text-end">
+        <button type="submit" class="btn btn-success">Save Changes</button>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
+    </form>
 </main>
+
+
+<script>
+  const editBtn = document.getElementById('editBtn');
+  const editForm = document.getElementById('editForm');
+  editBtn.addEventListener('click', () => {
+    editForm.classList.toggle('d-none');
+    editForm.scrollIntoView({ behavior: 'smooth' });
+  });
+</script>
 {% endblock content %}

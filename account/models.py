@@ -6,13 +6,16 @@ class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=100)
     first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50, blank=True, null=True)
-    business_name = models.CharField(max_length=250, blank=True, null=True)
-    phone_number = models.CharField(max_length=30, blank=True)
-    whatsapp_number = models.CharField(max_length=30, blank=True)
+    last_name = models.CharField(max_length=50, blank=True)
+    business_name = models.CharField(max_length=250)
+    phone_number = models.CharField(max_length=30)
+    whatsapp_number = models.CharField(max_length=30)
     instagram_handle = models.CharField(max_length=30, blank=True)
     facebook_handle = models.CharField(max_length=30, blank=True)
     profile_photo = models.ImageField(upload_to='users/profile_photos/', null=True, blank=True)
+    bio = models.TextField(blank=True)
+    x_handle = models.CharField(max_length=30, blank=True)
+    linkedin_handle = models.CharField(max_length=30, blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']

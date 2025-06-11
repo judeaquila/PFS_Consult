@@ -1,20 +1,41 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import user_passes_test
 from account.models import CustomUser, FDAApplication, BusinessCertificateApplication
-from account.forms import FDAApplicationForm, BusinessCertificateForm, CustomUserChangeForm
+from account.forms import FDAApplicationForm, BusinessCertificateForm, CustomUserUpdateForm
 from itertools import chain
 from django.contrib import messages
 
 # Home Page
 def home(request):
+    # Prevent logged in users from accessing home page
+    if request.user.is_authenticated:
+        if request.user.is_superuser or request.user.is_staff:
+            return redirect('admin-dashboard')
+        else:
+            return redirect('user-dashboard')
+        
     return render(request, 'main/index.html')
 
 # FDA Services Page
 def fda_services(request):
+    # Prevent logged in users from accessing FDA services page
+    if request.user.is_authenticated:
+        if request.user.is_superuser or request.user.is_staff:
+            return redirect('admin-dashboard')
+        else:
+            return redirect('user-dashboard')
+        
     return render(request, 'main/fda-services.html')
 
 # Other Services Page
 def other_services(request):
+    # Prevent logged in users from accessing Other services page
+    if request.user.is_authenticated:
+        if request.user.is_superuser or request.user.is_staff:
+            return redirect('admin-dashboard')
+        else:
+            return redirect('user-dashboard')
+        
     return render(request, 'main/other-services.html')
 
 # Redirect to Login Page
@@ -244,14 +265,14 @@ def edit_user(request, pk):
     user = get_object_or_404(CustomUser, id=pk)
 
     if request.method == 'POST':
-        form = CustomUserChangeForm(request.POST, request.FILES, instance=user)
+        form = CustomUserUpdateForm(request.POST, request.FILES, instance=user)
 
         if form.is_valid():
             form.save()
             messages.success(request, 'User updated successfully.')
             return redirect('manage-users')
     else:
-        form = CustomUserChangeForm(instance=user)
+        form = CustomUserUpdateForm(instance=user)
 
     context = {
         'form': form,

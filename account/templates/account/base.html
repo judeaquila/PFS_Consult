@@ -15,6 +15,8 @@
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
 
+
+{% block style %}{% endblock style %}
   <style>
     body {
       font-family: 'Source Sans Pro', sans-serif;
@@ -155,7 +157,7 @@
         {{ request.user.email }}
       </a>
       <ul class="dropdown-menu dropdown-menu-end">
-        <li><a class="dropdown-item" href="{% url 'edit-user' user.id %}">Edit Profile</a></li>
+        <li><a class="dropdown-item" href="{% url 'settings' %}">Edit Profile</a></li>
         <form method="POST" action="{% url 'logout' %}">
           {% csrf_token %}
           <button class="dropdown-item" type="submit">Logout</button>
@@ -170,28 +172,15 @@
 
   <a href="{% url 'user-dashboard' %}"><i class="bi bi-grid-1x2"></i> Dashboard</a>
 
-  <a data-bs-toggle="collapse" href="#newAppMenu" role="button" aria-expanded="false" aria-controls="newAppMenu">
-    <i class="bi bi-plus-circle"></i> New Application
-    <i class="bi bi-chevron-down float-end"></i>
-  </a>
-  <div class="collapse ms-3" id="newAppMenu">
-    <a data-bs-toggle="collapse" href="#fdaGsaMenu" class="d-block" role="button" aria-expanded="false"><i class="bi-clipboard-check"></i> FDA/GSA Application <i class="bi bi-chevron-right float-end small"></i>
-    </a>
-    <div class="collapse ms-3" id="fdaGsaMenu">
-      <a href="{% url "create-fda-product-application" %}" class="d-block"><i class="bi-box-seam"></i> Product Registration</a>
-      <a href="#" class="d-block"><i class="bi-building"></i> Facility Registration</a>
-    </div>
-    <a href="{% url "create-business-cert-application" %}" class="d-block"><i class="bi bi-award"></i> Business Certificate Application</a>
-  </div>
 
-  <a data-bs-toggle="collapse" href="#myAppsMenu" role="button" aria-expanded="false" aria-controls="myAppsMenu">
-    <i class="bi bi-files"></i> My Applications
+  <a data-bs-toggle="collapse" href="#servicesMenu" role="button" aria-expanded="false" aria-controls="servicesMenu">
+    <i class="bi bi-tools"></i> Services
     <i class="bi bi-chevron-down float-end"></i>
   </a>
-  <div class="collapse ms-3" id="myAppsMenu">
-    <a href="{% url "user-applications" %}" class="d-block"><i class="bi-collection"></i> All Applications</a>
-    <a href="#" class="d-block"><i class="bi-patch-check"></i> FDA/GSA Applications</a>
-    <a href="#" class="d-block"><i class="bi-briefcase"></i> Business Registration Applications</a>
+  <div class="collapse ms-3" id="servicesMenu">
+    <a href="{% url "product_development" %}" class="d-block"><i class="bi-box-seam"></i> Product Development</a>
+    <a href="#" class="d-block"><i class="bi-building"></i> Facility Registration</a>
+    <a href="{% url "create-business-cert-application" %}" class="d-block"><i class="bi bi-award"></i> Business Certificate Application</a>
   </div>
 
   <a href="{% url "support" %}"><i class="bi bi-chat-dots"></i> Support</a>

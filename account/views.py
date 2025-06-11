@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.messages import get_messages
-from .forms import EmailAuthenticationForm, CustomUserCreationForm, FDAApplicationForm, BusinessCertificateForm
+from .forms import EmailAuthenticationForm, CustomUserCreationForm, CustomUserUpdateForm, FDAApplicationForm, BusinessCertificateForm
 from .models import FDAApplication, BusinessCertificateApplication, UserActivity
 
 
@@ -71,10 +71,10 @@ def sign_up_view(request):
 
     return render(request, 'registration/signup.html', context)
 
+
 # Log Out View
 def logout_view(request):
     logout(request)
-    messages.success(request, "Successfully logged out!")
     return redirect('home')
 
 
@@ -258,4 +258,19 @@ def support_page(request):
 
 @login_required
 def settings_page(request):
-    return render(request, 'account/user-settings.html')
+    # Profile Update View
+    if request.method == 'POST':
+        form = CustomUserUpdateForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your profile was updated successfully.')
+            return redirect('settings')
+    else:
+        form = CustomUserUpdateForm(instance=request.user)
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'account/user-settings.html', context)
+    
