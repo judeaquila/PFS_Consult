@@ -1,6 +1,13 @@
 from django.db import models
+from account.models import CustomUser
+from .utils import generate_custom_id
 
 class ProductIntake(models.Model):
+    PAID_STATUS = [
+        ('paid', 'Paid'),
+        ('unpaid', 'Unpaid'),
+    ]
+
     PRODUCT_TYPE_CHOICES = [
         ('new', 'New Product Idea'),
         ('improvement', 'Improvement of Existing Product'),
@@ -40,6 +47,17 @@ class ProductIntake(models.Model):
         ('planning', 'Planning to do so'),
     ]
 
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('in_review', 'In Review'),
+        ('completed_documentation', 'Completed Documentation'),
+        ('approved', 'Approved'),
+        ('rejected', 'Rejected'),
+    ]
+
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='product_development')
+    product_name = models.CharField(max_length=100)
+    custom_id = models.CharField(max_length=30, unique=True, blank=True)
     type_of_product = models.CharField(max_length=200, verbose_name='Type of Product')
     is_new_or_improvement = models.CharField(max_length=20, choices=PRODUCT_TYPE_CHOICES, verbose_name='Is this a New Idea or Improvement?')
     goals = models.JSONField(default=list, verbose_name='What is/are your goal(s) for the Product?')
@@ -52,16 +70,17 @@ class ProductIntake(models.Model):
     custom_packaging = models.CharField(max_length=200, blank=True, verbose_name='Custom')
     expected_launch_date = models.DateField(verbose_name='Expected Launch Date')
     market_testing_feedback = models.CharField(max_length=20, choices=MARKET_TESTING_CHOICES, verbose_name='Have you done any Market Testing or Consumer Feedback?')
+    paid_status = models.CharField(max_length=10, choices=PAID_STATUS, default='unpaid')
+    application_status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='pending')
+    submitted_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        if not self.custom_id:
+            self.custom_id = generate_custom_id('PD')
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.type_of_product
 
 
-class PaymentAccess(models.Model):
-    email = models.EmailField(unique=True)
-    name = models.CharField(max_length=100)
-    has_paid = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.email} - {'Paid' if self.has_paid else 'Unpaid'}"

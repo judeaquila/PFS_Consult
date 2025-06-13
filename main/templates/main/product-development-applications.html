@@ -1,20 +1,10 @@
-{% extends "main/admin-base.html" %} {% block title %}Manage Users | Admin{% endblock %} {% block content %}
+{% extends "main/admin-base.html" %} {% block title %}Product Development Applications | Admin{% endblock %} {% block content %}
 <!-- Main Content -->
 <main class="main-content">
   <div class="container">
     <div class="row">
-      <h2 class="fw-bold mb-4 mt-2">Manage Users</h2>
-      <p class="lead">View, filter, and manage all registered users in one place.</p>
-    </div>
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <div></div>
-      <button
-        class="btn btn-outline-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#addUserModal"
-      >
-        <i class="bi bi-plus-lg me-1"></i> Add New User
-      </button>
+      <h2 class="fw-bold mb-4 mt-2">Product Development Applications</h2>
+      <p class="lead">Manage user requests for new product concepts, and innovation.</p>
     </div>
 
     <div class="table-responsive">
@@ -22,11 +12,12 @@
         <thead class="table-light">
           <tr>
             <th>#</th>
-            <th>Email</th>
-            <th>Full Name</th>
-            <th>Username</th>
-            <th>Company</th>
-            <th>Phone Number</th>
+            <th>Application ID</th>
+            <th>User</th>
+            <th>Product Name</th>
+            <th>Date Submitted</th>
+            <th>Status</th>
+            <th>Payment Status</th>
             <th class="text-center">Actions</th>
           </tr>
         </thead>
@@ -34,21 +25,12 @@
           {% for user in users %} {% if not user.is_superuser %}
           <tr>
             <td>{{ forloop.counter }}</td>
-            <td>{{ user.email }}</td>
-            <td>
-              <div class="d-flex align-items-center">
-                <img
-                  src="{% if user.profile_photo %}{{ user.profile_photo.url }}{% else %}https://ui-avatars.com/api/?name={{ user.first_name }}+{{ user.last_name }}&background=0D8ABC&color=fff&size=40{% endif %}"
-                  alt="Profile"
-                  class="rounded-circle me-2"
-                  style="width: 40px; height: 40px; object-fit: cover"
-                />
-                <span>{{ user.first_name }} {{ user.last_name }}</span>
-              </div>
-            </td>
-            <td>{{ user.username|default:"---" }}</td>
-            <td>{{ user.business_name|default:"---" }}</td>
-            <td>{{ user.phone_number|default:"---" }}</td>
+            <td>{{ user.custom_id }}</td>
+            <td>{{ user.first_name}}</td>
+            <td>{{ user.product_name }}</td>
+            <td>{{ user.submitted_at }}</td>
+            <td>{{ user.application_status }}</td>
+            <td>{{ user.paid_status }}</td>
             <td class="text-center">
               <div class="btn-group">
                 <button
@@ -156,86 +138,6 @@
     </div>
   </div>
 </main>
-
-<!-- Add User Modal -->
-<div
-  class="modal fade"
-  id="addUserModal"
-  tabindex="-1"
-  aria-labelledby="addUserModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-lg">
-    <form class="modal-content" method="post" action="{% url 'add-user' %}">
-      {% csrf_token %}
-      <div class="modal-header">
-        <h5 class="modal-title">Add New User</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <div class="row g-3">
-          <div class="mb-3">
-            <label for="id_profile_photo" class="form-label"
-              >Profile Photo</label
-            >
-            <input
-              type="file"
-              class="form-control"
-              id="id_profile_photo"
-              name="profile_photo"
-              accept="image/*"
-            />
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">First Name</label>
-            <input name="first_name" type="text" class="form-control" />
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Last Name</label>
-            <input name="last_name" type="text" class="form-control" />
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Username</label>
-            <input name="username" type="text" class="form-control" />
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Email</label>
-            <input name="email" type="email" class="form-control" />
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Phone Number</label>
-            <input name="phone_number" type="text" class="form-control" />
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">WhatsApp</label>
-            <input name="whatsapp_number" type="text" class="form-control" />
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Instagram</label>
-            <input name="instagram_handle" type="text" class="form-control" />
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Facebook</label>
-            <input name="facebook_handle" type="text" class="form-control" />
-          </div>
-          <div class="col-12">
-            <label class="form-label">Company Name</label>
-            <input name="business_name" type="text" class="form-control" />
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-outline-secondary" data-bs-dismiss="modal" type="button">
-          Cancel
-        </button>
-        <button class="btn btn-outline-success" type="submit">Add User</button>
-      </div>
-    </form>
-  </div>
 </div>
 
 <script>
@@ -248,5 +150,5 @@
       return new bootstrap.Tooltip(tooltipTriggerEl);
     });
   });
-</script>
-{% endblock %}
+</script
+{% endblock %}>

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import home, fda_services, other_services, login_redirect, admin_dashboard, admin_business_cert_application_details, admin_fda_product_application_details, edit_admin_business_cert_application_details, edit_admin_fda_product_application_details, change_business_cert_application_status, change_fda_product_application_status, manage_users, add_user, edit_user, delete_user, toggle_user_active
+from .views import home, fda_services, other_services, login_redirect, admin_dashboard, admin_business_cert_application_details, admin_fda_product_application_details, edit_admin_business_cert_application_details, edit_admin_fda_product_application_details, change_business_cert_application_status, change_fda_product_application_status, manage_users, add_user, edit_user, delete_user, toggle_user_active, product_development_applications, training_facility_audit_applications, packaging_coaching_applications, business_registration_applications, consultation_applications, dehydration_services_applications,  machinery_sourcing_applications, contract_manufacturing_applications
 
 urlpatterns = [
     path('', home, name='home'),
@@ -20,4 +20,12 @@ urlpatterns = [
     path('dashboard/admin/users/<int:pk>/edit/', edit_user, name='edit-user'),
     path('dashboard/admin/users/<int:pk>/delete/', delete_user, name='delete-user'),
     path('dashboard/admin/users/<int:pk>/toggle-active/', toggle_user_active, name='toggle-user-active'),
+    path('dashboard/admin/product_development_applications', product_development_applications, name='product-development-applications'),
+    path('dashboard/admin/training_facility_applications', training_facility_audit_applications, name='training-facility-audit-applications'),
+    path('dashboard/admin/packaging_coaching_applications', packaging_coaching_applications, name='packaging-coaching-applications'),
+    path('dashboard/admin/business_registration_applications', business_registration_applications, name='business-registration-applications'),
+    path('dashboard/admin/consultation_applications', consultation_applications, name='consultation-applications'),
+    path('dashboard/admin/dehydration_services_applications', dehydration_services_applications, name='dehydration-services-applications'),
+    path('dashboard/admin/ machinery_sourcing_applications',  machinery_sourcing_applications, name='machinery-sourcing-applications'),
+    path('dashboard/admin/contract_manufacturing_applications', contract_manufacturing_applications, name='contract-manufacturing-applications'),
 ]

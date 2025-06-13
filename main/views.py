@@ -298,3 +298,35 @@ def toggle_user_active(request, pk):
     state = "activated" if user.is_active else "deactivated"
     messages.success(request, f'User {state} successfully.')
     return redirect('manage-users')
+
+@user_passes_test(lambda u: u.is_staff or u.is_superuser)
+def product_development_applications(request):
+    return render(request, 'main/product-development-applications.html')
+
+@user_passes_test(lambda u: u.is_staff or u.is_superuser)
+def training_facility_audit_applications(request):
+    return render(request, 'main/training-facility-audit-applications.html')
+
+@user_passes_test(lambda u: u.is_staff or u.is_superuser)
+def packaging_coaching_applications(request):
+    return render(request, 'main/packaging-coaching-applications.html')
+
+@user_passes_test(lambda u: u.is_staff or u.is_superuser)
+def business_registration_applications(request):
+    return render(request, 'main/business-registration-applications.html')
+
+@user_passes_test(lambda u: u.is_staff or u.is_superuser)
+def consultation_applications(request):
+    return render(request, 'main/consultation-applications.html')
+
+@user_passes_test(lambda u: u.is_staff or u.is_superuser)
+def dehydration_services_applications(request):
+    return render(request, 'main/dehydration-services-applications.html')
+
+@user_passes_test(lambda u: u.is_staff or u.is_superuser)
+def machinery_sourcing_applications(request):
+    return render(request, 'main/machinery-sourcing-applications.html')
+
+@user_passes_test(lambda u: u.is_staff or u.is_superuser)
+def contract_manufacturing_applications(request):
+    return render(request, 'main/contract-manufacturing-applications.html')

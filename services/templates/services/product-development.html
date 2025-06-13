@@ -28,6 +28,9 @@
 
                 <div class="row">
                 <div class="col-md-6 mb-3">
+                    {{ form.product_name|as_crispy_field }}
+                </div>
+                <div class="col-md-6 mb-3">
                     {{ form.type_of_product|as_crispy_field }}
                 </div>
                 <div class="col-md-6 mb-3">
@@ -73,9 +76,9 @@
                 </div>
 
                 <div class="text-center mt-4">
-                    <button type="submit" class="btn btn-primary btn-lg">
-                        <i class="bi bi-send"></i> Submit Product Info
-                    </button>
+                    <button type="submit" class="btn btn-success btn-lg">
+                      <i class="bi bi-check-circle"></i> Submit Application
+                  </button>
                 </div>
             </form>
         </div>
