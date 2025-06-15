@@ -1,0 +1,16 @@
+{% extends "account/base.html" %}
+
+{% block title %}Delete - Product Development Application{% endblock title %}
+
+{% block content %}
+<main class="main-content" id="mainContent">
+    <div class="container text-center">
+        <h2>Are you sure you want to delete "{{ product.product_name }}"?</h2>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Yes, Delete</button>
+            <a href="{% url "product_development_details" product.pk %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</main>
+{% endblock content %}

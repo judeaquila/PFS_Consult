@@ -28,7 +28,7 @@ class ProductIntake(models.Model):
         ('vegans', 'Vegans'),
         ('fitness', 'Fitness enthusiasts'),
         ('diabetics', 'Diabetics'),
-        ('mass', 'Mass market'),
+        ('mass market', 'Mass market'),
         ('other', 'Other'),
     ]
 
@@ -56,7 +56,7 @@ class ProductIntake(models.Model):
     ]
 
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='product_development')
-    product_name = models.CharField(max_length=100)
+    product_name = models.CharField(max_length=100, verbose_name='Product Name')
     custom_id = models.CharField(max_length=30, unique=True, blank=True)
     type_of_product = models.CharField(max_length=200, verbose_name='Type of Product')
     is_new_or_improvement = models.CharField(max_length=20, choices=PRODUCT_TYPE_CHOICES, verbose_name='Is this a New Idea or Improvement?')
@@ -82,5 +82,3 @@ class ProductIntake(models.Model):
 
     def __str__(self):
         return self.type_of_product
-
-

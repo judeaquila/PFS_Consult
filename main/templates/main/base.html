@@ -81,6 +81,14 @@
     .whatsapp-float:hover {
       transform: scale(1.1);
     }
+    .whatsapp-text {
+      font-weight: bold;
+      font-size: 0.8rem;
+      color: #333;
+      background-color: #efefef;
+      border-radius: 1rem;
+      padding: 0.2rem;
+    }
   </style>
 
 </head>
@@ -110,8 +118,9 @@
 <script src="{% static "main/js/script.js" %}"></script>
 
 <!-- Whatsapp Chat icon -->
-<a href="https://wa.me/233503386203" target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">
+<a href="https://wa.me/233503386203" target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp" style="text-decoration:none;">
   <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp Chat" />
+  <span class="whatsapp-text">Chat with Rachel</span>
 </a>
 
 </body>

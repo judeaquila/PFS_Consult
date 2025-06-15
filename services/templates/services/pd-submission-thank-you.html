@@ -1,0 +1,34 @@
+{% extends "account/base.html" %}
+
+{% block title %}Thank You - Product Development Form Submission{% endblock title %}
+
+{% block style %}
+<style>
+    .thank-you-car {
+        max-width: 600px;
+        margin: 5rem auto;
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+    }
+    .thank-you-icon {
+        font-size: 4rem;
+        color: #198754;
+    }
+</style>
+{% endblock style %}
+
+{% block content %}
+<main class="main-content" id="mainContent">
+    <div class="container text-center">
+        <div class="thank-you-card">
+            <div class="thank-you-icon mb-3">
+                <i class="bi bi-check-circle-fill"></i>
+            </div>
+            <h2 class="mb-3 text-success">Thank You!</h2>
+            <p class="mb-4">Your product development application has been successfully submitted.</p>
+            <a href="{% url "product_development_details" product.pk %}" class="btn btn-success">View Submitted Details</a>
+        </div>
+    </div>
+</main>
+{% endblock content %}

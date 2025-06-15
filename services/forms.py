@@ -2,31 +2,28 @@ from django import forms
 from .models import ProductIntake
 
 class ProductIntakeForm(forms.ModelForm):
+    # GOALS_CHOICES = ProductIntake.GOALS_CHOICES
+    # TARGET_MARKET_CHOICES = ProductIntake.TARGET_MARKET_CHOICES
+    # PACKAGING_CHOICES = ProductIntake.PACKAGING_CHOICES
+
+    
+    # widget = forms.CheckboxSelectMultiple()
+
+    # target_market = forms.MultipleChoiceField(choices=TARGET_MARKET_CHOICES)
+    # widget = forms.CheckboxSelectMultiple()
+
+    # packaging_style = forms.MultipleChoiceField(choices=PACKAGING_CHOICES)
+    # widget = forms.CheckboxSelectMultiple()
+
     class Meta:
         model = ProductIntake
         fields = '__all__'
-        widgets = {
-            'goals': forms.CheckboxSelectMultiple(choices=ProductIntake.GOALS_CHOICES),
-            'target_market': forms.CheckboxSelectMultiple(choices=ProductIntake.TARGET_MARKET_CHOICES),
-            'packaging_style': forms.CheckboxSelectMultiple(choices=ProductIntake.PACKAGING_CHOICES),
-            'expected_launch_date': forms.DateInput(attrs={'type': 'date'}),
-            'ingredient_or_dietary_notes': forms.Textarea(attrs={'rows': 3}),
-        }
+        exclude = ['user', 'custom_id', 'paid_status', 'application_status', 'submitted_at', 'updated_at']
 
-    def clean(self):
-        cleaned_data = super().clean()
-        goals = cleaned_data.get('goals', [])
-        other_goal = cleaned_data.get('other_goal')
-        target_market = cleaned_data.get('target_market', [])
-        other_target_market = cleaned_data.get('other_target_market')
-        packaging_style = cleaned_data.get('packaging_style', [])
-        custom_packaging = cleaned_data.get('custom_packaging')
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-        if 'other' in goals and not other_goal:
-            self.add_error('other_goal', 'Please specify your "Other" goal.')
-
-        if 'other' in target_market and not other_target_market:
-            self.add_error('other_target_market', 'Please specify your "Other" target market.')
-
-        if 'custom' in packaging_style and not custom_packaging:
-            self.add_error('custom_packaging', 'Please describe the custom packaging.')
+        self.fields['goals'] = forms.MultipleChoiceField(choices=ProductIntake.GOALS_CHOICES, widget=forms.CheckboxSelectMultiple, label='What is/are your goal(s) for the Product?')
+        self.fields['target_market'] = forms.MultipleChoiceField(choices=ProductIntake.TARGET_MARKET_CHOICES, widget=forms.CheckboxSelectMultiple, label='What is your Target Market?')
+        self.fields['packaging_style'] = forms.MultipleChoiceField(choices=ProductIntake.PACKAGING_CHOICES, widget=forms.CheckboxSelectMultiple, label='What Packaging Style are you envisioning?')
+        self.fields['expected_launch_date'].widget = forms.DateInput(attrs={'type':'date'})

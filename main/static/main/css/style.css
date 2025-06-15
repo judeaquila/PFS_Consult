@@ -172,7 +172,7 @@ footer {
 .hero-slide {
   height: 100vh;
   background-size: cover;
-  background-position: center;
+  background-position: top center;
   background-repeat: no-repeat;
   position: relative;
 }
@@ -182,10 +182,10 @@ footer {
 }
 
 .hero-slide:nth-child(1) {
-  background-image: url('../img/fda_bg.png');
+  background-image: url('../img/homepage_bg.jpg');
 }
 .hero-slide:nth-child(2) {
-  background-image: url('../img/services_bg.jpeg');
+  background-image: url('../img/servicespage_bg.jpg');
 }
 
 .hero-overlay {

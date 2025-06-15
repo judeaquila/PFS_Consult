@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import user_passes_test
 from account.models import CustomUser, FDAApplication, BusinessCertificateApplication
+from services.models import ProductIntake
 from account.forms import FDAApplicationForm, BusinessCertificateForm, CustomUserUpdateForm
 from itertools import chain
 from django.contrib import messages
@@ -52,6 +53,9 @@ def admin_dashboard(request):
 
     all_fda_product_applications = FDAApplication.objects.all()
     all_business_cert_applications = BusinessCertificateApplication.objects.all()
+
+    all_product_development_applications = ProductIntake.objects.all()
+    all_product_development_applications_count = all_product_development_applications.count()
 
     all_fda_product_applications_count = all_fda_product_applications.count()
     all_business_cert_applications_count = all_business_cert_applications.count()
@@ -132,6 +136,8 @@ def admin_dashboard(request):
         'total_rejected': total_rejected,
 
         'all_applications': all_applications,
+
+        'all_product_development_applications_count': all_product_development_applications_count,
     }
 
     return render(request, 'main/admin-dashboard.html', context)

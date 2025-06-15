@@ -7,14 +7,14 @@
 {% block content %}
 <!-- Main Content -->
 <main class="main-content">
-  <h2 class="fw-bold mb-4">Welcome Back, {{ request.user.firstname }} (Admin)</h2>
+  <h2 class="fw-bold mb-4">Welcome, {{ request.user.firstname }} (Admin)</h2>
 
   <!-- Statistics Cards -->
   <div class="row g-4 mb-5">
     <div class="col-md-3">
       <div class="card shadow-sm border-0 text-center p-3 bg-light">
         <h6 class="text-muted">Total Submissions</h6>
-        <h3 class="fw-bold text-dark">{{ total_submissions }}</h3>
+        <h3 class="fw-bold text-dark">{{ all_product_development_applications_count }}</h3>
       </div>
     </div>
     <div class="col-md-3">

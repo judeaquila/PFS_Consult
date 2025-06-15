@@ -1,0 +1,40 @@
+{% extends "account/base.html" %}
+
+{% block title %}Product Development Applications List{% endblock title %}
+
+{% block content %}
+<main class="main-content" id="mainContent">
+    <div class="pt-4">
+        <h2 class="fw-bold mb-4 mt-2">My Submitted Product Development Applications</h2>
+        <p class="lead">See all submitted product development applications.</p>
+    </div>
+
+    <div class="container mt-5">
+        <a href="{% url "product_development" %}" class="btn btn-primary mb-3">New Application</a>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Submitted</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in pd_applications %}
+                <tr>
+                    <td>{{ product.product_name }}</td>
+                    <td>{{ product.submitted_at|date:"M d, Y" }}</td>
+                    <td>
+                        <a href="{% url "product_development_details" product.pk %}" class="btn btn-sm btn-info">View</a>
+                        <a href="{% url "pd_update" product.pk %}" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="3">No products submitted yet.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</main>
+{% endblock content %}

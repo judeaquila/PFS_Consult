@@ -1,0 +1,102 @@
+{% extends "account/base.html" %}
+
+{% block title %}Details of Product Development{% endblock title %}
+
+{% block style %}
+<style>
+    .card {
+        margin: 3rem auto;
+        max-width: 900px;
+        border-radius: 1rem;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+    }
+    .card-header {
+        background-color: #198754;
+        color: #fff;
+        font-size: 1.25rem;
+    }
+    .label-col {
+        font-weight: 600;
+        color: #555;
+    }
+    .value-col {
+        color: #000;
+    }
+</style>
+{% endblock style %}
+
+{% block content %}
+<main class="main-content" id="mainContent">
+    <div class="container">
+        <div class="card">
+            <div class="card-header text-center">
+                Product Submission Details
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-sm-4 label-col">Product Name</div>
+                    <div class="col-sm-8 value-col">{{ product.product_name }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4 label-col">Type of Product</div>
+                    <div class="col-sm-8 value-col">{{ product.type_of_product }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4 label-col">New or Improvement</div>
+                    <div class="col-sm-8 value-col">{{ product.get_is_new_or_improvement_display }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4 label-col">Goals</div>
+                    <div class="col-sm-8 value-col">
+                        {% for goal in product.goals %}
+                            <span class="badge bg-success me-1">{{ goal|title }}</span>
+                        {% endfor %}
+                        {% if product.other_goal %} <div>Other: {{ product.other_goal }}</div> {% endif %}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4 label-col">Ingredient/Dietary Notes</div>
+                    <div class="col-sm-8 value-col">{{ product.ingredient_or_dietary_notes|linebreaks }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4 label-col">Target Market</div>
+                    <div class="col-sm-8 value-col">
+                        {% for tm in product.target_market %}
+                            {{ tm|title }},
+                        {% endfor %}
+                        {% if product.other_target_market %}<div>Other: {{ product.other_target_market }}</div>{% endif %}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4 label-col">Market Existence</div>
+                    <div class="col-sm-8 value-col">{{ product.get_market_existence_display }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4 label-col">Packaging Style</div>
+                    <div class="col-sm-8 value-col">
+                        {% for style in product.packaging_style %}
+                            <span class="badge bg-info text-dark me-1">{{ style|title }}</span>
+                        {% endfor %}
+                        {% if product.custom_packaging %}<div>Custom: {{ product.custom_packaging }}</div>{% endif %}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4 label-col">Expected Launch Date</div>
+                    <div class="col-sm-8 value-col">{{ product.expected_launch_date }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4 label-col">Market Testing Feedback</div>
+                    <div class="col-sm-8 value-col">{{ product.get_market_testing_feedback_display }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4 label-col">Application Status</div>
+                    <div class="col-sm-8 value-col text-capitalize">{{ product.application_status }}</div>
+                </div>
+            </div>
+            <div>
+                <a class="btn btn-secondary" href="{% url "pd_applications" %}">View All Applications</a>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
