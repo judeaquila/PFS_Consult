@@ -166,23 +166,10 @@
 </header>
 
 <!-- Sidebar -->
-<nav class="sidebar overflow-auto" id="sidebar">
+<nav class="sidebar" id="sidebar">
   <a href="{% url "admin-dashboard" %}"><i class="bi bi-speedometer2"></i> Overview</a>
   <a href="{% url "manage-users" %}"><i class="bi bi-people"></i> Manage Users</a>
-  <a data-bs-toggle="collapse" href="#servicesMenu" role="button" aria-expanded="false" aria-controls="servicesMenu">
-    <i class="bi bi-clipboard-check"></i> Applications
-    <i class="bi bi-chevron-down float-end"></i>
-  </a>
-  <div class="collapse ms-3" id="servicesMenu">
-    <a href="{% url "product-development-applications" %}" class="d-block"><i class="bi-box-seam"></i> Product Development</a>
-    <a href="{% url "dehydration-services-applications" %}" class="d-block"><i class="bi bi-droplet-half"></i> Dehydration Services</a>
-    <a href="{% url "consultation-applications" %}" class="d-block"><i class="bi bi-chat-dots"></i> Consultation</a>
-    <a href="{% url "business-registration-applications" %}" class="d-block"><i class="bi-building"></i> Business Registration</a>
-    <a href="{% url "packaging-coaching-applications" %}" class="d-block"><i class="bi-easel"></i> Packaging Coaching</a>
-    <a href="{% url "machinery-sourcing-applications" %}" class="d-block"><i class="bi bi-gear"></i> Machinery Sourcing</a>
-    <a href="{% url "training-facility-audit-applications" %}" class="d-block"><i class="bi bi-clipboard-check"></i> Training &amp; Facility Audit</a>
-    <a href="{% url "contract-manufacturing-applications" %}" class="d-block"><i class="bi bi-diagram-3"></i> Contract Manufacturing</a>
-  </div>
+  <a href="#"><i class="bi bi-clipboard-check"></i> Applications</a>
   <a href="#"><i class="bi bi-envelope"></i> Messages</a>
   <a href="#"><i class="bi bi-bar-chart"></i> Analytics</a>
   <a href="#"><i class="bi bi-gear"></i> Settings</a>

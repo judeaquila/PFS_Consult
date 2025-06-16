@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.messages import get_messages
 from .forms import EmailAuthenticationForm, CustomUserCreationForm, CustomUserUpdateForm, FDAApplicationForm, BusinessCertificateForm
 from .models import FDAApplication, BusinessCertificateApplication, UserActivity
+from services.models import ProductIntake
 
 
 # Redirect for logged in users
@@ -81,11 +82,18 @@ def logout_view(request):
 # USER DASHBOARD
 @login_required
 def user_dashboard(request):
-    all_fda_applications = FDAApplication.objects.filter(user=request.user)
-    product_total_count = all_fda_applications.count()
-    product_pending_count = FDAApplication.objects.filter(user=request.user, application_status='pending').count()
-    product_in_review_count = FDAApplication.objects.filter(user=request.user, application_status='in_review').count()
-    product_completed_count = FDAApplication.objects.filter(user=request.user, application_status='completed_documentation').count()
+    # all_fda_applications = FDAApplication.objects.filter(user=request.user)
+    # product_total_count = all_fda_applications.count()
+    # product_pending_count = FDAApplication.objects.filter(user=request.user, application_status='pending').count()
+    # product_in_review_count = FDAApplication.objects.filter(user=request.user, application_status='in_review').count()
+    # product_completed_count = FDAApplication.objects.filter(user=request.user, application_status='completed_documentation').count()
+
+    pd_apps = ProductIntake.objects.filter(user=request.user)
+    pd_apps_count = pd_apps.count()
+    pd_apps_pending = ProductIntake.objects.filter(user=request.user, application_status='pending').count()
+    pd_apps_in_review = ProductIntake.objects.filter(user=request.user, application_status='in_review').count()
+    pd_apps_completed = ProductIntake.objects.filter(user=request.user, application_status='completed_documentation').count()
+
 
     all_business_cert_applications = BusinessCertificateApplication.objects.filter(user=request.user)
     business_cert_total_count = all_business_cert_applications.count()
@@ -96,11 +104,16 @@ def user_dashboard(request):
     recent_activities = UserActivity.objects.filter(user=request.user).order_by('-timestamp')[:5]
 
     context = {
-        'all_fda_applications': all_fda_applications,
-        'product_total_count': product_total_count,
-        'product_pending_count': product_pending_count,
-        'product_in_review_count': product_in_review_count,
-        'product_completed_count': product_completed_count,
+        # 'all_fda_applications': all_fda_applications,
+        # 'product_total_count': product_total_count,
+        # 'product_pending_count': product_pending_count,
+        # 'product_in_review_count': product_in_review_count,
+        # 'product_completed_count': product_completed_count,
+
+        'pd_apps_count': pd_apps_count,
+        'pd_apps_pending': pd_apps_pending,
+        'pd_apps_in_review': pd_apps_in_review,
+        'pd_apps_completed': pd_apps_completed,
 
         'business_cert_total_count': business_cert_total_count,
         'business_cert_pending_count': business_cert_pending_count,

@@ -3,11 +3,6 @@ from account.models import CustomUser
 from .utils import generate_custom_id
 
 class ProductIntake(models.Model):
-    PAID_STATUS = [
-        ('paid', 'Paid'),
-        ('unpaid', 'Unpaid'),
-    ]
-
     PRODUCT_TYPE_CHOICES = [
         ('new', 'New Product Idea'),
         ('improvement', 'Improvement of Existing Product'),
@@ -55,6 +50,11 @@ class ProductIntake(models.Model):
         ('rejected', 'Rejected'),
     ]
 
+    PAYMENT_CHOICES = [
+        ('paid', 'Paid'),
+        ('unpaid', 'Unpaid'),
+    ]
+
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='product_development')
     product_name = models.CharField(max_length=100, verbose_name='Product Name')
     custom_id = models.CharField(max_length=30, unique=True, blank=True)
@@ -70,8 +70,8 @@ class ProductIntake(models.Model):
     custom_packaging = models.CharField(max_length=200, blank=True, verbose_name='Custom')
     expected_launch_date = models.DateField(verbose_name='Expected Launch Date')
     market_testing_feedback = models.CharField(max_length=20, choices=MARKET_TESTING_CHOICES, verbose_name='Have you done any Market Testing or Consumer Feedback?')
-    paid_status = models.CharField(max_length=10, choices=PAID_STATUS, default='unpaid')
-    application_status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='pending')
+    application_status = models.CharField(max_length=30, choices=STATUS_CHOICES, verbose_name='Application Status', default='pending')
+    payment_status = models.CharField(max_length=10, choices=PAYMENT_CHOICES, default='unpaid')
     submitted_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

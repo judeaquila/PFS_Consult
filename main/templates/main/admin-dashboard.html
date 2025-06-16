@@ -9,48 +9,476 @@
 <main class="main-content">
   <h2 class="fw-bold mb-4">Welcome, {{ request.user.firstname }} (Admin)</h2>
 
-  <!-- Statistics Cards -->
-  <div class="row g-4 mb-5">
-    <div class="col-md-3">
-      <div class="card shadow-sm border-0 text-center p-3 bg-light">
-        <h6 class="text-muted">Total Submissions</h6>
-        <h3 class="fw-bold text-dark">{{ all_product_development_applications_count }}</h3>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="card shadow-sm border-0 text-center p-3 bg-warning-subtle">
-        <h6 class="text-muted">Pending</h6>
-        <h3 class="fw-bold text-warning">{{ total_pending }}</h3>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="card shadow-sm border-0 text-center p-3 bg-primary-subtle">
-        <h6 class="text-muted">In Review</h6>
-        <h3 class="fw-bold text-primary">{{ total_in_review }}</h3>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="card shadow-sm border-0 text-center p-3 bg-secondary-subtle">
-        <h6 class="text-muted">Complete Documentation</h6>
-        <h3 class="fw-bold text-secondary">{{ total_completed_documentation }}</h3>
-      </div>
-    </div>
-  </div>
+  <hr>
+    <!-- Tabbed Section -->
+    <h4 class="mb-4">Applications Overview</h4>
+      
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" id="applicationTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="product-dev-tab" data-bs-toggle="tab" data-bs-target="#productdev" type="button" role="tab">Product Development</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="dehydration-tab" data-bs-toggle="tab" data-bs-target="#dehydration" type="button" role="tab">Dehydration Services</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="business-tab" data-bs-toggle="tab" data-bs-target="#business" type="button" role="tab">Business Registration</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="consultation-tab" data-bs-toggle="tab" data-bs-target="#consultation" type="button" role="tab">Consultation</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="packaging-tab" data-bs-toggle="tab" data-bs-target="#packaging" type="button" role="tab">Packaging Consulting</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="machinery-tab" data-bs-toggle="tab" data-bs-target="#machinery" type="button" role="tab">Machinery Sourcing</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="training-tab" data-bs-toggle="tab" data-bs-target="#training" type="button" role="tab">Training &amp; Audits</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="contract-tab" data-bs-toggle="tab" data-bs-target="#contract" type="button" role="tab">Contract Manufacturing</button>
+          </li>
+        </ul>
 
-    <div class="row g-4 mb-5">
-      <div class="col-md-3">
-        <div class="card shadow-sm border-0 text-center p-3 bg-success-subtle">
-          <h6 class="text-muted">Approved</h6>
-          <h3 class="fw-bold text-success">{{ total_approved }}</h3>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card shadow-sm border-0 text-center p-3 bg-danger-subtle">
-          <h6 class="text-muted">Rejected</h6>
-          <h3 class="fw-bold text-danger">{{ total_rejected }}</h3>
-        </div>
-      </div>
-    </div>
+        <!-- Tab Content -->
+        <div class="tab-content mt-4" id="applicationTabsContent">
+          <!-- Product Development -->
+          <div class="tab-pane fade show active" id="productdev" role="tabpanel">
+            <div class="row g-3 mb-4">
+              <div class="col-md-3">
+                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-light">
+                    <h6 class="text-muted">Total Applications</h6>
+                    <h3 class="fw-bold text-dark">{{ pd_apps_count|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="#" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-warning-subtle">
+                    <h6 class="text-muted">Pending Applications</h6>
+                    <h3 class="fw-bold text-warning">{{ pd_apps_pending|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-primary-subtle">
+                    <h6 class="text-muted">In Review</h6>
+                    <h3 class="fw-bold text-primary">{{ pd_apps_in_review|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-secondary-subtle">
+                    <h6 class="text-muted">Completed Documentation</h6>
+                    <h3 class="fw-bold text-secondary">{{ pd_apps_completed|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-success-subtle">
+                    <h6 class="text-muted">Approved</h6>
+                    <h3 class="fw-bold text-success">{{ pd_apps_approved|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-danger-subtle">
+                    <h6 class="text-muted">Rejected</h6>
+                    <h3 class="fw-bold text-danger">{{ pd_apps_rejected|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dehydration Services -->
+          <div class="tab-pane fade" id="dehydration" role="tabpanel">
+            <div class="row g-3 mb-4">
+              <div class="col-md-3">
+                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-light">
+                    <h6 class="text-muted">Total Applications</h6>
+                    <h3 class="fw-bold text-dark">{{ dehydration_apps_count|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="#" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-warning-subtle">
+                    <h6 class="text-muted">Pending Applications</h6>
+                    <h3 class="fw-bold text-warning">{{ dehydration_apps_pending|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-primary-subtle">
+                    <h6 class="text-muted">In Review</h6>
+                    <h3 class="fw-bold text-primary">{{ dehydration_apps_in_review|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-secondary-subtle">
+                    <h6 class="text-muted">Completed Documentation</h6>
+                    <h3 class="fw-bold text-secondary">{{ deyhdration_apps_completed|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-success-subtle">
+                    <h6 class="text-muted">Approved</h6>
+                    <h3 class="fw-bold text-success">{{ deyhdration_apps_approved|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-danger-subtle">
+                    <h6 class="text-muted">Rejected</h6>
+                    <h3 class="fw-bold text-danger">{{ deyhdration_apps_rejected|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Business Application -->
+          <div class="tab-pane fade" id="business" role="tabpanel">
+            <div class="row g-3 mb-4">
+              <div class="col-md-3">
+                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-light">
+                    <h6>Total Applications</h6>
+                    <h3 class="fs-4 fw-bold text-primary">{{ business_cert_total_count|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="#" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-warning-subtle">
+                    <h6>Pending Applications</h6>
+                    <h3 class="fs-4 fw-bold text-danger">{{ business_cert_pending_count|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-primary-subtlecard shadow-sm border-0 text-center p-3 bg-primary-subtle">
+                    <h6>In Review</h6>
+                    <h3 class="fs-4 fw-bold text-warning">{{ business_cert_in_review_count|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-secondary-subtle">
+                    <h6>Completed Documentation</h6>
+                    <h3 class="fs-4 fw-bold text-success">{{ business_cert_completed_count|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-success-subtle">
+                    <h6 class="text-muted">Approved</h6>
+                    <h3 class="fw-bold text-success">{{ business_cert_approved|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-danger-subtle">
+                    <h6 class="text-muted">Rejected</h6>
+                    <h3 class="fw-bold text-danger">{{ business_cert_rejected|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Consultation -->
+          <div class="tab-pane fade show" id="consultation" role="tabpanel">
+            <div class="row g-3 mb-4">
+              <div class="col-md-3">
+                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-light">
+                    <h6>Total Applications</h6>
+                    <h3 class="fs-4 fw-bold text-primary">{{ product_total_count|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="#" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-warning-subtle">
+                    <h6>Pending Applications</h6>
+                    <h3 class="fs-4 fw-bold text-danger">{{ consultation_apps_count|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-primary-subtle">
+                    <h6>In Review</h6>
+                    <h3 class="fs-4 fw-bold text-warning">{{ consultation_apps_in_review|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-secondary-subtle">
+                    <h6>Completed Documentation</h6>
+                    <h3 class="fs-4 fw-bold text-success">{{ consultation_apps_completed|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-success-subtle">
+                    <h6 class="text-muted">Approved</h6>
+                    <h3 class="fw-bold text-success">{{ consultation_apps_approved|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-danger-subtle">
+                    <h6 class="text-muted">Rejected</h6>
+                    <h3 class="fw-bold text-danger">{{ consultation_apps_rejected|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Packaging Consulting -->
+          <div class="tab-pane fade" id="packaging" role="tabpanel">
+            <div class="row g-3 mb-4">
+              <div class="col-md-3">
+                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-light">
+                    <h6>Total Applications</h6>
+                    <h3 class="fs-4 fw-bold text-primary">{{ packaging_apps_count|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="#" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-warning-subtle">
+                    <h6>Pending Applications</h6>
+                    <h3 class="fs-4 fw-bold text-danger">{{ packaging_apps_pending|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-primary-subtle">
+                    <h6>In Review</h6>
+                    <h3 class="fs-4 fw-bold text-warning">{{ packaging_apps_in_review|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-secondary-subtle">
+                    <h6>Completed Documentation</h6>
+                    <h3 class="fs-4 fw-bold text-success">{{ packaging_apps_completed|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-success-subtle">
+                    <h6 class="text-muted">Approved</h6>
+                    <h3 class="fw-bold text-success">{{ packaging_apps_approved|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-danger-subtle">
+                    <h6 class="text-muted">Rejected</h6>
+                    <h3 class="fw-bold text-danger">{{ packaging_apps_rejected|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Machinery Sourcing -->
+          <div class="tab-pane fade" id="machinery" role="tabpanel">
+            <div class="row g-3 mb-4">
+              <div class="col-md-3">
+                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-light">
+                    <h6>Total Applications</h6>
+                    <h3 class="fs-4 fw-bold text-primary">{{ machinery_apps_count|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="#" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-warning-subtle">
+                    <h6>Pending Applications</h6>
+                    <h3 class="fs-4 fw-bold text-danger">{{ machinery_apps_pending|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-primary-subtle">
+                    <h6>In Review</h6>
+                    <h3 class="fs-4 fw-bold text-warning">{{ machinery_apps_in_review|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-secondary-subtle">
+                    <h6>Completed Documentation</h6>
+                    <h3 class="fs-4 fw-bold text-success">{{ machinery_apps_completed|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-success-subtle">
+                    <h6 class="text-muted">Approved</h6>
+                    <h3 class="fw-bold text-success">{{ machinery_apps_approved|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-danger-subtle">
+                    <h6 class="text-muted">Rejected</h6>
+                    <h3 class="fw-bold text-danger">{{ machinery_apps_rejected|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Training & Audits-->
+          <div class="tab-pane fade show" id="training" role="tabpanel">
+            <div class="row g-3 mb-4">
+              <div class="col-md-3">
+                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-light">
+                    <h6>Total Applications</h6>
+                    <h3 class="fs-4 fw-bold text-primary">{{ training_apps_count|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="#" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-warning-subtle">
+                    <h6>Pending Applications</h6>
+                    <h3 class="fs-4 fw-bold text-danger">{{ training_apps_pending|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-primary-subtle">
+                    <h6>In Review</h6>
+                    <h3 class="fs-4 fw-bold text-warning">{{ training_apps_in_review|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-secondary-subtle">
+                    <h6>Completed Documentation</h6>
+                    <h3 class="fs-4 fw-bold text-success">{{ training_apps_completed|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-success-subtle">
+                    <h6 class="text-muted">Approved</h6>
+                    <h3 class="fw-bold text-success">{{ training_apps_approved|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-danger-subtle">
+                    <h6 class="text-muted">Rejected</h6>
+                    <h3 class="fw-bold text-danger">{{ training_apps_rejected|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contract Manufacturing -->
+          <div class="tab-pane fade show" id="contract" role="tabpanel">
+            <div class="row g-3 mb-4">
+              <div class="col-md-3">
+                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-light">
+                    <h6>Total Applications</h6>
+                    <h3 class="fs-4 fw-bold text-primary">{{ contract_apps_count|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="#" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-warning-subtle">
+                    <h6>Pending Applications</h6>
+                    <h3 class="fs-4 fw-bold text-danger">{{ contract_apps_pending|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-primary-subtle">
+                    <h6>In Review</h6>
+                    <h3 class="fs-4 fw-bold text-warning">{{ contract_apps_in_review|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-secondary-subtle">
+                    <h6>Completed Documentation</h6>
+                    <h3 class="fs-4 fw-bold text-success">{{ contract_apps_completed|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-success-subtle">
+                    <h6 class="text-muted">Approved</h6>
+                    <h3 class="fw-bold text-success">{{ contract_apps_approved|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                  <div class="card shadow-sm border-0 text-center p-3 bg-danger-subtle">
+                    <h6 class="text-muted">Rejected</h6>
+                    <h3 class="fw-bold text-danger">{{ contract_apps_rejected|default:"0" }}</h3>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        <div>
+          
+        <div>
+        
+      <hr>
 
   <!-- Recent Submissions -->
   <div class="row g-4">
