@@ -54,8 +54,12 @@ def admin_dashboard(request):
     all_fda_product_applications = FDAApplication.objects.all()
     all_business_cert_applications = BusinessCertificateApplication.objects.all()
 
-    all_product_development_applications = ProductIntake.objects.all()
-    all_product_development_applications_count = all_product_development_applications.count()
+    # Product Development
+    pd_apps = ProductIntake.objects.all()
+    pd_apps_count = pd_apps.count()
+    pd_apps_pending = pd_apps.filter(application_status='pending').count()
+    pd_apps_in_review = pd_apps.filter(application_status='in_review').count()
+    pd_apps_completed = pd_apps.filter(application_status='completed_documentation').count()
 
     all_fda_product_applications_count = all_fda_product_applications.count()
     all_business_cert_applications_count = all_business_cert_applications.count()
@@ -136,8 +140,11 @@ def admin_dashboard(request):
         'total_rejected': total_rejected,
 
         'all_applications': all_applications,
-
-        'all_product_development_applications_count': all_product_development_applications_count,
+        # Product Development
+        'pd_apps_count': pd_apps_count,
+        'pd_apps_pending': pd_apps_pending,
+        'pd_apps_in_review': pd_apps_in_review,
+        'pd_apps_completed': pd_apps_completed,
     }
 
     return render(request, 'main/admin-dashboard.html', context)

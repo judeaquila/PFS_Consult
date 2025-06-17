@@ -357,23 +357,51 @@
     </div>
 
     <!-- Applications Modal -->
-    <div class="modal fade" id="createApplicationModal" tabindex="-1" aria-labelledby="createApplicationModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0">
-          <div class="modal-header border-0">
-            <h5 class="modal-title fw-bold" id="createApplicationModalLabel">Choose Application Type</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div class="modal fade" id="createApplicationModal" tabindex="-1" aria-labelledby="createApplicationModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0">
+      <div class="modal-header border-0">
+        <h5 class="modal-title fw-bold" id="createApplicationModalLabel">Choose Application Type</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-3">
+          <!-- Left Column -->
+          <div class="col-md-6 d-grid gap-3">
+            <a href="{% url 'product_development' %}" class="btn btn-outline-primary">
+              <i class="bi bi-lightbulb"></i> Product Development
+            </a>
+            <a href="#" class="btn btn-outline-secondary">
+              <i class="bi bi-droplet-half"></i> Dehydration Services
+            </a>
+            <a href="#" class="btn btn-outline-info">
+              <i class="bi bi-chat-dots"></i> Consultation
+            </a>
+            <a href="{% url 'create-business-cert-application' %}" class="btn btn-outline-success">
+              <i class="bi bi-award"></i> Business Registration
+            </a>
           </div>
-          <div class="modal-body text-center">
-            <div class="d-grid gap-3">
-              <a href="{% url "create-fda-product-application" %}" class="btn btn-outline-primary"><i class="bi bi-box-seam"></i> Product Registration</a>
-              <a href="#" class="btn btn-outline-secondary"><i class="bi bi-building"></i> Facility Registration</a>
-              <a href="{% url "create-business-cert-application" %}" class="btn btn-outline-success"><i class="bi bi-award"></i> Business Certificate Registration</a>
-            </div>
+
+          <!-- Right Column -->
+          <div class="col-md-6 d-grid gap-3">
+            <a href="#" class="btn btn-outline-warning">
+              <i class="bi bi-box"></i> Packaging Coaching
+            </a>
+            <a href="#" class="btn btn-outline-dark">
+              <i class="bi bi-gear-wide-connected"></i> Machinery Sourcing
+            </a>
+            <a href="#" class="btn btn-outline-secondary">
+              <i class="bi bi-clipboard-check"></i> Training &amp; Facility Audit
+            </a>
+            <a href="#" class="btn btn-outline-danger">
+              <i class="bi bi-people-fill"></i> Contract Manufacturing
+            </a>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
     
 
     <!-- Recent Activity -->

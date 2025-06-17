@@ -3,19 +3,19 @@ from django.contrib.auth.models import AbstractUser
 
 # Custom User
 class CustomUser(AbstractUser):
-    email = models.EmailField(unique=True)
+    email = models.EmailField(unique=True,)
     username = models.CharField(max_length=100)
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50, blank=True)
-    business_name = models.CharField(max_length=250)
-    phone_number = models.CharField(max_length=30)
-    whatsapp_number = models.CharField(max_length=30)
-    instagram_handle = models.CharField(max_length=30, blank=True)
-    facebook_handle = models.CharField(max_length=30, blank=True)
-    profile_photo = models.ImageField(upload_to='users/profile_photos/', null=True, blank=True)
-    bio = models.TextField(blank=True)
-    x_handle = models.CharField(max_length=30, blank=True)
-    linkedin_handle = models.CharField(max_length=30, blank=True)
+    first_name = models.CharField(max_length=50, verbose_name='First Name')
+    last_name = models.CharField(max_length=50, blank=True, verbose_name='Last Name')
+    business_name = models.CharField(max_length=250, verbose_name='Business/Company Name')
+    phone_number = models.CharField(max_length=30, verbose_name='Phone Number')
+    whatsapp_number = models.CharField(max_length=30, verbose_name='Whatsapp Number')
+    instagram_handle = models.CharField(max_length=30, blank=True, verbose_name='Instagram Handle')
+    facebook_handle = models.CharField(max_length=30, blank=True, verbose_name='Facebook Profile')
+    profile_photo = models.ImageField(upload_to='users/profile_photos/', null=True, blank=True, verbose_name='Profile Photo')
+    bio = models.TextField(blank=True, verbose_name='Bio')
+    x_handle = models.CharField(max_length=30, blank=True, verbose_name='X (Formerly Twitter) Handle')
+    linkedin_handle = models.CharField(max_length=30, blank=True, verbose_name='LinkedIn Profile')
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
@@ -49,7 +49,6 @@ class FDAApplication(models.Model):
     items_equipment = models.TextField()
     staff_roles = models.TextField()
     application_status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='pending')
-    
     submitted_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

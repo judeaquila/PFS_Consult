@@ -26,6 +26,7 @@
       top: 60px;
       left: 0;
       height: 100vh;
+      overflow-y: auto;
       width: 250px;
       background: #f8f9fa;
       border-right: 1px solid #dee2e6;
@@ -169,7 +170,20 @@
 <nav class="sidebar" id="sidebar">
   <a href="{% url "admin-dashboard" %}"><i class="bi bi-speedometer2"></i> Overview</a>
   <a href="{% url "manage-users" %}"><i class="bi bi-people"></i> Manage Users</a>
-  <a href="#"><i class="bi bi-clipboard-check"></i> Applications</a>
+  <a data-bs-toggle="collapse" href="#servicesMenu" role="button" aria-expanded="false" aria-controls="servicesMenu">
+    <i class="bi bi-clipboard-check"></i> Applications
+    <i class="bi bi-chevron-down float-end"></i>
+  </a>
+  <div class="collapse ms-3" id="servicesMenu">
+    <a href="#" class="d-block"><i class="bi-box-seam"></i> Product Development</a>
+    <a href="#" class="d-block"><i class="bi bi-droplet-half"></i> Dehydration Services</a>
+    <a href="#"><i class="bi bi-chat-dots"></i> Consultation</a>
+    <a href="#" class="d-block"><i class="bi-building"></i> Business Registration</a>
+    <a href="#" class="d-block"><i class="bi-easel"></i> Packaging Coaching</a>
+    <a href="#" class="d-block"><i class="bi bi-gear"></i> Machinery Sourcing</a>
+    <a href="#" class="d-block"><i class="bi bi-clipboard-check"></i> Training &amp; Facility Audit</a>
+    <a href="#" class="d-block"><i class="bi bi-diagram-3"></i> Contract Manufacturing</a>
+  </div>
   <a href="#"><i class="bi bi-envelope"></i> Messages</a>
   <a href="#"><i class="bi bi-bar-chart"></i> Analytics</a>
   <a href="#"><i class="bi bi-gear"></i> Settings</a>

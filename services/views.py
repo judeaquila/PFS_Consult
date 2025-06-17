@@ -6,6 +6,16 @@ from django.contrib import messages
 
 # Product Development
 @login_required
+def pd_home(request):
+    pd_apps = ProductIntake.objects.filter(user=request.user)
+
+    context = {
+        'pd_apps': pd_apps,
+    }
+
+    return render(request, 'services/pd-home.html', context)
+
+@login_required
 def product_development(request):
     if request.method == 'POST':
         form = ProductIntakeForm(request.POST)
@@ -24,19 +34,15 @@ def product_development(request):
 
 
 @login_required
-def product_development_applications(request):
-    pd_applications = ProductIntake.objects.filter(user=request.user)
-    context = {
-        'pd_applications': pd_applications,
-    }
-    return render(request, 'services/product-development-applications.html', context)
-
-
-@login_required
 def product_development_details(request, pk):
-    product = get_object_or_404(ProductIntake, pk=pk, user=request.user)
+    pd_app = get_object_or_404(ProductIntake, pk=pk, user=request.user)
+
     context = {
-        'product': product,
+        'pd_app': pd_app,
+        'GOAL_CHOICES': ProductIntake.GOALS_CHOICES,
+        'TARGET_MARKET_CHOICES': ProductIntake.TARGET_MARKET_CHOICES,
+        'PACKAGING_CHOICES': ProductIntake.PACKAGING_CHOICES,
+        'MARKET_TESTING_CHOICES': ProductIntake.MARKET_TESTING_CHOICES,
     }
     return render(request, 'services/product-development-details.html', context)
 

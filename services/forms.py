@@ -18,7 +18,7 @@ class ProductIntakeForm(forms.ModelForm):
     class Meta:
         model = ProductIntake
         fields = '__all__'
-        exclude = ['user', 'custom_id', 'paid_status', 'application_status', 'submitted_at', 'updated_at']
+        exclude = ['user', 'custom_id', 'payment_status', 'application_status', 'submitted_at', 'updated_at']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

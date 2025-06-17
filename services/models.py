@@ -23,7 +23,7 @@ class ProductIntake(models.Model):
         ('vegans', 'Vegans'),
         ('fitness', 'Fitness enthusiasts'),
         ('diabetics', 'Diabetics'),
-        ('mass market', 'Mass market'),
+        ('mass_market', 'Mass market'),
         ('other', 'Other'),
     ]
 
