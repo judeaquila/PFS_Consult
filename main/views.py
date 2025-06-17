@@ -1,4 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
 from django.contrib.auth.decorators import user_passes_test
 from account.models import CustomUser, FDAApplication, BusinessCertificateApplication
 from services.models import ProductIntake
@@ -150,104 +153,13 @@ def admin_dashboard(request):
     return render(request, 'main/admin-dashboard.html', context)
 
 
-@user_passes_test(lambda u: u.is_staff or u.is_superuser)
-def admin_business_cert_application_details(request, pk):
-    business_cert_application = get_object_or_404(BusinessCertificateApplication, id=pk)
-
-    context = {
-        'business_cert_application': business_cert_application,
-    }
-
-    return render(request, 'main/business-cert-application-details.html', context)
-
-@user_passes_test(lambda u: u.is_staff or u.is_superuser)
-def admin_fda_product_application_details(request, pk):
-    fda_product_application = get_object_or_404(FDAApplication, id=pk)
-
-    context = {
-        'fda_product_application': fda_product_application,
-    }
-
-    return render(request, 'main/fda-product-application-details.html', context)
-
-
-@user_passes_test(lambda u: u.is_staff or u.is_superuser)
-def edit_admin_business_cert_application_details(request, pk):
-    business_cert_application = get_object_or_404(BusinessCertificateApplication, id=pk)
-
-    if request.method == 'POST':
-        form = BusinessCertificateForm(request.POST, instance=business_cert_application)
-
-        if form.is_valid():
-            form.save()
-            return redirect('admin-dashboard')
-        
-    else:
-        form = BusinessCertificateForm(instance=business_cert_application)
-    
-    context = {
-        'form': form,
-        'business_cert_application': business_cert_application,
-    }
-
-    return render(request, 'main/edit-business-cert-application-details.html', context)
-
-
-@user_passes_test(lambda u: u.is_staff or u.is_superuser)
-def edit_admin_fda_product_application_details(request, pk):
-    fda_product_application = get_object_or_404(FDAApplication, id=pk)
-
-    if request.method == 'POST':
-        form = FDAApplicationForm(request.POST, request.FILES, instance=fda_product_application)
-
-        if form.is_valid():
-            form.save()
-            return redirect('admin-dashboard')
-        
-    else:
-        form = FDAApplicationForm(instance=fda_product_application)
-
-    context = {
-        'form': form,
-        'fda_product_application': fda_product_application,
-    }
-
-    return render(request, 'main/edit-fda-product-application-details.html', context)
-
-
-@user_passes_test(lambda u: u.is_staff or u.is_superuser)
-def change_business_cert_application_status(request, pk, new_status):
-    application = get_object_or_404(BusinessCertificateApplication, pk=pk)
-    allowed_statuses = ['pending', 'in_review', 'completed_documentation', 'approved', 'rejected']
-
-    if new_status in allowed_statuses:
-        application.application_status = new_status
-        application.save()
-        return redirect('admin-business-cert-application-details', pk=pk)
-    return render(request, 'main/business-cert-application-details.html')
-
-
-@user_passes_test(lambda u: u.is_staff or u.is_superuser)
-def change_fda_product_application_status(request, pk, new_status):
-    application = get_object_or_404(FDAApplication, pk=pk)
-    allowed_statuses = ['pending', 'in_review', 'completed_documentation', 'approved', 'rejected']
-
-    if new_status in allowed_statuses:
-        application.application_status = new_status
-        application.save()
-        return redirect('admin-fda-product-application-details', pk=pk)
-    return render(request, 'main/fda-product-application-details.html')
-
-
 # USER MANAGEMENT
 @user_passes_test(lambda u: u.is_staff or u.is_superuser)
 def manage_users(request):
     users = CustomUser.objects.all()
-
     context = {
         'users': users,
     }
-
     return render(request, 'main/manage_users.html', context)
 
 
@@ -269,29 +181,24 @@ def add_user(request):
         )
         messages.success(request, f"{user.first_name}'s account has been created successfully.")
         return redirect('manage-users')
-    
     return render(request, 'main/manage_users.html')
 
 
 @user_passes_test(lambda u: u.is_staff or u.is_superuser)
 def edit_user(request, pk):
     user = get_object_or_404(CustomUser, id=pk)
-
     if request.method == 'POST':
         form = CustomUserUpdateForm(request.POST, request.FILES, instance=user)
-
         if form.is_valid():
             form.save()
             messages.success(request, 'User updated successfully.')
             return redirect('manage-users')
     else:
         form = CustomUserUpdateForm(instance=user)
-
     context = {
         'form': form,
         'user': user,
     }
-    
     return render(request, 'main/edit-users.html', context)
 
 
@@ -311,3 +218,122 @@ def toggle_user_active(request, pk):
     state = "activated" if user.is_active else "deactivated"
     messages.success(request, f'User {state} successfully.')
     return redirect('manage-users')
+
+
+
+################## SERVICES #######################
+# 1. BUSINESS CERTIFICATE
+@user_passes_test(lambda u: u.is_staff or u.is_superuser)
+def admin_business_cert_application_details(request, pk):
+    business_cert_application = get_object_or_404(BusinessCertificateApplication, id=pk)
+    context = {
+        'business_cert_application': business_cert_application,
+    }
+    return render(request, 'main/business-cert-application-details.html', context)
+
+
+@user_passes_test(lambda u: u.is_staff or u.is_superuser)
+def edit_admin_business_cert_application_details(request, pk):
+    business_cert_application = get_object_or_404(BusinessCertificateApplication, id=pk)
+    if request.method == 'POST':
+        form = BusinessCertificateForm(request.POST, instance=business_cert_application)
+        if form.is_valid():
+            form.save()
+            return redirect('admin-dashboard')
+    else:
+        form = BusinessCertificateForm(instance=business_cert_application)
+    context = {
+        'form': form,
+        'business_cert_application': business_cert_application,
+    }
+    return render(request, 'main/edit-business-cert-application-details.html', context)
+
+
+@user_passes_test(lambda u: u.is_staff or u.is_superuser)
+def change_business_cert_application_status(request, pk, new_status):
+    application = get_object_or_404(BusinessCertificateApplication, pk=pk)
+    allowed_statuses = ['pending', 'in_review', 'completed_documentation', 'approved', 'rejected']
+    if new_status in allowed_statuses:
+        application.application_status = new_status
+        application.save()
+        return redirect('admin-business-cert-application-details', pk=pk)
+    return render(request, 'main/business-cert-application-details.html')
+
+
+# 2. FDA PRODUCT APPLICATION
+@user_passes_test(lambda u: u.is_staff or u.is_superuser)
+def edit_admin_fda_product_application_details(request, pk):
+    fda_product_application = get_object_or_404(FDAApplication, id=pk)
+    if request.method == 'POST':
+        form = FDAApplicationForm(request.POST, request.FILES, instance=fda_product_application)
+        if form.is_valid():
+            form.save()
+            return redirect('admin-dashboard')
+    else:
+        form = FDAApplicationForm(instance=fda_product_application)
+    context = {
+        'form': form,
+        'fda_product_application': fda_product_application,
+    }
+    return render(request, 'main/edit-fda-product-application-details.html', context)
+
+
+@user_passes_test(lambda u: u.is_staff or u.is_superuser)
+def admin_fda_product_application_details(request, pk):
+    fda_product_application = get_object_or_404(FDAApplication, id=pk)
+    context = {
+        'fda_product_application': fda_product_application,
+    }
+    return render(request, 'main/fda-product-application-details.html', context)
+
+
+@user_passes_test(lambda u: u.is_staff or u.is_superuser)
+def change_fda_product_application_status(request, pk, new_status):
+    application = get_object_or_404(FDAApplication, pk=pk)
+    allowed_statuses = ['pending', 'in_review', 'completed_documentation', 'approved', 'rejected']
+    if new_status in allowed_statuses:
+        application.application_status = new_status
+        application.save()
+        return redirect('admin-fda-product-application-details', pk=pk)
+    return render(request, 'main/fda-product-application-details.html')
+
+
+# 3. PRODUCT DEVELOPMENT
+def admin_pd_home(request):
+    pd_apps = ProductIntake.objects.all()
+    context = {
+        'pd_apps': pd_apps,
+        'ProductIntake': ProductIntake,
+    }
+    return render(request, 'main/admin-pd-home.html', context)
+
+
+def admin_pd_details(request, pk):
+    pd_app = get_object_or_404(ProductIntake, pk=pk)
+    context = {
+        'pd_app': pd_app,
+        'GOAL_CHOICES': ProductIntake.GOALS_CHOICES,
+        'TARGET_MARKET_CHOICES': ProductIntake.TARGET_MARKET_CHOICES,
+        'PACKAGING_CHOICES': ProductIntake.PACKAGING_CHOICES,
+        'MARKET_TESTING_CHOICES': ProductIntake.MARKET_TESTING_CHOICES,
+    }
+    return render(request, 'main/admin-pd-details.html', context)
+
+def download_pd_pdf(request, pk):
+    pd_app = get_object_or_404(ProductIntake, pk=pk)
+    template_path = 'main/pdf_template.html'
+    context = {
+        'pd_app': pd_app,
+        'GOAL_CHOICES': ProductIntake.GOALS_CHOICES,
+        'TARGET_MARKET_CHOICES': ProductIntake.TARGET_MARKET_CHOICES,
+        'PACKAGING_CHOICES': ProductIntake.PACKAGING_CHOICES,
+        'MARKET_TESTING_CHOICES': ProductIntake.MARKET_TESTING_CHOICES,
+    }
+    response = HttpResponse(content_type='pd_app/pdf')
+    response['Content-Disposition']=f'attachment; filename="pd_app_{pk}.pdf"'
+    template = get_template(template_path)
+    html = template.render(context)
+    pisa_status = pisa.CreatePDF(html, dest=response)
+    if pisa_status.err:
+        return HttpResponse("We had some errors with PDF generation.")
+    return response

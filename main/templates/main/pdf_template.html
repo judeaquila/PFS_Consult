@@ -1,0 +1,109 @@
+{% load status_tags %}
+{% load display_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      font-family: DejaVu Sans, sans-serif;
+      font-size: 12px;
+      margin: 20px;
+      line-height: 1.5;
+    }
+    h2 {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+    .section-title {
+      font-weight: bold;
+      font-size: 14px;
+      margin-top: 20px;
+      margin-bottom: 5px;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #000;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+    .label {
+      font-weight: bold;
+    }
+    .meta {
+      font-size: 11px;
+      margin-bottom: 15px;
+    }
+    ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Application ID: {{ pd_app.custom_id }}</h2>
+
+  <div class="meta">
+    <strong>Status:</strong> {{ pd_app.get_application_status_display|title }} |
+    <strong>Payment:</strong> {{ pd_app.get_payment_status_display|title }}<br>
+    <strong>Submitted:</strong> {{ pd_app.submitted_at }} |
+    <strong>Last Updated:</strong> {{ pd_app.updated_at }}<br>
+    <strong>Submitted By:</strong> {{ pd_app.user.email }} |
+    <strong>Contact:</strong> {{ pd_app.user.phone_number }} |
+    <strong>Whatsapp:</strong> {{ pd_app.user.whatsapp_number }}
+  </div>
+
+  <div>
+    <div class="section-title">Product Overview</div>
+    <hr>
+    <p><span class="label">Product Name:</span> {{ pd_app.product_name }}</p>
+    <p><span class="label">Product Type:</span> {{ pd_app.type_of_product }}</p>
+    <p><span class="label">New or Improvement:</span> {{ pd_app.get_is_new_or_improvement_display }}</p>
+    <p><span class="label">Expected Launch Date:</span> {{ pd_app.expected_launch_date }}</p>
+  </div>
+
+  <div>
+    <div class="section-title">Goals</div>
+    <hr>
+    <ul>
+      {% for goal in pd_app.goals %}
+        <li>{{ goal|label_from_choices:GOAL_CHOICES }}</li>
+      {% endfor %}
+    </ul>
+    {% if pd_app.other_goal %}
+      <p><span class="label">Other Goal:</span> {{ pd_app.other_goal }}</p>
+    {% endif %}
+  </div>
+
+  <div>
+    <div class="section-title">Target Market</div>
+    <hr>
+    <ul>
+      {% for market in pd_app.target_market %}
+        <li>{{ market|label_from_choices:TARGET_MARKET_CHOICES }}</li>
+      {% endfor %}
+    </ul>
+    {% if pd_app.other_target_market %}
+      <p><span class="label">Other Market:</span> {{ pd_app.other_target_market }}</p>
+    {% endif %}
+  </div>
+
+  <div>
+    <div class="section-title">Product &amp; Packaging</div>
+    <hr>
+    <p><span class="label">Dietary Notes:</span> {{ pd_app.ingredient_or_dietary_notes }}</p>
+    <p><span class="label">Packaging Style:</span>
+      {% for pack_style in pd_app.packaging_style %}
+        {{ pack_style|label_from_choices:PACKAGING_CHOICES }}{% if not forloop.last %}, {% endif %}
+      {% endfor %}
+    </p>
+    {% if pd_app.custom_packaging %}
+      <p><span class="label">Custom Packaging:</span> {{ pd_app.custom_packaging }}</p>
+    {% endif %}
+    <p><span class="label">Similar Products on Market?</span> {{ pd_app.get_market_existence_display }}</p>
+    <p><span class="label">Market Testing Feedback:</span> {{ pd_app.get_market_testing_feedback_display }}</p>
+  </div>
+
+</body>
+</html>

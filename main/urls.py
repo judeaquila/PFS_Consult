@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import home, fda_services, other_services, login_redirect, admin_dashboard, admin_business_cert_application_details, admin_fda_product_application_details, edit_admin_business_cert_application_details, edit_admin_fda_product_application_details, change_business_cert_application_status, change_fda_product_application_status, manage_users, add_user, edit_user, delete_user, toggle_user_active
+from .views import home, fda_services, other_services, login_redirect, admin_dashboard, admin_business_cert_application_details, admin_fda_product_application_details, edit_admin_business_cert_application_details, edit_admin_fda_product_application_details, change_business_cert_application_status, change_fda_product_application_status, manage_users, add_user, edit_user, delete_user, toggle_user_active, admin_pd_home, admin_pd_details, download_pd_pdf
 
 urlpatterns = [
     path('', home, name='home'),
@@ -20,4 +20,10 @@ urlpatterns = [
     path('dashboard/admin/users/<int:pk>/edit/', edit_user, name='edit-user'),
     path('dashboard/admin/users/<int:pk>/delete/', delete_user, name='delete-user'),
     path('dashboard/admin/users/<int:pk>/toggle-active/', toggle_user_active, name='toggle-user-active'),
+
+    # Product Development
+    path('dashboard/admin/product-development/', admin_pd_home, name='admin_pd_home'),
+    path('dashboard/admin/product-development/application-details/<int:pk>/', admin_pd_details, name='admin_pd_details'),
+    # PDF Download
+    path('dashboard/admin/product-development/<int:pk>/download-pdf', download_pd_pdf, name='download_pd_pdf'),
 ]
