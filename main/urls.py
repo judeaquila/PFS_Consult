@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import home, fda_services, other_services, login_redirect, admin_dashboard, admin_business_cert_application_details, admin_fda_product_application_details, edit_admin_business_cert_application_details, edit_admin_fda_product_application_details, change_business_cert_application_status, change_fda_product_application_status, manage_users, add_user, edit_user, delete_user, toggle_user_active, admin_pd_home, admin_pd_details, download_pd_pdf
+from .views import home, fda_services, other_services, login_redirect, admin_dashboard, admin_business_cert_application_details, admin_fda_product_application_details, edit_admin_business_cert_application_details, edit_admin_fda_product_application_details, change_business_cert_application_status, change_fda_product_application_status, manage_users, add_user, edit_user, delete_user, toggle_user_active, admin_pd_home, admin_pd_details, download_pd_pdf, admin_pd_app_status_change, admin_pd_payment_status_change, admin_pd_delete
 
 urlpatterns = [
     path('', home, name='home'),
@@ -24,6 +24,9 @@ urlpatterns = [
     # Product Development
     path('dashboard/admin/product-development/', admin_pd_home, name='admin_pd_home'),
     path('dashboard/admin/product-development/application-details/<int:pk>/', admin_pd_details, name='admin_pd_details'),
+    path('dashboard/admin/product-development/application-status/<int:pk>/update_application_status/', admin_pd_app_status_change, name='admin_update_app_status'),
+    path('dashboard/admin/product-development/payment-status/<int:pk>/update_payment_status/', admin_pd_payment_status_change, name='admin_update_payment_status'),
+    path('dashboard/admin/product-development/application-delete/<int:pk>/delete_application/', admin_pd_delete, name='admin_pd_delete'),
     # PDF Download
     path('dashboard/admin/product-development/<int:pk>/download-pdf', download_pd_pdf, name='download_pd_pdf'),
 ]

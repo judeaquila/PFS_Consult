@@ -10,14 +10,17 @@
 
   <!-- Search and Filter -->
   <form method="get" class="row g-2 mb-4">
-    <div class="col-md-8">
-      <input type="text" name="q" class="form-control" placeholder="Search by ID...">
+    <div class="col-md-6">
+      <input type="text" name="q" class="form-control" placeholder="Search by ID..." value="{{ query }}">
     </div>
     <div class="col-md-2">
       <button type="submit" class="btn btn-primary w-100">
         <i class="bi bi-search"></i> Search
       </button>
     </div>
+    {% if query %}
+      <a href="{% url "admin_pd_home" %}" class="btn btn-danger">Clear</a>
+    {% endif %}
   </form>
 
   <h5 class="mb-4">Submitted Applications</h5>
@@ -48,7 +51,7 @@
           <td>{{ pd_app.submitted_at|date:"Y-m-d H:i"}}</td>
           <td>
             <span class="badge bg-{{ pd_app.get_application_status_display|status_badge_class }}">
-              {{ pd_app.application_status|title }}
+              {{ pd_app.get_application_status_display|title }}
             </span>
           </td>
           <td>
@@ -84,7 +87,7 @@
         <div class="modal fade" id="appStatusModal{{ pd_app.id }}" tabindex="-1" aria-labelledby="appStatusModalLabel{{ pd_app.id }}" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
-              <form method="post" action="{% url 'pd_update' pd_app.id %}">
+              <form method="post" action="{% url 'admin_update_app_status' pd_app.id %}">
                 {% csrf_token %}
                 <div class="modal-header">
                   <h5 class="modal-title" id="appStatusModalLabel{{ pd_app.id }}">Change Application Status</h5>
@@ -110,7 +113,7 @@
         <div class="modal fade" id="paymentStatusModal{{ pd_app.id }}" tabindex="-1" aria-labelledby="paymentStatusModalLabel{{ pd_app.id }}" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
-              <form method="post" action="#">
+              <form method="post" action="{% url "admin_update_payment_status" pd_app.id %}">
                 {% csrf_token %}
                 <div class="modal-header">
                   <h5 class="modal-title" id="paymentStatusModalLabel{{ pd_app.id }}">Change Payment Status</h5>
@@ -136,7 +139,7 @@
         <div class="modal fade" id="deleteModal{{ pd_app.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ pd_app.id }}" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
-              <form method="post" action="{% url 'pd_delete' pd_app.id %}">
+              <form method="post" action="{% url 'admin_pd_delete' pd_app.id %}">
                 {% csrf_token %}
                 <div class="modal-header">
                   <h5 class="modal-title" id="deleteModalLabel{{ pd_app.id }}">Delete Application</h5>

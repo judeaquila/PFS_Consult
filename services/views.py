@@ -8,9 +8,13 @@ from django.contrib import messages
 @login_required
 def pd_home(request):
     pd_apps = ProductIntake.objects.filter(user=request.user)
+    query = request.GET.get('q') or ''
+    if query:
+        pd_apps = pd_apps.filter(custom_id__icontains=query)
 
     context = {
         'pd_apps': pd_apps,
+        'query': query,
     }
 
     return render(request, 'services/pd-home.html', context)
@@ -55,7 +59,7 @@ def product_development_update(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, "Product Development application details updated successfully!")
-            return redirect('pd_applications')
+            return redirect('pd_home')
     else:
         form = ProductIntakeForm(instance=product)
     context = {
@@ -67,21 +71,21 @@ def product_development_update(request, pk):
 
 @login_required
 def product_development_delete(request, pk):
-    product = get_object_or_404(ProductIntake, pk=pk, user=request.user)
+    pd_app = get_object_or_404(ProductIntake, pk=pk, user=request.user)
     if request.method == 'POST':
-        product.delete()
+        pd_app.delete()
         messages.success(request, "Product Development application deleted successfully!")
-        return redirect('pd_applications')
+        return redirect('pd_home')
     context = {
-        'product': product,
+        'pd_app': pd_app,
     }
     return render(request, 'services/product-development-delete.html', context)
 
 
 @login_required
 def pd_thank_you(request, pk):
-    product = get_object_or_404(ProductIntake, pk=pk, user=request.user)
+    pd_app = get_object_or_404(ProductIntake, pk=pk, user=request.user)
     context = {
-        'product': product,
+        'pd_app': pd_app,
     }
     return render(request, 'services/pd-submission-thank-you.html', context)

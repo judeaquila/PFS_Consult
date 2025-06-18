@@ -63,6 +63,8 @@ def admin_dashboard(request):
     pd_apps_pending = pd_apps.filter(application_status='pending').count()
     pd_apps_in_review = pd_apps.filter(application_status='in_review').count()
     pd_apps_completed = pd_apps.filter(application_status='completed_documentation').count()
+    pd_apps_approved = pd_apps.filter(application_status='approved').count()
+    pd_apps_rejected = pd_apps.filter(application_status='rejected').count()
 
     all_fda_product_applications_count = all_fda_product_applications.count()
     all_business_cert_applications_count = all_business_cert_applications.count()
@@ -148,6 +150,8 @@ def admin_dashboard(request):
         'pd_apps_pending': pd_apps_pending,
         'pd_apps_in_review': pd_apps_in_review,
         'pd_apps_completed': pd_apps_completed,
+        'pd_apps_approved': pd_apps_approved,
+        'pd_apps_rejected': pd_apps_rejected,
     }
 
     return render(request, 'main/admin-dashboard.html', context)
@@ -300,10 +304,14 @@ def change_fda_product_application_status(request, pk, new_status):
 
 # 3. PRODUCT DEVELOPMENT
 def admin_pd_home(request):
-    pd_apps = ProductIntake.objects.all()
+    pd_apps = ProductIntake.objects.all().order_by('-submitted_at')
+    query = request.GET.get('q') or ''
+    if query:
+        pd_apps = pd_apps.filter(custom_id__icontains=query)
     context = {
         'pd_apps': pd_apps,
         'ProductIntake': ProductIntake,
+        'query': query,
     }
     return render(request, 'main/admin-pd-home.html', context)
 
@@ -318,6 +326,37 @@ def admin_pd_details(request, pk):
         'MARKET_TESTING_CHOICES': ProductIntake.MARKET_TESTING_CHOICES,
     }
     return render(request, 'main/admin-pd-details.html', context)
+
+
+def admin_pd_app_status_change(request, pk):
+    pd_app = get_object_or_404(ProductIntake, pk=pk)
+    if request.method == 'POST':
+        app_id = pd_app.custom_id
+        update_status = request.POST.get("application_status")
+        pd_app.application_status = update_status
+        pd_app.save()
+        messages.success(request, f"{app_id} status changed to {pd_app.get_application_status_display()}!")
+        return redirect('admin_pd_home')
+    
+
+def admin_pd_payment_status_change(request, pk):
+    pd_app = get_object_or_404(ProductIntake, pk=pk)
+    if request.method == 'POST':
+        app_id = pd_app.custom_id
+        update_payment_status = request.POST.get("payment_status")
+        pd_app.payment_status = update_payment_status
+        pd_app.save()
+        messages.success(request, f"{app_id} payment status changed to {pd_app.get_payment_status_display()}")
+        return redirect('admin_pd_home')
+
+
+def admin_pd_delete(request, pk):
+    pd_app = get_object_or_404(ProductIntake, pk=pk)
+    if request.method == 'POST':
+        pd_app.delete()
+        messages.success(request, f"Successfully deleted application { pd_app.custom_id }")
+        return redirect('admin_pd_home')
+
 
 def download_pd_pdf(request, pk):
     pd_app = get_object_or_404(ProductIntake, pk=pk)
