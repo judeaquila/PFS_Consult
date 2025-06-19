@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser, FDAApplication, BusinessCertificateApplication, UserActivity
+from .models import CustomUser, FDAApplication, BusinessCertificateApplication, UserActivity, FDAFoodRequirement
 from .forms import CustomUserCreationForm, CustomUserUpdateForm
 
 # Custom User Admin
@@ -13,3 +13,4 @@ admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(FDAApplication)
 admin.site.register(BusinessCertificateApplication)
 admin.site.register(UserActivity)
+admin.site.register(FDAFoodRequirement)

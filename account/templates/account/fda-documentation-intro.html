@@ -1,0 +1,72 @@
+{% extends "account/base.html" %}
+
+{% block title %}FDA Documentation - Requirements{% endblock title %}
+
+{% block content %}
+<main class="main-content" id="mainContent">
+    <div class="text-center mb-5">
+        <h2 class="text-success"><i class="bi bi-patch-check-fill me-2"></i>FDA Documentation Support</h2>
+        <p class="lead">Fast-track your product's FDA approval with PFS. Below are the requirements based on your business category.</p>
+    </div>
+
+    <!-- Food / Herbal / Pharmaceutical Card -->
+    <div class="card mb-4 border-success">
+        <div class="card-header bg-success text-white">
+            <i class="bi bi-capsule me-2"></i>Food / Herbal / Pharmaceutical Products
+        </div>
+        <div class="card-body">
+            <ul class="list-unstyled">
+                <li><i class="bi bi-dot text-success me-2"></i><strong>Food Handlers Card</strong> <small class="text-muted">(From district assembly with passport photo)</small></li>
+                <li><i class="bi bi-dot text-success me-2"></i><strong>Product Lab Test</strong> <span class="badge bg-success">PFS can help</span></li>
+                <li><i class="bi bi-dot text-success me-2"></i><strong>Product Label</strong> <span class="badge bg-success">PFS can help</span></li>
+                <li><i class="bi bi-dot text-success me-2"></i><strong>Product Pictures</strong></li>
+                <li><i class="bi bi-dot text-success me-2"></i><strong>Business Certificate</strong> <span class="badge bg-success">PFS can help</span></li>
+                <li><i class="bi bi-dot text-success me-2"></i><strong>Product Samples</strong> <small class="text-muted">(Exactly how you'll sell it)</small></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Eateries / Sit & Dine Card -->
+    <div class="card mb-4 border-primary">
+        <div class="card-header bg-primary text-white">
+            <i class="bi bi-shop me-2"></i>Fast Food Joints / Eateries / Sit &amp; Dine Businesses
+        </div>
+        <div class="card-body">
+            <ul class="list-unstyled">
+                <li><i class="bi bi-dot text-primary me-2"></i><strong>Food Handlers Card</strong> <small class="text-muted">(From district assembly with passport photo)</small></li>
+                <li><i class="bi bi-dot text-primary me-2"></i><strong>List of Recipes</strong></li>
+                <li><i class="bi bi-dot text-primary me-2"></i><strong>Recipe Preparation Steps</strong> <span class="badge bg-success">PFS can help</span></li>
+                <li><i class="bi bi-dot text-primary me-2"></i><strong>Business Certificate</strong> <span class="badge bg-success">PFS can help</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Cosmetics / Household Chemicals Card -->
+    <div class="card mb-4 border-info">
+        <div class="card-header bg-info text-white">
+            <i class="bi bi-bucket-fill me-2"></i>Cosmetic &amp; Household Chemical Products
+        </div>
+        <div class="card-body">
+        <ul class="list-unstyled">
+            <li><i class="bi bi-dot text-info me-2"></i><strong>Product Label</strong> <span class="badge bg-success">PFS can help</span></li>
+            <li><i class="bi bi-dot text-info me-2"></i><strong>Product Pictures</strong></li>
+            <li><i class="bi bi-dot text-info me-2"></i><strong>Business Certificate</strong> <span class="badge bg-success">PFS can help</span></li>
+            <li><i class="bi bi-dot text-info me-2"></i><strong>Product Samples</strong> <small class="text-muted">(Exactly how you'll sell it)</small></li>
+        </ul>
+        </div>
+    </div>
+
+    <!-- Instruction to Proceed -->
+    <div class="alert alert-warning mt-5">
+        <i class="bi bi-exclamation-circle-fill me-2"></i>
+        Once you have reviewed the requirements for your category, please proceed to the next step to confirm what you have available. 
+        Where assistance is needed, you can indicate it as you progress.
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{% url "fda-documentation-cat" %}" class="btn btn-outline-primary btn-lg">
+        <i class="bi bi-arrow-right-circle me-2"></i>Proceed
+        </a>
+    </div>
+</main>
+{% endblock content %}

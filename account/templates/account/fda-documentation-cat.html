@@ -1,0 +1,68 @@
+{% extends "account/base.html" %}
+
+{% block title %}FDA Documentation - Categories{% endblock title %}
+
+{% block content %}
+<main class="main-content" id="mainContent">
+    <div class="text-center mb-4">
+    <h2 class="text-success">
+      <i class="bi bi-patch-check-fill me-2"></i> FDA Documentation Support
+    </h2>
+    <p class="lead">PFS offers fast-track assistance for FDA certification across various business types.</p>
+  </div>
+
+  <div class="alert alert-warning text-center">
+    Please select your business category to continue. You'll be able to confirm what requirements you have and where PFS can assist.
+  </div>
+
+  <div class="mb-4 text-start">
+      <a href="{% url 'fda-documentation-intro' %}" class="btn btn-sm btn-outline-secondary">
+          <i class="bi bi-arrow-left"></i> Back
+      </a>
+  </div>
+
+  <div class="row g-4 justify-content-center">
+    <!-- Food / Herbal / Pharmaceutical -->
+    <div class="col-md-4">
+      <div class="card h-100 border-success">
+        <div class="card-body text-center">
+          <i class="bi bi-capsule-fill text-success" style="font-size: 2rem;"></i>
+          <h5 class="card-title mt-2">Food / Herbal / Pharmaceutical</h5>
+          <p class="card-text">For packaged food, herbal supplements, or pharmaceutical products.</p>
+          <a href="{% url "fda-food-req" %}" class="btn btn-outline-success">
+            Continue
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Eateries / Sit & Dine -->
+    <div class="col-md-4">
+      <div class="card h-100 border-primary">
+        <div class="card-body text-center">
+          <i class="bi bi-shop-window text-primary" style="font-size: 2rem;"></i>
+          <h5 class="card-title mt-2">Eateries / Sit &amp; Dine</h5>
+          <p class="card-text">For restaurants, food joints, or takeout services.</p>
+          <a href="{% url "fda-eateries-req" %}" class="btn btn-outline-primary">
+            Continue
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cosmetics / Household Chemicals -->
+    <div class="col-md-4">
+      <div class="card h-100 border-info">
+        <div class="card-body text-center">
+          <i class="bi bi-bucket text-info" style="font-size: 2rem;"></i>
+          <h5 class="card-title mt-2">Cosmetics &amp; Household Chemicals</h5>
+          <p class="card-text">For soap, lotion, detergent, or cosmetic brands.</p>
+          <a href="{% url "fda-cosmetics-req" %}" class="btn btn-outline-info">
+            Continue
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}

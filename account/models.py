@@ -24,6 +24,34 @@ class CustomUser(AbstractUser):
         return self.email
     
 
+# FDA REQUIREMENTS
+class FDAFoodRequirement(models.Model):
+    HELP_CHOICES = [
+        ('have', 'I have this'),
+        ('need_help', 'I need help from PFS'),
+    ]
+
+    YES_NO_CHOICES = [
+        ('yes', 'Yes'),
+        ('no', 'No'),
+    ]
+
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='fda_food_requirements')
+    submitted_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    food_handlers_card = models.CharField(max_length=10, default='', choices=YES_NO_CHOICES, verbose_name="Food Handler's Card")
+    product_lab_test = models.CharField(max_length=10, default='', choices=HELP_CHOICES, verbose_name='Product Lab Test')
+    product_label = models.CharField(max_length=10, default='', choices=HELP_CHOICES, verbose_name='Product Label')
+    business_certificate = models.CharField(max_length=10, default='', choices=HELP_CHOICES, verbose_name='Business Certificate')
+
+    product_pictures = models.CharField(max_length=10, default='', choices=YES_NO_CHOICES, verbose_name='I have Product Pictures')
+    product_samples = models.CharField(max_length=10, default='', choices=YES_NO_CHOICES, verbose_name='I have Product Samples')
+
+    def __str__(self):
+        return f"FDA Requirements for {self.user.first_name} - {self.submitted_at.strftime('%Y-%m-%d')}"
+    
+
 # New FDA Application
 class FDAApplication(models.Model):
     STATUS_CHOICES = [

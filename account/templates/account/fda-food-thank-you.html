@@ -1,0 +1,26 @@
+{% extends "account/base.html" %}
+
+{% block title %}Submission Successful{% endblock %}
+
+{% block content %}
+<main class="main-content py-5" id="mainContent">
+  <div class="container text-center">
+    <div class="card shadow-lg p-4 border-0">
+      <div class="card-body">
+        <h1 class="text-success fw-bold mb-3">
+          <i class="bi bi-check-circle-fill me-2"></i>Thank You!
+        </h1>
+        <p class="lead mb-4">
+          You've successfully completed the <strong>first stage</strong> of your registration process.
+        </p>
+        <p class="mb-4">
+          Our team will review your submission shortly. In the meantime, you're ready to proceed to the next stage.
+        </p>
+        <a href="{% url "create-fda-product-application" %}" class="btn btn-primary btn-lg">
+          Continue to Next Stage <i class="bi bi-arrow-right ms-2"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

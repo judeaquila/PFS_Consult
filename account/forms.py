@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import CustomUser, FDAApplication, BusinessCertificateApplication
+from .models import CustomUser, FDAApplication, BusinessCertificateApplication, FDAFoodRequirement
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
@@ -34,6 +34,32 @@ class CustomUserUpdateForm(forms.ModelForm):
 
 class EmailAuthenticationForm(AuthenticationForm):
     username = forms.EmailField(label='Email')
+
+# FDA Requirements Forms
+class FDAFoodRequirementForm(forms.ModelForm):
+    class Meta:
+        model = FDAFoodRequirement
+        fields = '__all__'
+        exclude = ['user', 'submitted_at', 'updated_at']
+
+        widgets = {
+            'food_handlers_card': forms.RadioSelect(attrs={'class': 'form-check-input'}),
+            'product_lab_test': forms.RadioSelect(attrs={'class': 'form-check-input'}),
+            'product_label': forms.RadioSelect(attrs={'class': 'form-check-input'}),
+            'business_certificate': forms.RadioSelect(attrs={'class': 'form-check-input'}),
+            'product_pictures': forms.RadioSelect(attrs={'class': 'form-check-input'}),
+            'product_samples': forms.RadioSelect(attrs={'class': 'form-check-input'}),
+        }
+
+        def clean(self):
+            cleaned_data = super().clean()
+            required_fields = ['food_handlers_card', 'product_lab_test', 'product_label', 'business_certificate', 'product_pictures', 'product_samples']
+
+            for field in required_fields:
+                if not cleaned_data.get(field):
+                    self.add_error(field, "This field is required.")
+
+            return cleaned_data
 
 
 # FDA Application Forms

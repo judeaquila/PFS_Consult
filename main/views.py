@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import user_passes_test
-from account.models import CustomUser, FDAApplication, BusinessCertificateApplication
+from account.models import CustomUser, FDAApplication, BusinessCertificateApplication, FDAFoodRequirement
 from services.models import ProductIntake
 from account.forms import FDAApplicationForm, BusinessCertificateForm, CustomUserUpdateForm
 from itertools import chain
@@ -150,6 +150,7 @@ def admin_dashboard(request):
     return render(request, 'main/admin-dashboard.html', context)
 
 
+# BUSINESS CERTIFICATE APPLICATIONS
 @user_passes_test(lambda u: u.is_staff or u.is_superuser)
 def admin_business_cert_application_details(request, pk):
     business_cert_application = get_object_or_404(BusinessCertificateApplication, id=pk)
@@ -159,16 +160,6 @@ def admin_business_cert_application_details(request, pk):
     }
 
     return render(request, 'main/business-cert-application-details.html', context)
-
-@user_passes_test(lambda u: u.is_staff or u.is_superuser)
-def admin_fda_product_application_details(request, pk):
-    fda_product_application = get_object_or_404(FDAApplication, id=pk)
-
-    context = {
-        'fda_product_application': fda_product_application,
-    }
-
-    return render(request, 'main/fda-product-application-details.html', context)
 
 
 @user_passes_test(lambda u: u.is_staff or u.is_superuser)
@@ -194,6 +185,39 @@ def edit_admin_business_cert_application_details(request, pk):
 
 
 @user_passes_test(lambda u: u.is_staff or u.is_superuser)
+def change_business_cert_application_status(request, pk, new_status):
+    application = get_object_or_404(BusinessCertificateApplication, pk=pk)
+    allowed_statuses = ['pending', 'in_review', 'completed_documentation', 'approved', 'rejected']
+
+    if new_status in allowed_statuses:
+        application.application_status = new_status
+        application.save()
+        return redirect('admin-business-cert-application-details', pk=pk)
+    return render(request, 'main/business-cert-application-details.html')
+
+
+# FDA PRODUCT APPLICATIONS
+@user_passes_test(lambda u: u.is_staff or u.is_superuser)
+def fda_food_checklist(request):
+    submissions = FDAFoodRequirement.objects.all().order_by('-submitted_at')
+    context = {
+        'submissions': submissions,
+    }
+    return render(request, 'main/admin-fda-food-checklist.html', context)
+
+
+@user_passes_test(lambda u: u.is_staff or u.is_superuser)
+def admin_fda_product_application_details(request, pk):
+    fda_product_application = get_object_or_404(FDAApplication, id=pk)
+
+    context = {
+        'fda_product_application': fda_product_application,
+    }
+
+    return render(request, 'main/fda-product-application-details.html', context)
+
+
+@user_passes_test(lambda u: u.is_staff or u.is_superuser)
 def edit_admin_fda_product_application_details(request, pk):
     fda_product_application = get_object_or_404(FDAApplication, id=pk)
 
@@ -213,18 +237,6 @@ def edit_admin_fda_product_application_details(request, pk):
     }
 
     return render(request, 'main/edit-fda-product-application-details.html', context)
-
-
-@user_passes_test(lambda u: u.is_staff or u.is_superuser)
-def change_business_cert_application_status(request, pk, new_status):
-    application = get_object_or_404(BusinessCertificateApplication, pk=pk)
-    allowed_statuses = ['pending', 'in_review', 'completed_documentation', 'approved', 'rejected']
-
-    if new_status in allowed_statuses:
-        application.application_status = new_status
-        application.save()
-        return redirect('admin-business-cert-application-details', pk=pk)
-    return render(request, 'main/business-cert-application-details.html')
 
 
 @user_passes_test(lambda u: u.is_staff or u.is_superuser)

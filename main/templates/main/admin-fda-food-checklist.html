@@ -1,0 +1,66 @@
+{% extends "main/admin-base.html" %}
+
+{% block title %}FDA Food/Herbal/Pharmaceutical Checklist Submissions{% endblock %}
+
+{% block content %}
+<main class="main-content">
+  <h2 class="fw-bold mb-1">FDA Food/Herbal/Pharmaceutical Submissions</h2>
+  <p class="text-muted mb-4">Review checklist submissions for Food, Herbal, and Pharmaceutical Product registration.</p>
+
+  <div class="table-responsive">
+    <table class="table mb-0 align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>#</th>
+          <th>Submitted By</th>
+          <th>Company Name</th>
+          <th>Email Address</th>
+          <th>Food Handlers Card</th>
+          <th>Product Lab Test</th>
+          <th>Product Label</th>
+          <th>Business Certificate</th>
+          <th>Product Pictures</th>
+          <th>Product Samples</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in submissions %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ item.user.get_full_name|default:item.user.first_name }}</td>
+          <td>{{ item.user.business_name }}</td>
+          <td>{{ item.user.email }}</td>
+          <td>{{ item.get_food_handlers_card_display }}</td>
+          <td>{{ item.get_product_lab_test_display }}</td>
+          <td>{{ item.get_product_label_display }}</td>
+          <td>{{ item.get_business_certificate_display }}</td>
+          <td>{{ item.get_product_pictures_display }}</td>
+          <td>{{ item.get_product_samples_display }}</td>
+          <td>
+            <div class="btn-group" role="group">
+              <a href="#" class="btn btn-sm btn-outline-primary" title="View">
+                <i class="bi bi-eye"></i>
+              </a>
+              <a href="#" class="btn btn-sm btn-outline-warning" title="Edit">
+                <i class="bi bi-pencil-square"></i>
+              </a>
+              <a href="#" class="btn btn-sm btn-outline-danger" title="Delete">
+                <i class="bi bi-trash"></i>
+              </a>
+              <a href="https://wa.me/{{item.user.whatsapp_number}}" target="_blank" class="btn btn-sm btn-outline-success" title="Send WhatsApp Message">
+                <i class="bi bi-whatsapp"></i>
+              </a>
+            </div>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="11" class="text-center">No submissions found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</main>
+{% endblock %}

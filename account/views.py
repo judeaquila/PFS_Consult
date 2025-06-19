@@ -3,7 +3,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.messages import get_messages
-from .forms import EmailAuthenticationForm, CustomUserCreationForm, CustomUserUpdateForm, FDAApplicationForm, BusinessCertificateForm
+from .forms import EmailAuthenticationForm, CustomUserCreationForm, CustomUserUpdateForm, FDAApplicationForm, BusinessCertificateForm, FDAFoodRequirementForm
 from .models import FDAApplication, BusinessCertificateApplication, UserActivity
 from services.models import ProductIntake
 
@@ -82,11 +82,11 @@ def logout_view(request):
 # USER DASHBOARD
 @login_required
 def user_dashboard(request):
-    # all_fda_applications = FDAApplication.objects.filter(user=request.user)
-    # product_total_count = all_fda_applications.count()
-    # product_pending_count = FDAApplication.objects.filter(user=request.user, application_status='pending').count()
-    # product_in_review_count = FDAApplication.objects.filter(user=request.user, application_status='in_review').count()
-    # product_completed_count = FDAApplication.objects.filter(user=request.user, application_status='completed_documentation').count()
+    all_fda_applications = FDAApplication.objects.filter(user=request.user)
+    product_total_count = all_fda_applications.count()
+    product_pending_count = FDAApplication.objects.filter(user=request.user, application_status='pending').count()
+    product_in_review_count = FDAApplication.objects.filter(user=request.user, application_status='in_review').count()
+    product_completed_count = FDAApplication.objects.filter(user=request.user, application_status='completed_documentation').count()
 
     pd_apps = ProductIntake.objects.filter(user=request.user)
     pd_apps_count = pd_apps.count()
@@ -104,11 +104,11 @@ def user_dashboard(request):
     recent_activities = UserActivity.objects.filter(user=request.user).order_by('-timestamp')[:5]
 
     context = {
-        # 'all_fda_applications': all_fda_applications,
-        # 'product_total_count': product_total_count,
-        # 'product_pending_count': product_pending_count,
-        # 'product_in_review_count': product_in_review_count,
-        # 'product_completed_count': product_completed_count,
+        'all_fda_applications': all_fda_applications,
+        'product_total_count': product_total_count,
+        'product_pending_count': product_pending_count,
+        'product_in_review_count': product_in_review_count,
+        'product_completed_count': product_completed_count,
 
         'pd_apps_count': pd_apps_count,
         'pd_apps_pending': pd_apps_pending,
@@ -125,6 +125,49 @@ def user_dashboard(request):
     }
 
     return render(request, 'account/user-dashboard.html', context)
+
+
+# FDA DOCUMENTATION REQUIREMENTS INTRO
+@login_required
+def fda_documentation_intro(request):
+    return render(request, 'account/fda-documentation-intro.html')
+
+
+@login_required
+def fda_documentation_cat(request):
+    return render(request, 'account/fda-documentation-cat.html')
+
+
+@login_required
+def fda_food_req(request):
+    if request.method == 'POST':
+        form = FDAFoodRequirementForm(request.POST)
+        if form.is_valid():
+            application = form.save(commit=False)
+            application.user = request.user
+            application.save()
+            return redirect('fda_food_thank_you')
+    else:
+        form = FDAFoodRequirementForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'account/fda-food-req.html', context)
+
+
+@login_required
+def fda_food_thank_you(request):
+    return render(request, 'account/fda-food-thank-you.html')
+
+
+@login_required
+def fda_eateries_req(request):
+    return render(request, 'account/fda-eateries-req.html')
+
+
+@login_required
+def fda_cosmetics_req(request):
+    return render(request, 'account/fda-cosmetics-req.html')
 
 
 # CREATE FDA PRODUCT APPLICATION
