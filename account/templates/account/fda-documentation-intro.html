@@ -4,6 +4,11 @@
 
 {% block content %}
 <main class="main-content" id="mainContent">
+    <div class="mb-4 text-start">
+      <a href="{% url 'user-dashboard' %}" class="btn btn-sm btn-outline-secondary">
+          <i class="bi bi-arrow-left"></i> Back
+      </a>
+    </div>
     <div class="text-center mb-5">
         <h2 class="text-success"><i class="bi bi-patch-check-fill me-2"></i>FDA Documentation Support</h2>
         <p class="lead">Fast-track your product's FDA approval with PFS. Below are the requirements based on your business category.</p>

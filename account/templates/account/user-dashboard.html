@@ -45,7 +45,7 @@
           <div class="tab-pane fade show active" id="productdev" role="tabpanel">
             <div class="row g-3 mb-4">
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="{% url "pd_home" %}" class="text-decoration-none text-dark">
                   <div class="card p-3 bg-light clickable-card">
                     <h5>Total Applications</h5>
                     <p class="fs-4 fw-bold text-primary">{{ pd_apps_count|default:"0" }}</p>
@@ -61,7 +61,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card p-3 bg-light clickable-card">
                     <h5>In Review</h5>
                     <p class="fs-4 fw-bold text-warning">{{ pd_apps_in_review|default:"0" }}</p>
@@ -69,7 +69,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card p-3 bg-light clickable-card">
                     <h5>Completed Documentation</h5>
                     <p class="fs-4 fw-bold text-success">{{ pd_apps_completed|default:"0" }}</p>
@@ -83,7 +83,7 @@
           <div class="tab-pane fade" id="dehydration" role="tabpanel">
             <div class="row g-3 mb-4">
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card p-3 bg-light clickable-card">
                     <h5>Total Applications</h5>
                     <p class="fs-4 fw-bold text-primary">{{ total_count|default:"0" }}</p>
@@ -99,7 +99,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card p-3 bg-light clickable-card">
                     <h5>In Review</h5>
                     <p class="fs-4 fw-bold text-warning">{{ in_review_count|default:"0" }}</p>
@@ -107,7 +107,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card p-3 bg-light clickable-card">
                     <h5>Completed Documentation</h5>
                     <p class="fs-4 fw-bold text-success">{{ completed_count|default:"0" }}</p>
@@ -121,7 +121,7 @@
           <div class="tab-pane fade" id="business" role="tabpanel">
             <div class="row g-3 mb-4">
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card p-3 bg-light clickable-card">
                     <h5>Total Applications</h5>
                     <p class="fs-4 fw-bold text-primary">{{ business_cert_total_count|default:"0" }}</p>
@@ -137,7 +137,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card p-3 bg-light clickable-card">
                     <h5>In Review</h5>
                     <p class="fs-4 fw-bold text-warning">{{ business_cert_in_review_count|default:"0" }}</p>
@@ -145,7 +145,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card p-3 bg-light clickable-card">
                     <h5>Completed Documentation</h5>
                     <p class="fs-4 fw-bold text-success">{{ business_cert_completed_count|default:"0" }}</p>
@@ -159,7 +159,7 @@
           <div class="tab-pane fade show" id="consultation" role="tabpanel">
             <div class="row g-3 mb-4">
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card p-3 bg-light clickable-card">
                     <h5>Total Applications</h5>
                     <p class="fs-4 fw-bold text-primary">{{ product_total_count|default:"0" }}</p>
@@ -175,7 +175,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card p-3 bg-light clickable-card">
                     <h5>In Review</h5>
                     <p class="fs-4 fw-bold text-warning">{{ product_in_review_count|default:"0" }}</p>
@@ -183,7 +183,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card p-3 bg-light clickable-card">
                     <h5>Completed Documentation</h5>
                     <p class="fs-4 fw-bold text-success">{{ product_completed_count|default:"0" }}</p>
@@ -197,7 +197,7 @@
           <div class="tab-pane fade" id="packaging" role="tabpanel">
             <div class="row g-3 mb-4">
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card p-3 bg-light clickable-card">
                     <h5>Total Applications</h5>
                     <p class="fs-4 fw-bold text-primary">{{ total_count|default:"0" }}</p>
@@ -213,7 +213,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card p-3 bg-light clickable-card">
                     <h5>In Review</h5>
                     <p class="fs-4 fw-bold text-warning">{{ in_review_count|default:"0" }}</p>
@@ -221,7 +221,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card p-3 bg-light clickable-card">
                     <h5>Completed Documentation</h5>
                     <p class="fs-4 fw-bold text-success">{{ completed_count|default:"0" }}</p>
@@ -235,7 +235,7 @@
           <div class="tab-pane fade" id="machinery" role="tabpanel">
             <div class="row g-3 mb-4">
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card p-3 bg-light clickable-card">
                     <h5>Total Applications</h5>
                     <p class="fs-4 fw-bold text-primary">{{ business_cert_total_count|default:"0" }}</p>
@@ -251,7 +251,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card p-3 bg-light clickable-card">
                     <h5>In Review</h5>
                     <p class="fs-4 fw-bold text-warning">{{ business_cert_in_review_count|default:"0" }}</p>
@@ -259,7 +259,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card p-3 bg-light clickable-card">
                     <h5>Completed Documentation</h5>
                     <p class="fs-4 fw-bold text-success">{{ business_cert_completed_count|default:"0" }}</p>
@@ -273,7 +273,7 @@
           <div class="tab-pane fade show" id="training" role="tabpanel">
             <div class="row g-3 mb-4">
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card p-3 bg-light clickable-card">
                     <h5>Total Applications</h5>
                     <p class="fs-4 fw-bold text-primary">{{ product_total_count|default:"0" }}</p>
@@ -289,7 +289,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card p-3 bg-light clickable-card">
                     <h5>In Review</h5>
                     <p class="fs-4 fw-bold text-warning">{{ product_in_review_count|default:"0" }}</p>
@@ -297,7 +297,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card p-3 bg-light clickable-card">
                     <h5>Completed Documentation</h5>
                     <p class="fs-4 fw-bold text-success">{{ product_completed_count|default:"0" }}</p>
@@ -311,7 +311,7 @@
           <div class="tab-pane fade show" id="contract" role="tabpanel">
             <div class="row g-3 mb-4">
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card p-3 bg-light clickable-card">
                     <h5>Total Applications</h5>
                     <p class="fs-4 fw-bold text-primary">{{ product_total_count|default:"0" }}</p>
@@ -327,7 +327,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card p-3 bg-light clickable-card">
                     <h5>In Review</h5>
                     <p class="fs-4 fw-bold text-warning">{{ product_in_review_count|default:"0" }}</p>
@@ -335,7 +335,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card p-3 bg-light clickable-card">
                     <h5>Completed Documentation</h5>
                     <p class="fs-4 fw-bold text-success">{{ product_completed_count|default:"0" }}</p>

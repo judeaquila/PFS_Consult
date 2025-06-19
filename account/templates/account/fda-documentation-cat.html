@@ -4,7 +4,12 @@
 
 {% block content %}
 <main class="main-content" id="mainContent">
-    <div class="text-center mb-4">
+  <div class="mb-4 text-start">
+      <a href="{% url 'fda-documentation-intro' %}" class="btn btn-sm btn-outline-secondary">
+          <i class="bi bi-arrow-left"></i> Back
+      </a>
+  </div>
+  <div class="text-center mb-4">
     <h2 class="text-success">
       <i class="bi bi-patch-check-fill me-2"></i> FDA Documentation Support
     </h2>
@@ -13,12 +18,6 @@
 
   <div class="alert alert-warning text-center">
     Please select your business category to continue. You'll be able to confirm what requirements you have and where PFS can assist.
-  </div>
-
-  <div class="mb-4 text-start">
-      <a href="{% url 'fda-documentation-intro' %}" class="btn btn-sm btn-outline-secondary">
-          <i class="bi bi-arrow-left"></i> Back
-      </a>
   </div>
 
   <div class="row g-4 justify-content-center">

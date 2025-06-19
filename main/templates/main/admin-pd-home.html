@@ -5,6 +5,11 @@
 {% load humanize %}
 {% block content %}
 <main class="main-content" id="mainContent">
+  <div class="mb-4 text-start">
+      <a href="{% url 'admin-dashboard' %}" class="btn btn-sm btn-outline-secondary">
+          <i class="bi bi-arrow-left"></i> Back
+      </a>
+  </div>
     <h2 class="fw-bold mb-4 mt-2">Product Development Applications</h2>
     <p class="lead">Review, Approve, and Monitor Application Progress.</p>
 

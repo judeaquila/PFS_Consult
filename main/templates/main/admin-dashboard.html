@@ -47,7 +47,7 @@
           <div class="tab-pane fade show active" id="productdev" role="tabpanel">
             <div class="row g-3 mb-4">
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="{% url "admin_pd_home" %}" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-light">
                     <h6 class="text-muted">Total Applications</h6>
                     <h3 class="fw-bold text-dark">{{ pd_apps_count|default:"0" }}</h3>
@@ -63,7 +63,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-primary-subtle">
                     <h6 class="text-muted">In Review</h6>
                     <h3 class="fw-bold text-primary">{{ pd_apps_in_review|default:"0" }}</h3>
@@ -71,7 +71,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-secondary-subtle">
                     <h6 class="text-muted">Completed Documentation</h6>
                     <h3 class="fw-bold text-secondary">{{ pd_apps_completed|default:"0" }}</h3>
@@ -79,7 +79,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                <a href="" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-success-subtle">
                     <h6 class="text-muted">Approved</h6>
                     <h3 class="fw-bold text-success">{{ pd_apps_approved|default:"0" }}</h3>
@@ -87,7 +87,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-danger-subtle">
                     <h6 class="text-muted">Rejected</h6>
                     <h3 class="fw-bold text-danger">{{ pd_apps_rejected|default:"0" }}</h3>
@@ -101,7 +101,7 @@
           <div class="tab-pane fade" id="dehydration" role="tabpanel">
             <div class="row g-3 mb-4">
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-light">
                     <h6 class="text-muted">Total Applications</h6>
                     <h3 class="fw-bold text-dark">{{ dehydration_apps_count|default:"0" }}</h3>
@@ -117,7 +117,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-primary-subtle">
                     <h6 class="text-muted">In Review</h6>
                     <h3 class="fw-bold text-primary">{{ dehydration_apps_in_review|default:"0" }}</h3>
@@ -125,7 +125,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-secondary-subtle">
                     <h6 class="text-muted">Completed Documentation</h6>
                     <h3 class="fw-bold text-secondary">{{ deyhdration_apps_completed|default:"0" }}</h3>
@@ -133,7 +133,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-success-subtle">
                     <h6 class="text-muted">Approved</h6>
                     <h3 class="fw-bold text-success">{{ deyhdration_apps_approved|default:"0" }}</h3>
@@ -141,7 +141,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-danger-subtle">
                     <h6 class="text-muted">Rejected</h6>
                     <h3 class="fw-bold text-danger">{{ deyhdration_apps_rejected|default:"0" }}</h3>
@@ -155,7 +155,7 @@
           <div class="tab-pane fade" id="business" role="tabpanel">
             <div class="row g-3 mb-4">
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-light">
                     <h6>Total Applications</h6>
                     <h3 class="fs-4 fw-bold text-primary">{{ business_cert_total_count|default:"0" }}</h3>
@@ -171,7 +171,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-primary-subtlecard shadow-sm border-0 text-center p-3 bg-primary-subtle">
                     <h6>In Review</h6>
                     <h3 class="fs-4 fw-bold text-warning">{{ business_cert_in_review_count|default:"0" }}</h3>
@@ -179,7 +179,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-secondary-subtle">
                     <h6>Completed Documentation</h6>
                     <h3 class="fs-4 fw-bold text-success">{{ business_cert_completed_count|default:"0" }}</h3>
@@ -187,7 +187,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-success-subtle">
                     <h6 class="text-muted">Approved</h6>
                     <h3 class="fw-bold text-success">{{ business_cert_approved|default:"0" }}</h3>
@@ -195,7 +195,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-danger-subtle">
                     <h6 class="text-muted">Rejected</h6>
                     <h3 class="fw-bold text-danger">{{ business_cert_rejected|default:"0" }}</h3>
@@ -209,7 +209,7 @@
           <div class="tab-pane fade show" id="consultation" role="tabpanel">
             <div class="row g-3 mb-4">
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-light">
                     <h6>Total Applications</h6>
                     <h3 class="fs-4 fw-bold text-primary">{{ product_total_count|default:"0" }}</h3>
@@ -225,7 +225,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-primary-subtle">
                     <h6>In Review</h6>
                     <h3 class="fs-4 fw-bold text-warning">{{ consultation_apps_in_review|default:"0" }}</h3>
@@ -233,7 +233,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-secondary-subtle">
                     <h6>Completed Documentation</h6>
                     <h3 class="fs-4 fw-bold text-success">{{ consultation_apps_completed|default:"0" }}</h3>
@@ -241,7 +241,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-success-subtle">
                     <h6 class="text-muted">Approved</h6>
                     <h3 class="fw-bold text-success">{{ consultation_apps_approved|default:"0" }}</h3>
@@ -249,7 +249,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-danger-subtle">
                     <h6 class="text-muted">Rejected</h6>
                     <h3 class="fw-bold text-danger">{{ consultation_apps_rejected|default:"0" }}</h3>
@@ -263,7 +263,7 @@
           <div class="tab-pane fade" id="packaging" role="tabpanel">
             <div class="row g-3 mb-4">
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-light">
                     <h6>Total Applications</h6>
                     <h3 class="fs-4 fw-bold text-primary">{{ packaging_apps_count|default:"0" }}</h3>
@@ -279,7 +279,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-primary-subtle">
                     <h6>In Review</h6>
                     <h3 class="fs-4 fw-bold text-warning">{{ packaging_apps_in_review|default:"0" }}</h3>
@@ -287,7 +287,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-secondary-subtle">
                     <h6>Completed Documentation</h6>
                     <h3 class="fs-4 fw-bold text-success">{{ packaging_apps_completed|default:"0" }}</h3>
@@ -295,7 +295,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-success-subtle">
                     <h6 class="text-muted">Approved</h6>
                     <h3 class="fw-bold text-success">{{ packaging_apps_approved|default:"0" }}</h3>
@@ -303,7 +303,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-danger-subtle">
                     <h6 class="text-muted">Rejected</h6>
                     <h3 class="fw-bold text-danger">{{ packaging_apps_rejected|default:"0" }}</h3>
@@ -317,7 +317,7 @@
           <div class="tab-pane fade" id="machinery" role="tabpanel">
             <div class="row g-3 mb-4">
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-light">
                     <h6>Total Applications</h6>
                     <h3 class="fs-4 fw-bold text-primary">{{ machinery_apps_count|default:"0" }}</h3>
@@ -333,7 +333,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-primary-subtle">
                     <h6>In Review</h6>
                     <h3 class="fs-4 fw-bold text-warning">{{ machinery_apps_in_review|default:"0" }}</h3>
@@ -341,7 +341,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-secondary-subtle">
                     <h6>Completed Documentation</h6>
                     <h3 class="fs-4 fw-bold text-success">{{ machinery_apps_completed|default:"0" }}</h3>
@@ -349,7 +349,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-success-subtle">
                     <h6 class="text-muted">Approved</h6>
                     <h3 class="fw-bold text-success">{{ machinery_apps_approved|default:"0" }}</h3>
@@ -357,7 +357,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-danger-subtle">
                     <h6 class="text-muted">Rejected</h6>
                     <h3 class="fw-bold text-danger">{{ machinery_apps_rejected|default:"0" }}</h3>
@@ -371,7 +371,7 @@
           <div class="tab-pane fade show" id="training" role="tabpanel">
             <div class="row g-3 mb-4">
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-light">
                     <h6>Total Applications</h6>
                     <h3 class="fs-4 fw-bold text-primary">{{ training_apps_count|default:"0" }}</h3>
@@ -387,7 +387,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-primary-subtle">
                     <h6>In Review</h6>
                     <h3 class="fs-4 fw-bold text-warning">{{ training_apps_in_review|default:"0" }}</h3>
@@ -395,7 +395,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-secondary-subtle">
                     <h6>Completed Documentation</h6>
                     <h3 class="fs-4 fw-bold text-success">{{ training_apps_completed|default:"0" }}</h3>
@@ -403,7 +403,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-success-subtle">
                     <h6 class="text-muted">Approved</h6>
                     <h3 class="fw-bold text-success">{{ training_apps_approved|default:"0" }}</h3>
@@ -411,7 +411,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-danger-subtle">
                     <h6 class="text-muted">Rejected</h6>
                     <h3 class="fw-bold text-danger">{{ training_apps_rejected|default:"0" }}</h3>
@@ -425,7 +425,7 @@
           <div class="tab-pane fade show" id="contract" role="tabpanel">
             <div class="row g-3 mb-4">
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-light">
                     <h6>Total Applications</h6>
                     <h3 class="fs-4 fw-bold text-primary">{{ contract_apps_count|default:"0" }}</h3>
@@ -441,7 +441,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-primary-subtle">
                     <h6>In Review</h6>
                     <h3 class="fs-4 fw-bold text-warning">{{ contract_apps_in_review|default:"0" }}</h3>
@@ -449,7 +449,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-secondary-subtle">
                     <h6>Completed Documentation</h6>
                     <h3 class="fs-4 fw-bold text-success">{{ contract_apps_completed|default:"0" }}</h3>
@@ -457,7 +457,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=2" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-success-subtle">
                     <h6 class="text-muted">Approved</h6>
                     <h3 class="fw-bold text-success">{{ contract_apps_approved|default:"0" }}</h3>
@@ -465,7 +465,7 @@
                 </a>
               </div>
               <div class="col-md-3">
-                <a href="application-detail.html?id=3" class="text-decoration-none text-dark">
+                <a href="#" class="text-decoration-none text-dark">
                   <div class="card shadow-sm border-0 text-center p-3 bg-danger-subtle">
                     <h6 class="text-muted">Rejected</h6>
                     <h3 class="fw-bold text-danger">{{ contract_apps_rejected|default:"0" }}</h3>

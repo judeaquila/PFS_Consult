@@ -8,9 +8,13 @@
 
 {% block content %}
 <main class="main-content" id="mainContent">
+  <div class="mb-4 text-start">
+      <a href="{% url 'user-dashboard' %}" class="btn btn-sm btn-outline-secondary">
+          <i class="bi bi-arrow-left"></i> Back
+      </a>
+  </div>
         <h2 class="fw-bold mb-4 mt-2">Product Development</h2>
         <p class="lead">Work with our development team to transform your idea into a viable, market-ready product.</p>
-    </div>
 
     <!-- Search and Filter -->
     <form method="get" class="row g-2 mb-4">
