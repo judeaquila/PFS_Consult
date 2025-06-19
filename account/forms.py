@@ -6,14 +6,14 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
         fields = [
-            'username', 'email', 'first_name', 'last_name',
+            'email', 'username', 'first_name', 'last_name',
             'phone_number', 'whatsapp_number', 'instagram_handle',
             'facebook_handle', 'business_name'
         ]
 
         help_texts = {
-            'phone_number': 'Include the country code (e.g., +233...).',
-            'whatsapp_number': 'Include the country code (e.g., +233...).',
+            'phone_number': 'Include the country code (e.g., 233...).',
+            'whatsapp_number': 'Include the country code (e.g., 233...).',
             'instagram_handle': 'Your Instagram username (without @).',
             'facebook_handle': 'Your Facebook profile or page handle.',
             'business_name': 'Enter N/A if you do not have one yet.',

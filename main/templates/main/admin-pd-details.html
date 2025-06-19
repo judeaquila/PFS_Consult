@@ -1,0 +1,165 @@
+{% extends "main/admin-base.html" %}
+{% block title %}Application ID {{ pd_app.custom_id }} - Product Development Details{%endblock title %}
+{% load status_tags %}
+{% load display_tags %}
+{% load humanize %}
+{% block content %}
+<main class="main-content" id="mainContent">
+    <a href="{% url 'admin_pd_home' %}" class="btn btn-outline-secondary mb-3">
+      &larr; Back to Applications
+    </a>
+
+    <h2 class="mb-2">
+      <strong>Application ID:</strong> {{ pd_app.custom_id }}
+    </h2>
+
+    <div class="d-flex flex-wrap align-items-center gap-3 mb-4">
+      <!-- Application Status Badge -->
+      <div>
+        <strong>Status:</strong>
+        <span
+          class="badge bg-{{ pd_app.application_status|status_badge_class }}"
+        >
+          {{ pd_app.get_application_status_display|title }}
+        </span>
+      </div>
+
+      <!-- Payment Badge / Button -->
+      <div>
+        <strong>Payment Status:</strong>
+        {% if pd_app.payment_status == 'unpaid' %}
+        <a
+        href="https://wa.me/{{ pd_app.user.whatsapp_number|default:pd_app.user.phone_number }}?text=Hello%2C%20{{ pd_app.user.first_name }}.%20This%20is%20a%20reminder%20that%20payment%20for%20your%20product%20development%20application%20(ID%3A%20{{ pd_app.custom_id }})%20submitted%20to%20PFS%20{{ pd_app.submitted_at|naturaltime }}%20is%20still%20pending.%20Kindly%20make%20payment%20to%20proceed.%20Thank%20you."
+        target="_blank"
+        class="badge bg-danger text-decoration-none"
+        >
+        Unpaid – WhatsApp to Prompt
+        </a>
+        {% else %}
+        <span class="badge bg-success">Paid</span>
+        {% endif %}
+      </div>
+
+      <!-- Submission Dates -->
+      <div class="text-muted small">
+        Submitted: {{ pd_app.submitted_at|naturaltime }} | Last Updated: {{ pd_app.updated_at|naturaltime }}
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-end gap-2 mb-4 no-print">
+        <button onclick="window.print()" class="btn btn-outline-secondary">
+            <i class="bi bi-printer"></i> Print
+        </button>
+        <a href="{% url 'download_pd_pdf' pd_app.pk %}" class="btn btn-outline-danger">
+            <i class="bi bi-file-earmark-pdf"></i> Download PDF
+        </a>
+        <a href="https://wa.me/{{ pd_app.user.whatsapp_number|default:pd_app.user.phone_number }}?text=Hello%2C%20{{ pd_app.user.first_name }}.%20My%20name%20is%20{{ request.user.first_name|default:request.user.username }}.%20I%20have%20a%20comment%20concerning%20your%20product%20development%20application%20(ID%3A%20{{ pd_app.custom_id }})%20submitted%20to%20PFS%20{{ pd_app.submitted_at|naturaltime }}."
+  target="_blank" class="btn btn-outline-success">
+            <i class="bi bi-whatsapp"></i> Leave a Comment
+        </a>
+    </div>
+
+    <!-- Product Overview -->
+    <div class="card mb-4">
+      <div class="card-header bg-primary text-white">Product Overview</div>
+      <div class="card-body">
+        <p><strong>Product Name:</strong> {{ pd_app.product_name }}</p>
+        <p><strong>Product Type:</strong> {{ pd_app.type_of_product }}</p>
+        <p>
+          <strong>New or Improvement:</strong> {{ pd_app.get_is_new_or_improvement_display }}
+        </p>
+        <p>
+          <strong>Expected Launch Date:</strong> {{ pd_app.expected_launch_date }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Goals and Target Market -->
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header bg-secondary text-white">Goals</div>
+          <div class="card-body">
+            <ul>
+              {% for goal in pd_app.goals %}
+              <li>{{ goal|label_from_choices:GOAL_CHOICES }}</li>
+              {% endfor %}
+            </ul>
+            {% if pd_app.other_goal %}
+            <p><strong>Other Goal:</strong> {{ pd_app.other_goal }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header bg-secondary text-white">Target Market</div>
+          <div class="card-body">
+            <ul>
+              {% for market in pd_app.target_market %}
+              <li>{{ market|label_from_choices:TARGET_MARKET_CHOICES }}</li>
+              {% endfor %}
+            </ul>
+            {% if pd_app.other_target_market %}
+            <p>
+              <strong>Other Market:</strong> {{ pd_app.other_target_market }}
+            </p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Packaging and Ingredients -->
+    <div class="card mb-4">
+      <div class="card-header bg-info text-white">
+        Product &amp; Packaging Details
+      </div>
+      <div class="card-body">
+        <p>
+          <strong>Dietary Notes:</strong> {{ pd_app.ingredient_or_dietary_notes }}
+        </p>
+        <p>
+          <strong>Packaging Style:</strong>
+          {% for pack_style in pd_app.packaging_style %}
+            {{ pack_style|label_from_choices:PACKAGING_CHOICES }}
+            {% if not forloop.last %}, {% endif %}
+          {% endfor %}
+        </p>
+        {% if product.custom_packaging %}
+        <p><strong>Custom Packaging:</strong> {{ pd_app.custom_packaging }}</p>
+        {% endif %}
+        <p>
+          <strong>Similar Products on Market?</strong> {{ pd_app.get_market_existence_display }}
+        </p>
+        <p>
+          <strong>Market Testing Feedback:</strong> {{ pd_app.get_market_testing_feedback_display }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Status -->
+    <div class="card mb-4">
+      <div class="card-header bg-dark text-white">Application Status</div>
+      <div class="card-body">
+        <p>
+          <strong>Status:</strong>
+          <span
+            class="badge bg-{{ pd_app.application_status|status_badge_class }}"
+          >
+            {{ pd_app.get_application_status_display|title }}
+          </span>
+        </p>
+        <p>
+          <strong>Payment Status:</strong>
+          <span class="badge bg-{{ app.payment_status|payment_badge_class }}">
+            {{ pd_app.get_payment_status_display|title }}
+          </span>
+        </p>
+        <p><strong>Submitted:</strong> {{ pd_app.submitted_at }}</p>
+        <p><strong>Last Updated:</strong> {{ pd_app.updated_at }}</p>
+      </div>
+    </div>
+</main>
+{% endblock content %}
