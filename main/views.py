@@ -4,6 +4,8 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.contrib.auth.decorators import user_passes_test
 from account.models import CustomUser, FDAApplication, BusinessCertificateApplication, FDAFoodRequirement
+from .models import FAQ
+from .forms import FAQForm
 from services.models import ProductIntake
 from account.forms import FDAApplicationForm, BusinessCertificateForm, CustomUserUpdateForm
 from itertools import chain
@@ -11,6 +13,10 @@ from django.contrib import messages
 
 # Home Page
 def home(request):
+    faqs = FAQ.objects.all()
+    context = {
+        'faqs': faqs,
+    }
     # Prevent logged in users from accessing home page
     if request.user.is_authenticated:
         if request.user.is_superuser or request.user.is_staff:
@@ -18,7 +24,7 @@ def home(request):
         else:
             return redirect('user-dashboard')
         
-    return render(request, 'main/index.html')
+    return render(request, 'main/index.html', context)
 
 # FDA Services Page
 def fda_services(request):
@@ -156,6 +162,60 @@ def admin_dashboard(request):
 
     return render(request, 'main/admin-dashboard.html', context)
 
+
+# FAQs
+@user_passes_test(lambda u: u.is_staff or u.is_superuser)
+def faq_list(request):
+    faqs = FAQ.objects.all()
+    context = {
+        'faqs': faqs,
+    }
+    return render(request, 'main/faqs_list.html', context)
+
+
+@user_passes_test(lambda u: u.is_staff or u.is_superuser)
+def faq_add(request):
+    if request.method == 'POST':
+        form = FAQForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Successfully added a FAQ!')
+            return redirect('admin-faq-list')
+    else:
+        form = FAQForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'main/faq_form.html', context)
+
+
+@user_passes_test(lambda u: u.is_staff or u.is_superuser)
+def faq_edit(request, pk):
+    faq = get_object_or_404(FAQ, pk=pk)
+    if request.method == 'POST':
+        form = FAQForm(request.POST, instance=faq)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'FAQ edited successfully!')
+            return redirect('admin-faq-list')
+    else:
+        form = FAQForm(instance=faq)
+    context = {
+        'form': form,
+    }
+    return render(request, 'main/faq_edit.html', context)
+
+
+@user_passes_test(lambda u: u.is_staff or u.is_superuser)
+def faq_delete(request, pk):
+    faq = get_object_or_404(FAQ, pk=pk)
+    faq.delete()
+    return redirect('admin-faq-list')
+
+
+# SETTINGS
+def admin_settings(request):
+    return render(request, 'main/admin-settings.html')
 
 # BUSINESS CERTIFICATE APPLICATIONS
 @user_passes_test(lambda u: u.is_staff or u.is_superuser)

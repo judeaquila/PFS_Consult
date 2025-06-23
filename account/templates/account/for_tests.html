@@ -1,64 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>FDA Documentation - Requirements</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Admin Settings</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-<div class="container mt-4">
-  <h2 class="fw-bold mb-1">FDA Food/Herbal/Pharmaceutical Submissions</h2>
-  <p class="text-muted mb-4">Review checklist submissions for food, herbal, and pharmaceutical product registration.</p>
+<body class="bg-light">
 
-  <div class="table-responsive">
-    <table class="table mb-0 align-middle">
-      <thead class="table-light">
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Submitted By</th>
-          <th scope="col">Company Name</th>
-          <th scope="col">Email Address</th>
-          <th scope="col">Food Handlers Card</th>
-          <th scope="col">Product Lab Test</th>
-          <th scope="col">Product Label</th>
-          <th scope="col">Business Certificate</th>
-          <th scope="col">Product Pictures</th>
-          <th scope="col">Product Samples</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Example row: Loop through submissions -->
-        <tr>
-          <td>1</td>
-          <td>Jane Doe</td>
-          <td>Green Roots Ltd.</td>
-          <td>jane@example.com</td>
-          <td>Yes</td>
-          <td>I need help from PFS</td>
-          <td>Yes</td>
-          <td>Yes</td>
-          <td>No</td>
-          <td>Yes</td>
-          <td>
-            <div class="btn-group" role="group">
-              <a href="#" class="btn btn-sm btn-outline-primary" title="View"><i class="bi bi-eye"></i></a>
-              <a href="#" class="btn btn-sm btn-outline-warning" title="Edit"><i class="bi bi-pencil-square"></i></a>
-              <a href="#" class="btn btn-sm btn-outline-danger" title="Delete"><i class="bi bi-trash"></i></a>
-              <a href="https://wa.me/233XXXXXXXXX" target="_blank" class="btn btn-sm btn-outline-success" title="Send WhatsApp Message">
-                <i class="bi bi-whatsapp"></i>
-              </a>
+<div class="container py-5">
+    <h1 class="mb-4">Admin Settings Dashboard</h1>
+
+    <div class="row g-4">
+        <!-- Site Info Card -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Site Information</h5>
+                    <p class="card-text">Update your site title, contact email, or branding.</p>
+                    <a href="/admin/site-settings/" class="btn btn-outline-primary btn-sm">Manage Site Info</a>
+                </div>
             </div>
-          </td>
-        </tr>
-        <!-- End loop -->
-      </tbody>
-    </table>
-  </div>
+        </div>
+
+        <!-- User Management Card -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">User Management</h5>
+                    <p class="card-text">Manage staff accounts, roles, and access levels.</p>
+                    <a href="/admin/users/" class="btn btn-outline-primary btn-sm">Manage Users</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Management Card -->
+        <div class="col-md-6">
+            <div class="card shadow-sm border-success">
+                <div class="card-body">
+                    <h5 class="card-title text-success">FAQs</h5>
+                    <p class="card-text">Add, edit, or remove Frequently Asked Questions shown on the public site.</p>
+                    <a href="/admin/faqs/" class="btn btn-success btn-sm">View All FAQs</a>
+                    <a href="/admin/faqs/add/" class="btn btn-outline-success btn-sm">Add New FAQ</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Blocks Card -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Content Blocks</h5>
+                    <p class="card-text">Edit homepage text, About Us, or footer content.</p>
+                    <a href="/admin/content-blocks/" class="btn btn-outline-primary btn-sm">Manage Content</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics & Integrations -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Analytics & Integrations</h5>
+                    <p class="card-text">Manage Google Analytics, Facebook Pixel, or other third-party tools.</p>
+                    <a href="/admin/integrations/" class="btn btn-outline-primary btn-sm">Manage Integrations</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Quick Actions</h5>
+                    <p class="card-text">Perform quick tasks like clearing cache or enabling maintenance mode.</p>
+                    <a href="/admin/tools/cache-clear/" class="btn btn-warning btn-sm">Clear Cache</a>
+                    <a href="/admin/tools/maintenance-toggle/" class="btn btn-outline-warning btn-sm">Toggle Maintenance</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

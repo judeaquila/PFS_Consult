@@ -1,0 +1,29 @@
+{% extends "main/admin-base.html" %}
+
+{% load static %}
+
+{% block title %}Frequently Asked Questions Form{% endblock title %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<!-- Main Content -->
+<main class="main-content">
+    <div class="mb-4 text-start">
+        <a href="{% url 'admin-settings' %}" class="btn btn-sm btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Back
+        </a>
+    </div>
+    <h2>FAQ Form</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <button type="submit" class="btn btn-success">Save</button>
+        <a href="{% url 'admin-faq-list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</main>
+{% endblock %}
+
+{% block scripts %}
+    {{ form.media }}
+{% endblock %}

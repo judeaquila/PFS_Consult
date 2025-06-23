@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import home, fda_services, other_services, login_redirect, admin_dashboard, admin_business_cert_application_details, admin_fda_product_application_details, edit_admin_business_cert_application_details, edit_admin_fda_product_application_details, change_business_cert_application_status, change_fda_product_application_status, manage_users, add_user, edit_user, delete_user, toggle_user_active, admin_pd_home, admin_pd_details, download_pd_pdf, admin_pd_app_status_change, admin_pd_payment_status_change, admin_pd_delete, fda_food_checklist
+from .views import home, fda_services, other_services, login_redirect, admin_dashboard, admin_business_cert_application_details, admin_fda_product_application_details, edit_admin_business_cert_application_details, edit_admin_fda_product_application_details, change_business_cert_application_status, change_fda_product_application_status, manage_users, add_user, edit_user, delete_user, toggle_user_active, admin_pd_home, admin_pd_details, download_pd_pdf, admin_pd_app_status_change, admin_pd_payment_status_change, admin_pd_delete, fda_food_checklist, faq_list, faq_add, faq_edit, faq_delete, admin_settings
 
 urlpatterns = [
     path('', home, name='home'),
@@ -9,6 +9,13 @@ urlpatterns = [
 
     # Admin Dashboard
     path('dashboard/admin/', admin_dashboard, name='admin-dashboard'),
+    path('dashboard/admin/settings/', admin_settings, name='admin-settings'),
+
+    # FAQs
+    path('dashboard/admin/faqs/', faq_list, name='admin-faq-list'),
+    path('dashboard/admin/faqs/add/', faq_add, name='admin-faq-add'),
+    path('dashboard/admin/faqs/edit/<int:pk>/', faq_edit, name='admin-faq-edit'),
+    path('dashboard/admin/faqs/delete/<int:pk>/', faq_delete, name='admin-faq-delete'),
 
     # Business Certificate
     path('dashboard/admin/business_cert_application_details/<int:pk>/', admin_business_cert_application_details, name='admin-business-cert-application-details'),
