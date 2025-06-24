@@ -13,7 +13,7 @@ from django.contrib import messages
 
 # Home Page
 def home(request):
-    faqs = FAQ.objects.all()
+    faqs = FAQ.objects.filter(is_active=True)
     context = {
         'faqs': faqs,
     }
@@ -210,6 +210,16 @@ def faq_edit(request, pk):
 def faq_delete(request, pk):
     faq = get_object_or_404(FAQ, pk=pk)
     faq.delete()
+    return redirect('admin-faq-list')
+
+
+@user_passes_test(lambda u: u.is_staff or u.is_superuser)
+def toggle_faq_active(request, pk):
+    faq = get_object_or_404(FAQ, id=pk)
+    faq.is_active = not faq.is_active
+    faq.save()
+    state = "activated" if faq.is_active else "deactivated"
+    messages.success(request, f'FAQ {state} successfully.')
     return redirect('admin-faq-list')
 
 
@@ -426,6 +436,19 @@ def change_business_cert_application_status(request, pk, new_status):
 
 
 # 2. FDA PRODUCT APPLICATION
+@user_passes_test(lambda u: u.is_staff or u.is_superuser)
+def admin_fda_product_application_home(request):
+    fda_prod_apps = FDAApplication.objects.all().order_by('-submitted_at')
+    query = request.GET.get('q') or ''
+    if query:
+        fda_prod_apps = fda_prod_apps.filter(custom_id__icontains=query)
+    context = {
+        'fda_prod_apps': fda_prod_apps,
+        'query': query,
+    }
+    return render(request, 'main/admin-fda-product-application-home.html', context)
+
+
 @user_passes_test(lambda u: u.is_staff or u.is_superuser)
 def edit_admin_fda_product_application_details(request, pk):
     fda_product_application = get_object_or_404(FDAApplication, id=pk)

@@ -1,6 +1,6 @@
 {% extends "main/admin-base.html" %}
 {% block title %}Application ID {{ pd_app.custom_id }} - Product Development Details{%endblock title %}
-{% load status_tags %}
+{% load service_status_tags %}
 {% load display_tags %}
 {% load humanize %}
 {% block content %}
@@ -153,7 +153,7 @@
         </p>
         <p>
           <strong>Payment Status:</strong>
-          <span class="badge bg-{{ app.payment_status|payment_badge_class }}">
+          <span class="badge bg-{{ pd_app.payment_status|payment_badge_class }}">
             {{ pd_app.get_payment_status_display|title }}
           </span>
         </p>

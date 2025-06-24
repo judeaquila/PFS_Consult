@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from services.utils import generate_custom_id
 
 # Custom User
 class CustomUser(AbstractUser):
@@ -52,6 +53,51 @@ class FDAFoodRequirement(models.Model):
         return f"FDA Requirements for {self.user.first_name} - {self.submitted_at.strftime('%Y-%m-%d')}"
     
 
+class FDAEateriesRequirement(models.Model):
+    HELP_CHOICES = [
+        ('have', 'I have this'),
+        ('need_help', 'I need help from PFS'),
+    ]
+
+    YES_NO_CHOICES = [
+        ('yes', 'Yes'),
+        ('no', 'No'),
+    ]
+
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='fda_eateries_requirements')
+    submitted_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    food_handlers_card = models.CharField(max_length=10, default='', choices=YES_NO_CHOICES, verbose_name="Food Handler's Card")
+    list_of_recipes = models.CharField(max_length=10, default='', choices=YES_NO_CHOICES, verbose_name='List of Recipes')
+    recipe_preparation_steps = models.CharField(max_length=10, default='', choices=HELP_CHOICES, verbose_name="Recipe Preparation Steps")
+    business_certificate = models.CharField(max_length=10, default='', choices=HELP_CHOICES, verbose_name='Business Certificate')
+
+    def __str__(self):
+        return f"FDA Requirements for {self.user.first_name} - {self.submitted_at.strftime('%Y-%m-%d')}"
+    
+
+class FDACosmeticsRequirement(models.Model):
+    HELP_CHOICES = [
+        ('have', 'I have this'),
+        ('need_help', 'I need help from PFS'),
+    ]
+
+    YES_NO_CHOICES = [
+        ('yes', 'Yes'),
+        ('no', 'No'),
+    ]
+
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='fda_cosmetics_requirements')
+    submitted_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    product_label = models.CharField(max_length=10, default='', choices=HELP_CHOICES, verbose_name='Product Label')
+    business_certificate = models.CharField(max_length=10, default='', choices=HELP_CHOICES, verbose_name='Business Certificate')
+    product_pictures = models.CharField(max_length=10, default='', choices=YES_NO_CHOICES, verbose_name='I have Product Pictures')
+    product_samples = models.CharField(max_length=10, default='', choices=YES_NO_CHOICES, verbose_name='I have Product Samples')    
+    
+
 # New FDA Application
 class FDAApplication(models.Model):
     STATUS_CHOICES = [
@@ -62,23 +108,36 @@ class FDAApplication(models.Model):
         ('rejected', 'Rejected'),
     ]
 
+    PAYMENT_CHOICES = [
+        ('paid', 'Paid'),
+        ('unpaid', 'Unpaid'),
+    ]
+
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='fda_applications')
+    custom_id = models.CharField(max_length=30, unique=True, blank=True)
     business_certificate = models.FileField(upload_to='fda/business_certificates/')
     business_name = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
     products = models.TextField()
     logo = models.ImageField(upload_to='fda/logos/', null=True, blank=True)
-    lab_results = models.FileField(upload_to='fda/lab_results/', null=True, blank=True)
+    # lab_results = models.FileField(upload_to='fda/lab_results/', null=True, blank=True)
     product_labels = models.FileField(upload_to='fda/product_labels/', null=True, blank=True)
-    food_handler_cert = models.FileField(upload_to='fda/food_handler_certs/', null=True, blank=True)
+    food_handlers_card = models.FileField(upload_to='fda/food_handler_certs/', null=True, blank=True)
     process_description = models.TextField(null=True, blank=True)
     voice_note = models.FileField(upload_to='fda/voice_notes/', null=True, blank=True)
-    facility_video = models.FileField(upload_to='fda/facility_videos/', null=True, blank=True)
-    items_equipment = models.TextField()
-    staff_roles = models.TextField()
+    # facility_video = models.FileField(upload_to='fda/facility_videos/', null=True, blank=True)
+    # items_equipment = models.TextField()
+    # staff_roles = models.TextField()
+
     application_status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='pending')
     submitted_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    payment_status = models.CharField(max_length=10, choices=PAYMENT_CHOICES, default='unpaid')
+
+    def save(self, *args, **kwargs):
+        if not self.custom_id:
+            self.custom_id = generate_custom_id('FDA-Prod')
+        super().save(*args, **kwargs)
 
 
     def __str__(self):
@@ -107,6 +166,11 @@ class BusinessCertificateApplication(models.Model):
         ('non_governmental_organization', 'Non-Governmental Organization'),
         ('limited_liability_company', 'Limited Liability Company'),
     ]
+
+    PAYMENT_CHOICES = [
+        ('paid', 'Paid'),
+        ('unpaid', 'Unpaid'),
+    ]
         
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, )
     full_name = models.CharField(max_length=100)
@@ -118,7 +182,7 @@ class BusinessCertificateApplication(models.Model):
     contact_number_one = models.CharField(max_length=15)
     contact_number_two = models.CharField(max_length=15, blank=True, null=True)
     email = models.EmailField(max_length=100)
-
+    custom_id = models.CharField(max_length=30, unique=True, blank=True)
     business_name = models.CharField(max_length=100)
     nature_of_business = models.CharField(max_length=100)
     type_of_business = models.CharField(max_length=100, choices=BUSINESS_TYPE_CHOICES)
@@ -132,8 +196,14 @@ class BusinessCertificateApplication(models.Model):
     ghana_card_number = models.CharField(max_length=100)
     tin_number = models.CharField(max_length=100)
     application_status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='pending')
+    payment_status = models.CharField(max_length=10, choices=PAYMENT_CHOICES, default='unpaid')
     submitted_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+            if not self.custom_id:
+                self.custom_id = generate_custom_id('BZ-Cert')
+            super().save(*args, **kwargs)
 
 
     def __str__(self):

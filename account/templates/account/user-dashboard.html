@@ -441,7 +441,7 @@
             <tbody>
               {% for fda_application in all_fda_applications %}
               <tr>
-                <td>#APP001</td>
+                <td>{{ fda_application.custom_id }}</td>
                 <td>{{ fda_application.business_name }}</td>
                 <td>
                   {% if fda_application.application_status == 'pending' %}
@@ -495,7 +495,7 @@
             <tbody>
               {% for business_cert_application in all_business_cert_applications %}
               <tr>
-                <td>#APP001</td>
+                <td>{{ business_cert_application.custom_id }}</td>
                 <td>{{ business_cert_application.business_name }}</td>
                 <td>
                   {% if business_cert_application.application_status == 'pending' %}

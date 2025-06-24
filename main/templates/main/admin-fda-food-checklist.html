@@ -37,7 +37,6 @@
         <tr>
           <th>#</th>
           <th>Submitted By</th>
-          <th>Company Name</th>
           <th>Email Address</th>
           <th>Food Handlers Card</th>
           <th>Product Lab Test</th>
@@ -57,10 +56,9 @@
                   <img src="{% if item.user.profile_photo %}{{ item.user.profile_photo.url }}{% else %}https://ui-avatars.com/api/?name={{ item.user.first_name }}+{{ item.user.last_name }}&background=0D8ABC&color=fff&size=40{% endif %}"
                       alt="Profile" class="rounded-circle me-2"
                       style="width: 40px; height: 40px; object-fit: cover;">
-                  <span>{{ item.user.first_name }} {{ item.user.last_name }}</span>
+                  <span>{{ item.user.first_name }} - {{ item.user.business_name }}</span>
               </div>
           </td>
-          <td>{{ item.user.business_name }}</td>
           <td>{{ item.user.email }}</td>
           <td>{{ item.get_food_handlers_card_display }}</td>
           <td>{{ item.get_product_lab_test_display }}</td>

@@ -14,14 +14,14 @@
         <p class="lead">Please confirm what you have ready for your Food / Herbal / Pharmaceutical application. You can also request assistance from PFS where needed.</p>
     </div>
 
-    <form method="post">
+    <form method="POST">
         {% csrf_token %}
 
         <!-- 1. Food Handlers Card -->
         <div class="card mb-4">
             <div class="card-header fw-bold">1. Food Handlers Card</div>
             <div class="card-body">
-            <p class="mb-2">Obtainable from your district assembly (go with a passport photo).</p>
+            <p class="mb-2">Obtainable from your district assembly (Go with a passport photo).</p>
             {% for choice in form.food_handlers_card %}
                 <div class="form-check form-check-inline">
                 {{ choice.tag }}
@@ -49,7 +49,7 @@
         <div class="card mb-4">
             <div class="card-header fw-bold">3. Product Label</div>
             <div class="card-body">
-            <p class="mb-2">Design and compliance can be handled by PFS.</p>
+            <p class="mb-2">Must include product name, ingredients, instructions, and manufacturer details. PFS can assist with label creation.</p>
             {% for choice in form.product_label %}
                 <div class="form-check form-check-inline">
                 {{ choice.tag }}
@@ -63,7 +63,7 @@
         <div class="card mb-4">
             <div class="card-header fw-bold">4. Product Pictures</div>
             <div class="card-body">
-            <p class="mb-2">High-quality images of your product are required.</p>
+            <p class="mb-2">Clear images of the actual product packaging and presentation. High-quality images are required.</p>
             {% for choice in form.product_pictures %}
                 <div class="form-check form-check-inline">
                 {{ choice.tag }}
@@ -77,7 +77,7 @@
         <div class="card mb-4">
             <div class="card-header fw-bold">5. Business Certificate</div>
             <div class="card-body">
-            <p class="mb-2">This can be acquired through PFS if you don’t have one.</p>
+            <p class="mb-2">A valid business registration certificate is required. PFS can assist with this.</p>
             {% for choice in form.business_certificate %}
                 <div class="form-check form-check-inline">
                 {{ choice.tag }}
@@ -91,7 +91,7 @@
         <div class="card mb-4">
             <div class="card-header fw-bold">6. Product Samples</div>
             <div class="card-body">
-            <p class="mb-2">Bring the product exactly as you intend to sell it (packaging, quantity, etc.).</p>
+            <p class="mb-2">You will be required to submit the product exactly as you intend to sell it (packaging, quantity, etc.).</p>
             {% for choice in form.product_samples %}
                 <div class="form-check form-check-inline">
                 {{ choice.tag }}

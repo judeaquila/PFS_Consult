@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import home, fda_services, other_services, login_redirect, admin_dashboard, admin_business_cert_application_details, admin_fda_product_application_details, edit_admin_business_cert_application_details, edit_admin_fda_product_application_details, change_business_cert_application_status, change_fda_product_application_status, manage_users, add_user, edit_user, delete_user, toggle_user_active, admin_pd_home, admin_pd_details, download_pd_pdf, admin_pd_app_status_change, admin_pd_payment_status_change, admin_pd_delete, fda_food_checklist, faq_list, faq_add, faq_edit, faq_delete, admin_settings
+from .views import home, fda_services, other_services, login_redirect, admin_dashboard, admin_business_cert_application_details, admin_fda_product_application_details, edit_admin_business_cert_application_details, edit_admin_fda_product_application_details, change_business_cert_application_status, change_fda_product_application_status, manage_users, add_user, edit_user, delete_user, toggle_user_active, admin_pd_home, admin_pd_details, download_pd_pdf, admin_pd_app_status_change, admin_pd_payment_status_change, admin_pd_delete, fda_food_checklist, faq_list, faq_add, faq_edit, faq_delete, admin_settings, toggle_faq_active, admin_fda_product_application_home
 
 urlpatterns = [
     path('', home, name='home'),
@@ -16,6 +16,7 @@ urlpatterns = [
     path('dashboard/admin/faqs/add/', faq_add, name='admin-faq-add'),
     path('dashboard/admin/faqs/edit/<int:pk>/', faq_edit, name='admin-faq-edit'),
     path('dashboard/admin/faqs/delete/<int:pk>/', faq_delete, name='admin-faq-delete'),
+    path('dashboard/admin/faqs/<int:pk>/toggle-active/', toggle_faq_active, name='toggle-faq-active'),
 
     # Business Certificate
     path('dashboard/admin/business_cert_application_details/<int:pk>/', admin_business_cert_application_details, name='admin-business-cert-application-details'),
@@ -23,10 +24,11 @@ urlpatterns = [
     path('dashboard/admin/change_business_cert_application_status/<int:pk>/change_status/<str:new_status>/', change_business_cert_application_status, name='admin-change-business-cert-application-status'),
 
     # FDA
-    path('dashboard/admin/fda_food_checklist/', fda_food_checklist, name='fda-food-checklist'),
-    path('dashboard/admin/fda_product_application_details/<int:pk>/', admin_fda_product_application_details, name='admin-fda-product-application-details'),
-    path('dashboard/admin/edit_fda_product_application_details/<int:pk>/', edit_admin_fda_product_application_details, name='admin-edit-fda-product-application-details'),
-    path('dashboard/admin/change_fda_product_application_status/<int:pk>/change_status/<str:new_status>/', change_fda_product_application_status, name='admin-change-fda-product-application-status'),
+    path('dashboard/admin/fda/fda_food_checklist/', fda_food_checklist, name='fda-food-checklist'),
+    path('dashboard/admin/fda/fda_product_applications/', admin_fda_product_application_home, name='admin-fda-product-applications'),
+    path('dashboard/admin/fda/fda_product_application_details/<int:pk>/', admin_fda_product_application_details, name='admin-fda-product-application-details'),
+    path('dashboard/admin/fda/edit_fda_product_application_details/<int:pk>/', edit_admin_fda_product_application_details, name='admin-edit-fda-product-application-details'),
+    path('dashboard/admin/fda/change_fda_product_application_status/<int:pk>/change_status/<str:new_status>/', change_fda_product_application_status, name='admin-change-fda-product-application-status'),
 
     # User Management
     path('dashboard/admin/users/manage', manage_users, name='manage-users'),

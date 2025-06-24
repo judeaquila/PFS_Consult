@@ -1,0 +1,180 @@
+{% extends "main/admin-base.html" %}
+{% block title %}FDA Product Applications{% endblock title %}
+{% load crispy_forms_tags %}
+{% load status_tags %}
+{% load humanize %}
+{% block content %}
+<main class="main-content" id="mainContent">
+  <div class="mb-4 text-start">
+      <a href="{% url 'admin-dashboard' %}" class="btn btn-sm btn-outline-secondary">
+          <i class="bi bi-arrow-left"></i> Back
+      </a>
+  </div>
+    <h2 class="fw-bold mb-4 mt-2">FDA Product Applications</h2>
+    <p class="lead">Review, Approve, and Monitor Application Progress.</p>
+
+  <!-- Search and Filter -->
+  <form method="get" class="row g-2 mb-4">
+    <div class="col-md-6">
+      <input type="text" name="q" class="form-control" placeholder="Search by ID..." value="{{ query }}">
+    </div>
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-primary w-100">
+        <i class="bi bi-search"></i> Search
+      </button>
+    </div>
+    {% if query %}
+      <a href="#" class="btn btn-danger">Clear</a>
+    {% endif %}
+  </form>
+
+  <h5 class="mb-4">Submitted Applications</h5>
+  <hr>
+
+  <!-- Table -->
+  <div class="table-responsive">
+    <table class="table table-striped table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>#</th>
+          <th>Application ID</th>
+          <th>Submitted By</th>
+          <th>Product Name</th>
+          <th>Date Submitted</th>
+          <th>Status</th>
+          <th>Payment Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for fda_prod_app in fda_prod_apps %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ fda_prod_app.custom_id }}</td>
+          <td>{{ fda_prod_app.user.first_name }} - <em>{{ fda_prod_app.user.business_name }}</em></td>
+          <td>{{ fda_prod_app.product_name }}</td>
+          <td>{{ fda_prod_app.submitted_at|date:"Y-m-d H:i"}}</td>
+          <td>
+            <span class="badge bg-{{ fda_prod_app.get_application_status_display|status_badge_class }}">
+              {{ fda_prod_app.get_application_status_display|title }}
+            </span>
+          </td>
+          <td>
+            {% if fda_prod_app.payment_status == 'unpaid' %}
+              <a href="#" class="badge bg-danger text-decoration-none" data-bs-toggle="modal" data-bs-target="#paymentStatusModal{{ fda_prod_app.id }}">
+                {{ fda_prod_app.get_payment_status_display|title }}
+              </a>
+            {% else %}
+              <span class="badge bg-success">{{ fda_prod_app.get_payment_status_display|title }}</span>
+            {% endif %}
+          </td>
+          <td class="d-flex gap-1 flex-wrap">
+            <a href="{% url "admin_pd_details" fda_prod_app.id %}" class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" title="View Details">
+              <i class="bi bi-eye"></i>
+            </a>
+            <a href="#" class="btn btn-outline-warning btn-sm" data-bs-toggle="modal" data-bs-target="#appStatusModal{{ fda_prod_app.id }}" title="Change Application Status">
+              <i class="bi bi-arrow-repeat"></i>
+            </a>
+            <a href="#" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#paymentStatusModal{{ fda_prod_app.id }}" title="Change Payment Status">
+              <i class="bi bi-cash"></i>
+            </a>
+            <a href="https://wa.me/{{ fda_prod_app.user.whatsapp_number|default:fda_prod_app.user.phone_number }}?text=Hello%2C%20{{ fda_prod_app.user.first_name }}.%20My%20name%20is%20{{ request.user.first_name|default:request.user.username }}.%20I%20have%20a%20comment%20concerning%20your%20FDA%20product%20application%20(ID%3A%20{{ fda_prod_app.custom_id }})%20submitted%20to%20PFS%20{{ fda_prod_app.submitted_at|naturaltime }}." 
+               target="_blank" class="btn btn-outline-secondary btn-sm" data-bs-toggle="tooltip" title="Add Comment">
+              <i class="bi bi-chat-left-text"></i>
+            </a>
+            <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ pd_app.id }}" title="Delete">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+
+        <!-- Modal: Application Status -->
+        <div class="modal fade" id="appStatusModal{{ fda_prod_app.id }}" tabindex="-1" aria-labelledby="appStatusModalLabel{{ fda_prod_app.id }}" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <form method="post" action="#">
+                {% csrf_token %}
+                <div class="modal-header">
+                  <h5 class="modal-title" id="appStatusModalLabel{{ fda_prod_app.id }}">Change Application Status</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                  <select name="application_status" class="form-select" required>
+                    <option value="">-- Select Status --</option>
+                    {% for key, label in fda_prod_app.STATUS_CHOICES %}
+                      <option value="{{ key }}" {% if fda_prod_app.application_status == key %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-warning">Update Status</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal: Payment Status -->
+        <div class="modal fade" id="paymentStatusModal{{ fda_prod_app.id }}" tabindex="-1" aria-labelledby="paymentStatusModalLabel{{ fda_prod_app.id }}" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <form method="post" action="#">
+                {% csrf_token %}
+                <div class="modal-header">
+                  <h5 class="modal-title" id="paymentStatusModalLabel{{ fda_prod_app.id }}">Change Payment Status</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                  <select name="payment_status" class="form-select" required>
+                    <option value="">-- Select Status --</option>
+                    {% for key, label in fda_prod_app.PAYMENT_CHOICES %}
+                      <option value="{{ key }}" {% if fda_prod_app.payment_status == key %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-success">Update Payment</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal: Delete -->
+        <div class="modal fade" id="deleteModal{{ fda_prod_app.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ fda_prod_app.id }}" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <form method="post" action="#">
+                {% csrf_token %}
+                <div class="modal-header">
+                  <h5 class="modal-title" id="deleteModalLabel{{ fda_prod_app.id }}">Delete Application</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                  Are you sure you want to delete the application with ID <strong>{{ fda_prod_app.custom_id }}</strong>?
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <tr>
+          <td colspan="11" class="text-center">No submissions found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<!-- Tooltip Activation -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+  tooltipTriggerList.forEach(el => new bootstrap.Tooltip(el))
+</script>
+
+{% endblock content %}

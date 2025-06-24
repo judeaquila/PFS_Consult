@@ -4,7 +4,7 @@ from django_ckeditor_5.fields import CKEditor5Field
 # FAQs
 class FAQ(models.Model):
     question = models.CharField(max_length=255)
-    answer = CKEditor5Field(config_name='default')
+    answer = CKEditor5Field(config_name='extends')
     order = models.PositiveIntegerField(default=0)
     is_active = models.BooleanField(default=True)
 

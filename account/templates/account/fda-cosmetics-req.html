@@ -19,29 +19,25 @@
             <div class="card-header fw-bold">1. Product Label</div>
             <div class="card-body">
             <p class="mb-2">Must include product name, ingredients, instructions, and manufacturer details. PFS can assist with label creation.</p>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="label_have" name="label_have">
-                <label class="form-check-label" for="label_have">I have this</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="label_need_help" name="label_need_help">
-                <label class="form-check-label" for="label_need_help">I need help from PFS</label>
-            </div>
+            {% for choice in form.product_label %}
+                <div class="form-check form-check-inline">
+                {{ choice.tag }}
+                <label class="form-check-label" for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                </div>
+            {% endfor %}
             </div>
         </div>
 
         <div class="card mb-4">
             <div class="card-header fw-bold">2. Product Pictures</div>
             <div class="card-body">
-            <p class="mb-2">Clear images of the actual product packaging and presentation.</p>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="pictures_have" name="pictures_have">
-                <label class="form-check-label" for="pictures_have">I have this</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="pictures_need_help" name="pictures_need_help">
-                <label class="form-check-label" for="pictures_need_help">I need help from PFS</label>
-            </div>
+            <p class="mb-2">Clear images of the actual product packaging and presentation. High-quality images are required.</p>
+            {% for choice in form.product_pictures %}
+                <div class="form-check form-check-inline">
+                {{ choice.tag }}
+                <label class="form-check-label" for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                </div>
+            {% endfor %}
             </div>
         </div>
 
@@ -49,29 +45,25 @@
             <div class="card-header fw-bold">3. Business Certificate</div>
             <div class="card-body">
             <p class="mb-2">A valid business registration certificate is required. PFS can assist with this.</p>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="cert_have" name="cert_have">
-                <label class="form-check-label" for="cert_have">I have this</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="cert_need_help" name="cert_need_help">
-                <label class="form-check-label" for="cert_need_help">I need help from PFS</label>
-            </div>
+            {% for choice in form.business_certificate %}
+                <div class="form-check form-check-inline">
+                {{ choice.tag }}
+                <label class="form-check-label" for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                </div>
+            {% endfor %}
             </div>
         </div>
 
         <div class="card mb-4">
             <div class="card-header fw-bold">4. Product Samples</div>
             <div class="card-body">
-            <p class="mb-2">Submit the product exactly how it will be sold (packaging, labeling, etc.).</p>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="sample_have" name="sample_have">
-                <label class="form-check-label" for="sample_have">I have this</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="sample_need_help" name="sample_need_help">
-                <label class="form-check-label" for="sample_need_help">I need help from PFS</label>
-            </div>
+            <p class="mb-2">You will be required to submit the product exactly as you intend to sell it (packaging, quantity, etc.).</p>
+            {% for choice in form.product_samples %}
+                <div class="form-check form-check-inline">
+                {{ choice.tag }}
+                <label class="form-check-label" for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                </div>
+            {% endfor %}
             </div>
         </div>
 

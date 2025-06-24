@@ -51,7 +51,7 @@
         <tr>
           <td>{{ forloop.counter }}</td>
           <td>{{ pd_app.custom_id }}</td>
-          <td>{{ pd_app.user.email }}</td>
+          <td>{{ pd_app.user.first_name }} - <em>{{ pd_app.user.business_name }}</em></td>
           <td>{{ pd_app.product_name }}</td>
           <td>{{ pd_app.submitted_at|date:"Y-m-d H:i"}}</td>
           <td>

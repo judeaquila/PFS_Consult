@@ -40,36 +40,30 @@
                   </div>
                   
                   <div class="mb-3">
-                    <label for="id_logo" class="form-label">Business Logo (high-resolution)</label>
+                    <label for="id_logo" class="form-label">Business Logo (High-Resolution)</label>
                     {{ form.logo|add_class:"form-control" }}
                     {{ form.logo.errors }}
                   </div>
                   
                   <div class="mb-3">
-                    <label for="id_lab_results" class="form-label">Laboratory Results (if available)</label>
-                    {{ form.lab_results|add_class:"form-control" }}
-                    {{ form.lab_results.errors }}
-                  </div>
-                  
-                  <div class="mb-3">
-                    <label for="id_product_labels" class="form-label">Product Labels (soft copies)</label>
+                    <label for="id_product_labels" class="form-label">Product Labels (High Resolution)</label>
                     {{ form.product_labels|add_class:"form-control" }}
                     {{ form.product_labels.errors }}
                   </div>
                   
                   <div class="mb-3">
-                    <label for="id_food_handlers_certificate" class="form-label">Food Handler's Certificate</label>
-                    {{ form.food_handler_cert|add_class:"form-control" }}
-                    {{ form.food_handler_cert.errors }}
+                    <label for="id_food_handlers_card" class="form-label">Food Handler's Certificate</label>
+                    {{ form.food_handlers_card|add_class:"form-control" }}
+                    {{ form.food_handlers_card.errors }}
                   </div>
                   
                   <div class="mb-3">
-                    <label for="id_process_description" class="form-label">Detailed Process Description (written or voice note)</label>
+                    <label for="id_process_description_written" class="form-label">Detailed Process Description (Written, or indicate 'Voice Note')</label>
                     {{ form.process_description|add_class:"form-control" }}
                     {{ form.process_description.errors }}
                   </div>
                   
-                  <div class="mb-3">
+                  {% comment %} <div class="mb-3">
                     <label for="id_facility_video" class="form-label">Slow Motion Video of Facility</label>
                     {{ form.facility_video|add_class:"form-control" }}
                     {{ form.facility_video.errors }}
@@ -97,7 +91,7 @@
                     <label for="id_product_labels" class="form-label">Samples for FDA Submission (8 to 10)</label>
                     {{ form.product_labels|add_class:"form-control" }}
                     {{ form.product_labels.errors }}
-                  </div>
+                  </div> {% endcomment %}
                   
 
                 <div class="col-12 text-center">

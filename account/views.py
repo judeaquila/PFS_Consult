@@ -3,7 +3,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.messages import get_messages
-from .forms import EmailAuthenticationForm, CustomUserCreationForm, CustomUserUpdateForm, FDAApplicationForm, BusinessCertificateForm, FDAFoodRequirementForm
+from .forms import EmailAuthenticationForm, CustomUserCreationForm, CustomUserUpdateForm, FDAApplicationForm, BusinessCertificateForm, FDAFoodRequirementForm, FDAEateriesRequirementForm, FDACosmeticsRequirementForm
 from .models import FDAApplication, BusinessCertificateApplication, UserActivity
 from services.models import ProductIntake
 
@@ -162,12 +162,36 @@ def fda_food_thank_you(request):
 
 @login_required
 def fda_eateries_req(request):
-    return render(request, 'account/fda-eateries-req.html')
+    if request.method == 'POST':
+        form = FDAEateriesRequirementForm(request.POST)
+        if form.is_valid():
+            application = form.save(commit=False)
+            application.user = request.user
+            application.save()
+            return redirect('fda_food_thank_you')
+    else:
+        form = FDAEateriesRequirementForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'account/fda-eateries-req.html', context)
 
 
 @login_required
 def fda_cosmetics_req(request):
-    return render(request, 'account/fda-cosmetics-req.html')
+    if request.method == 'POST':
+        form = FDACosmeticsRequirementForm(request.POST)
+        if form.is_valid():
+            application = form.save(commit=False)
+            application.user = request.user
+            application.save()
+            return redirect('fda_food_thank_you')
+    else:
+        form = FDACosmeticsRequirementForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'account/fda-cosmetics-req.html', context)
 
 
 # CREATE FDA PRODUCT APPLICATION
@@ -180,11 +204,11 @@ def create_fda_product_application(request):
             application.user = request.user
             application.save()
 
-            UserActivity.objects.create(
-                user=request.user,
-                activity_type='submit_product',
-                description=f"Submitted FDA application for {application.business_name}"
-            )
+            # UserActivity.objects.create(
+            #     user=request.user,
+            #     activity_type='submit_product',
+            #     description=f"Submitted FDA application for {application.business_name}"
+            # )
 
             messages.success(request, "Your FDA Application has been successfully submitted!")
             return redirect('fda-product-application-details', pk=application.pk)

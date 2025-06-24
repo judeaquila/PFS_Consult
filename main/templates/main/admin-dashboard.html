@@ -504,12 +504,14 @@
               <tbody>
                 {% for application in all_applications %}
                 <tr class="{% if application.application_status == 'pending' %}table-warning{% endif %}">
-                  <td>#APP102</td>
+                  <td>{{ application.custom_id }}</td>
                   <td>
                     {% if application|instanceof:"FDAApplication" %}
                     FDA Product Application
                     {% elif application|instanceof:"BusinessCertificateApplication" %}
                     Business Certificate
+                    {% elif application|instanceof:"ProductIntake" %}
+                    Product Intake
                     {% endif %}
                   </td>
                   <td>{{ application.business_name }}</td>
@@ -535,13 +537,13 @@
                       <button type="button"
                         class="btn btn-outline-primary btn-sm"
                         title="View Details"
-                        onclick="window.location.href='{% if application|instanceof:'FDAApplication' %}{% url 'admin-fda-product-application-details' application.id %}{% elif application|instanceof:'BusinessCertificateApplication' %}{% url 'admin-business-cert-application-details' application.id %}{% endif %}'">
+                        onclick="window.location.href='{% if application|instanceof:'FDAApplication' %}{% url 'admin-fda-product-application-details' application.id %}{% elif application|instanceof:'BusinessCertificateApplication' %}{% url 'admin-business-cert-application-details' application.id %}{% elif application|instanceof:'ProductIntake' %}{% url 'admin_pd_details' application.id %}{% endif %}'">
                         <i class="bi bi-eye"></i>
                       </button>
                       <button type="button"
                         class="btn btn-outline-secondary btn-sm"
                         title="Edit"
-                        onclick="window.location.href='{% if application|instanceof:'FDAApplication' %}{% url 'admin-edit-fda-product-application-details' application.id %}{% elif application|instanceof:'BusinessCertificateApplication' %}{% url 'admin-edit-business-cert-application-details' application.id %}{% endif %}'">
+                        onclick="window.location.href='{% if application|instanceof:'FDAApplication' %}{% url 'admin-edit-fda-product-application-details' application.id %}{% elif application|instanceof:'BusinessCertificateApplication' %}{% url 'admin-edit-business-cert-application-details' application.id %}{% elif application|instanceof:'BusinessCertificateApplication' %}{% url 'admin_pd_details' application.id %}{% endif %}'">
                         <i class="bi bi-pencil"></i>
                       </button>
                       <button type="button" class="btn btn-outline-info btn-sm" title="Add Note or Comment">

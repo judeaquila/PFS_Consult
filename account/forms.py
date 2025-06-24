@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import CustomUser, FDAApplication, BusinessCertificateApplication, FDAFoodRequirement
+from .models import CustomUser, FDAApplication, BusinessCertificateApplication, FDAFoodRequirement, FDACosmeticsRequirement, FDAEateriesRequirement
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
@@ -35,6 +35,7 @@ class CustomUserUpdateForm(forms.ModelForm):
 class EmailAuthenticationForm(AuthenticationForm):
     username = forms.EmailField(label='Email')
 
+
 # FDA Requirements Forms
 class FDAFoodRequirementForm(forms.ModelForm):
     class Meta:
@@ -60,6 +61,54 @@ class FDAFoodRequirementForm(forms.ModelForm):
                     self.add_error(field, "This field is required.")
 
             return cleaned_data
+        
+
+class FDAEateriesRequirementForm(forms.ModelForm):
+    class Meta:
+        model = FDAEateriesRequirement
+        fields = '__all__'
+        exclude = ['user', 'submitted_at', 'updated_at']
+
+        widgets = {
+            'food_handlers_card': forms.RadioSelect(attrs={'class': 'form-check-input'}),
+            'list_of_recipes': forms.RadioSelect(attrs={'class': 'form-check-input'}),
+            'recipe_preparation_steps': forms.RadioSelect(attrs={'class': 'form-check-input'}),
+            'business_certificate': forms.RadioSelect(attrs={'class': 'form-check-input'}),
+        }
+
+        def clean(self):
+            cleaned_data = super().clean()
+            required_fields = ['food_handlers_card', 'list_of_recipes', 'recipe_preparation_steps', 'business_certificate']
+
+            for field in required_fields:
+                if not cleaned_data.get(field):
+                    self.add_error(field, "This field is required.")
+
+            return cleaned_data
+        
+
+class FDACosmeticsRequirementForm(forms.ModelForm):
+    class Meta:
+        model = FDACosmeticsRequirement
+        fields = '__all__'
+        exclude = ['user', 'submitted_at', 'updated_at']
+
+        widgets = {
+            'product_label': forms.RadioSelect(attrs={'class': 'form-check-input'}),
+            'business_certificate': forms.RadioSelect(attrs={'class': 'form-check-input'}),
+            'product_pictures': forms.RadioSelect(attrs={'class': 'form-check-input'}),
+            'product_samples': forms.RadioSelect(attrs={'class': 'form-check-input'}),
+        }
+
+        def clean(self):
+            cleaned_data = super().clean()
+            required_fields = ['product_label', 'business_certificate', 'product_pictures', 'product_samples']
+
+            for field in required_fields:
+                if not cleaned_data.get(field):
+                    self.add_error(field, "This field is required.")
+
+            return cleaned_data
 
 
 # FDA Application Forms
@@ -67,7 +116,7 @@ class FDAApplicationForm(forms.ModelForm):
     class Meta:
         model = FDAApplication
         fields = [
-            'business_certificate', 'business_name', 'location', 'products', 'logo', 'lab_results', 'product_labels', 'food_handler_cert', 'process_description', 'voice_note', 'facility_video', 'items_equipment', 'staff_roles',
+            'business_certificate', 'business_name', 'location', 'products', 'logo', 'product_labels', 'food_handlers_card', 'process_description'
         ]
 
         widgets = {
