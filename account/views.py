@@ -3,8 +3,8 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.messages import get_messages
-from .forms import EmailAuthenticationForm, CustomUserCreationForm, CustomUserUpdateForm, FDAApplicationForm, BusinessCertificateForm, FDAFoodRequirementForm, FDAEateriesRequirementForm, FDACosmeticsRequirementForm
-from .models import FDAApplication, BusinessCertificateApplication, UserActivity
+from .forms import EmailAuthenticationForm, CustomUserCreationForm, CustomUserUpdateForm, FDAApplicationForm, BusinessCertificateForm, FDAFoodRequirementForm, FDAEateriesRequirementForm, FDACosmeticsRequirementForm, LLCBusinessCertificateForm
+from .models import FDAApplication, BusinessCertificateApplication, LLCBusinessCertificateApplication, UserActivity
 from services.models import ProductIntake
 
 
@@ -273,6 +273,11 @@ def user_applications(request):
 
 # CREATE BUSINESS CERTIFICATE APPLICATION
 @login_required
+def business_cert_home(request):
+    return render(request, 'account/business-cert-application-home.html')
+
+
+@login_required
 def create_business_cert_application(request):
     if request.method == 'POST':
         form = BusinessCertificateForm(request.POST)
@@ -298,6 +303,7 @@ def create_business_cert_application(request):
     }
 
     return render(request, 'account/business-application.html', context)
+
 
 @login_required
 def view_business_cert_application(request, pk):
@@ -331,6 +337,69 @@ def edit_business_cert_application(request, pk):
     }
 
     return render(request, 'account/edit-business-cert-application.html', context)
+
+
+@login_required
+def llc_business_cert_app(request):
+    if request.method == 'POST':
+        form = LLCBusinessCertificateForm(request.POST)
+        if form.is_valid():
+            application = form.save(commit=False)
+            application.user = request.user
+            application.save()
+
+            UserActivity.objects.create(
+                user=request.user,
+                activity_type='submit_business',
+                description=f"Submitted LLC/NGO Business Certificate application for {application.business_name}"
+            )
+
+            messages.success(request, "Your LLC/NGO Business Certificate Application has been successfully submitted!")
+            return redirect('llc-business-cert-app-details', pk=application.pk)
+        
+    else:
+        form = LLCBusinessCertificateForm()
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'account/llc-business-cert-app.html', context)
+
+
+@login_required
+def view_llc_business_cert_application(request, pk):
+    llc_business_cert_app = get_object_or_404(LLCBusinessCertificateApplication, pk=pk, user=request.user)
+
+    context = {
+        'llc_business_cert_app': llc_business_cert_app,
+    }
+
+    return render(request, 'account/llc-business-cert-app-details.html', context)
+
+
+@login_required
+def edit_llc_business_cert_app(request, pk):
+    llc_business_cert_app = get_object_or_404(LLCBusinessCertificateApplication, id=pk)
+
+    if request.method == 'POST':
+        form = LLCBusinessCertificateForm(request.POST, instance=llc_business_cert_app)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, "LLC Business Certificate Application details updated!")
+            return redirect('llc-business-cert-app-details', pk=llc_business_cert_app.pk)
+        
+    else:
+        form = BusinessCertificateForm(instance=llc_business_cert_app)
+
+    context = {
+        'form': form,
+        'llc_business_cert_app': llc_business_cert_app,
+    }
+
+    return render(request, 'account/edit-llc-business-cert-app.html', context)
+
 
 @login_required
 def support_page(request):

@@ -37,6 +37,18 @@ def fda_services(request):
         
     return render(request, 'main/fda-services.html')
 
+
+# FDA Rates Page
+def fda_rates(request):
+    # Prevent logged in users from accessing FDA rates page
+    if request.user.is_authenticated:
+        if request.user.is_superuser or request.user.is_staff:
+            return redirect('admin-dashboard')
+        else:
+            return redirect('user-dashboard')
+        
+    return render(request, 'main/fda-rates.html')
+
 # Other Services Page
 def other_services(request):
     # Prevent logged in users from accessing Other services page

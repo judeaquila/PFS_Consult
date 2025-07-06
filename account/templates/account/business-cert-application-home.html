@@ -1,0 +1,58 @@
+{% extends "account/base.html" %}
+
+{% block title %}Business Registration{% endblock title %}
+
+{% block content %}
+<main class="main-content" id="mainContent">
+    <a href="{% url 'user-dashboard' %}" class="btn btn-sm btn-outline-secondary">
+          <i class="bi bi-arrow-left"></i> Go Home
+      </a>
+<!-- Header -->
+  <header class="py-4 mb-4 border-bottom bg-white shadow-sm">
+    <div class="container text-center">
+      <h1 class="h3 mb-0">
+        <i class="bi bi-file-earmark-text"></i> Business Certificate Registration
+      </h1>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row justify-content-center g-4">
+
+      <!-- Sole Proprietorship -->
+      <div class="col-md-6">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-body text-center">
+            <i class="bi bi-person-circle fs-1 text-primary mb-3"></i>
+            <h5 class="card-title">Sole Proprietorship</h5>
+            <p class="card-text text-muted">
+              Register your business as an individual entrepreneur.
+            </p>
+            <a href="{% url "create-business-cert-application" %}" class="btn btn-outline-primary">
+              Start Application <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- NGO and LLC -->
+      <div class="col-md-6">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-body text-center">
+            <i class="bi bi-people fs-1 text-success mb-3"></i>
+            <h5 class="card-title">NGO or LLC</h5>
+            <p class="card-text text-muted">
+              Begin registration for Non-Profits or Limited Liability Companies.
+            </p>
+            <a href="{% url "llc-business-cert-app" %}" class="btn btn-outline-success">
+              Start Application <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+</div>
+</main>
+{% endblock content %}

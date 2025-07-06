@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import CustomUser, FDAApplication, BusinessCertificateApplication, FDAFoodRequirement, FDACosmeticsRequirement, FDAEateriesRequirement
+from .models import CustomUser, FDAApplication, BusinessCertificateApplication, FDAFoodRequirement, FDACosmeticsRequirement, FDAEateriesRequirement, LLCBusinessCertificateApplication
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
@@ -132,7 +132,7 @@ class BusinessCertificateForm(forms.ModelForm):
     class Meta:
         model = BusinessCertificateApplication
         fields = [
-            'full_name', 'dob', 'marital_status', 'place_of_birth', 'nationality', 'occupation', 'contact_number_one', 'contact_number_two', 'email', 'business_name', 'nature_of_business', 'type_of_business', 'postal_address', 'company_email', 'company_building_number', 'company_landmark', 'area', 'district', 'company_gps_address', 'ghana_card_number', 'tin_number',
+            'full_name', 'dob', 'marital_status', 'place_of_birth', 'nationality', 'occupation', 'contact_number_one', 'contact_number_two', 'email', 'business_name', 'nature_of_business', 'type_of_business', 'postal_address', 'company_email', 'company_building_number', 'company_landmark', 'area', 'district', 'company_gps_address', 'ghana_card_number', 'ghana_card_front', 'ghana_card_back', 'tin_number',
         ]
 
         widgets = {
@@ -161,5 +161,92 @@ class BusinessCertificateForm(forms.ModelForm):
             'district': 'District of Business',
             'company_gps_address': 'Business GPS Address',
             'ghana_card_number': 'Ghana Card Number',
+            'ghana_card_front': 'Upload Ghana Card (Front)',
+            'ghana_card_back': 'Upload Ghana Card (Back)',
             'tin_number': 'Tax Identification Number (TIN)',
+        }
+
+
+class LLCBusinessCertificateForm(forms.ModelForm):
+    class Meta:
+        model = LLCBusinessCertificateApplication
+        fields = [
+            "full_name",
+            "dob",
+            "marital_status",
+            "place_of_birth",
+            "nationality",
+            "occupation",
+            "contact_number_one",
+            "contact_number_two",
+            "email",
+            "tin_number",
+            "house_number",
+            "landmark",
+            "street_name",
+            "area",
+            "district",
+            "gps_address",
+            "postal_address",
+            "business_name",
+            "nature_of_business",
+            "type_of_business",
+            "business_postal_address",
+            "business_contact_number_one",
+            "business_contact_number_two",
+            "business_email",
+            "business_building_number",
+            "business_landmark",
+            "business_area",
+            "business_district",
+            "business_gps_address",
+            "ghana_card_number",
+            "ghana_card_front",
+            "ghana_card_back",
+            "business_tin_number"
+        ]
+
+        widgets = {
+            'postal_address': forms.Textarea(attrs={'rows': 3}),
+            'business_postal_address': forms.Textarea(attrs={'rows': 3}),
+            'dob': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+        }
+
+        labels = {
+            "full_name": "Full Name",
+            "dob": "Date of birth",
+            "marital_status": "Marital Status",
+            "place_of_birth": "Place of Birth",
+            "nationality": "Nationality",
+            "occupation": "Occupation",
+            "contact_number_one": "Phone Number 1",
+            "contact_number_two": "Phone Number 2 (optional)",
+            "email": "Personal email address",
+            "custom_id": "Unique custom identifier for the person",
+            "tin_number": "Tax Identification Number (personal)",
+            "house_number": "House or apartment number",
+            "landmark": "Nearby landmark for locating residence",
+            "street_name": "Name of the street for residence",
+            "area": "Area or suburb of residence",
+            "district": "District or municipality of residence",
+            "gps_address": "GPS digital address (residence)",
+            "postal_address": "Mailing address (residence)",
+
+            "business_name": "Registered name of the business",
+            "nature_of_business": "Description of what the business does",
+            "type_of_business": "Legal type of business (e.g., Sole Proprietor, LLC)",
+            "business_postal_address": "Official mailing address of the business",
+            "business_contact_number_one": "Primary business phone number",
+            "business_contact_number_two": "Secondary business phone number (optional)",
+            "business_email": "Official business email address",
+            "business_building_number": "Building number for business location",
+            "business_landmark": "Landmark near business location",
+            "business_area": "Area or suburb of business",
+            "business_district": "District or municipality of business",
+            "business_gps_address": "GPS digital address of business location",
+
+            "ghana_card_number": "Ghana Card ID number",
+            "ghana_card_front": "Upload Ghana Card (Front)",
+            "ghana_card_back": "Upload Ghana Card (Back)",
+            "business_tin_number": "Tax Identification Number (TIN)"
         }

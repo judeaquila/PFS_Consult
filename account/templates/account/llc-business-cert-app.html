@@ -1,6 +1,6 @@
 {% extends "account/base.html" %}
 
-{% block title %}Apply for a Business Certificate (Sole Proprietorship){% endblock title %}
+{% block title %}Apply for a Business Certificate (LLC/NGO){% endblock title %}
 
 {% load crispy_forms_tags %}
 
@@ -9,7 +9,7 @@
 {% block content %}
 <main class="main-content" id="mainContent">
     <div class="pt-4">
-      <h2 class="fw-bold mb-4 mt-2">Apply for a Business Certificate (Sole Proprietorship)</h2>
+      <h2 class="fw-bold mb-4 mt-2">Apply for a Business Certificate (LLC/NGO)</h2>
       <p class="lead">Complete the form below to begin your application process.</p>
   
       <div class="row g-3 mb-4 mt-5">
@@ -85,7 +85,7 @@
                       {{ form.ghana_card_back|as_crispy_field }}
                   </div>
                   <div class="col-md-6 mb-3">
-                      {{ form.tin_number|as_crispy_field }}
+                      {{ form.business_tin_number|as_crispy_field }}
                   </div>
               </div>
 
@@ -98,7 +98,5 @@
         </div>
       </div>
     </div>
-
-
 </main>
 {% endblock content %}

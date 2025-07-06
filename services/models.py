@@ -1,6 +1,7 @@
 from django.db import models
 from account.models import CustomUser
 from .utils import generate_custom_id
+from django_ckeditor_5.fields import CKEditor5Field
 
 class ProductIntake(models.Model):
     PRODUCT_TYPE_CHOICES = [
@@ -62,7 +63,7 @@ class ProductIntake(models.Model):
     is_new_or_improvement = models.CharField(max_length=20, choices=PRODUCT_TYPE_CHOICES, verbose_name='Is this a New Idea or Improvement?')
     goals = models.JSONField(default=list, verbose_name='What is/are your goal(s) for the Product?')
     other_goal = models.CharField(max_length=200, blank=True, verbose_name='Other')
-    ingredient_or_dietary_notes = models.TextField(blank=True, verbose_name='Do you have a Preferred Ingredient List or any Dietary Restrictions?')
+    ingredient_or_dietary_notes = CKEditor5Field(blank=True, verbose_name='Do you have a Preferred Ingredient List or any Dietary Restrictions?', config_name='extends')
     target_market = models.JSONField(default=list, verbose_name='Target Market')
     other_target_market = models.CharField(max_length=200, blank=True, verbose_name='Other')
     market_existence = models.CharField(max_length=20, choices=[('yes', 'Yes'), ('no', 'No'), ('not_sure', 'Not Sure')], verbose_name='Are there similar products already on the market?')

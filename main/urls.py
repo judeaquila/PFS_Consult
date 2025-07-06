@@ -1,9 +1,10 @@
 from django.urls import path
-from .views import home, fda_services, other_services, login_redirect, admin_dashboard, admin_business_cert_application_details, admin_fda_product_application_details, edit_admin_business_cert_application_details, edit_admin_fda_product_application_details, change_business_cert_application_status, change_fda_product_application_status, manage_users, add_user, edit_user, delete_user, toggle_user_active, admin_pd_home, admin_pd_details, download_pd_pdf, admin_pd_app_status_change, admin_pd_payment_status_change, admin_pd_delete, fda_food_checklist, faq_list, faq_add, faq_edit, faq_delete, admin_settings, toggle_faq_active, admin_fda_product_application_home
+from .views import home, fda_services, fda_rates, other_services, login_redirect, admin_dashboard, admin_business_cert_application_details, admin_fda_product_application_details, edit_admin_business_cert_application_details, edit_admin_fda_product_application_details, change_business_cert_application_status, change_fda_product_application_status, manage_users, add_user, edit_user, delete_user, toggle_user_active, admin_pd_home, admin_pd_details, download_pd_pdf, admin_pd_app_status_change, admin_pd_payment_status_change, admin_pd_delete, fda_food_checklist, faq_list, faq_add, faq_edit, faq_delete, admin_settings, toggle_faq_active, admin_fda_product_application_home
 
 urlpatterns = [
     path('', home, name='home'),
     path('fda_services/', fda_services, name='fda-services'),
+    path('fda_rates/', fda_rates, name='fda-rates'),
     path('other_services/', other_services, name='other-services'),
     path('redirecting_to_login/', login_redirect, name='login-redirect'),
 

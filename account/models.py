@@ -194,6 +194,8 @@ class BusinessCertificateApplication(models.Model):
     district = models.CharField(max_length=100)
     company_gps_address = models.CharField(max_length=100)
     ghana_card_number = models.CharField(max_length=100)
+    ghana_card_front = models.ImageField(upload_to='business_cert/gc/')
+    ghana_card_back = models.ImageField(upload_to='business_cert/gc/')
     tin_number = models.CharField(max_length=100)
     application_status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='pending')
     payment_status = models.CharField(max_length=10, choices=PAYMENT_CHOICES, default='unpaid')
@@ -209,6 +211,84 @@ class BusinessCertificateApplication(models.Model):
     def __str__(self):
         return f"{self.business_name} - {self.company_email}"
 
+
+class LLCBusinessCertificateApplication(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('in_review', 'In Review'),
+        ('completed_documentation', 'Completed Documentation'),
+        ('approved', 'Approved'),
+        ('rejected', 'Rejected'),
+    ]
+
+    MARITAL_STATUS_CHOICES = [
+        ('Single', 'Single'),
+        ('Married', 'Married'),
+        ('Divorced', 'Divorced'),
+        ('Widowed', 'Widowed'),
+    ]
+
+    BUSINESS_TYPE_CHOICES = [
+        ('non_governmental_organization', 'Non-Governmental Organization'),
+        ('limited_liability_company', 'Limited Liability Company'),
+    ]
+
+    PAYMENT_CHOICES = [
+        ('paid', 'Paid'),
+        ('unpaid', 'Unpaid'),
+    ]
+        
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, )
+
+    full_name = models.CharField(max_length=100)
+    dob = models.DateField()
+    marital_status = models.CharField(max_length=100, choices=MARITAL_STATUS_CHOICES)
+    place_of_birth = models.CharField(max_length=100)
+    nationality = models.CharField(max_length=100)
+    occupation = models.CharField(max_length=100)
+    contact_number_one = models.CharField(max_length=15)
+    contact_number_two = models.CharField(max_length=15, blank=True, null=True)
+    email = models.EmailField(max_length=100)
+    custom_id = models.CharField(max_length=30, unique=True, blank=True)
+    tin_number = models.CharField(max_length=100)
+    house_number = models.CharField(max_length=10)
+    landmark = models.CharField(max_length=255)
+    street_name = models.CharField(max_length=255)
+    area = models.CharField(max_length=100)
+    district = models.CharField(max_length=100)
+    gps_address = models.CharField(max_length=100)
+    postal_address = models.TextField()
+
+    business_name = models.CharField(max_length=100)
+    nature_of_business = models.CharField(max_length=100)
+    type_of_business = models.CharField(max_length=100, choices=BUSINESS_TYPE_CHOICES)
+    business_postal_address = models.TextField()
+    business_contact_number_one = models.CharField(max_length=15)
+    business_contact_number_two = models.CharField(max_length=15, blank=True, null=True)
+    business_email = models.EmailField(max_length=100)
+    business_building_number = models.CharField(max_length=10)
+    business_landmark = models.CharField(max_length=255)
+    business_area = models.CharField(max_length=100)
+    business_district = models.CharField(max_length=100)
+    business_gps_address = models.CharField(max_length=100)
+    ghana_card_number = models.CharField(max_length=100)
+    ghana_card_front = models.ImageField(upload_to='business_cert/gc/')
+    ghana_card_back = models.ImageField(upload_to='business_cert/gc/')
+    business_tin_number = models.CharField(max_length=100)
+    
+    application_status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='pending')
+    payment_status = models.CharField(max_length=10, choices=PAYMENT_CHOICES, default='unpaid')
+    submitted_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+            if not self.custom_id:
+                self.custom_id = generate_custom_id('BZ-Cert')
+            super().save(*args, **kwargs)
+
+
+    def __str__(self):
+        return f"{self.business_name} - {self.company_email}"
 
 
 # USER ACTIVITY

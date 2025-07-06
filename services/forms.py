@@ -2,19 +2,6 @@ from django import forms
 from .models import ProductIntake
 
 class ProductIntakeForm(forms.ModelForm):
-    # GOALS_CHOICES = ProductIntake.GOALS_CHOICES
-    # TARGET_MARKET_CHOICES = ProductIntake.TARGET_MARKET_CHOICES
-    # PACKAGING_CHOICES = ProductIntake.PACKAGING_CHOICES
-
-    
-    # widget = forms.CheckboxSelectMultiple()
-
-    # target_market = forms.MultipleChoiceField(choices=TARGET_MARKET_CHOICES)
-    # widget = forms.CheckboxSelectMultiple()
-
-    # packaging_style = forms.MultipleChoiceField(choices=PACKAGING_CHOICES)
-    # widget = forms.CheckboxSelectMultiple()
-
     class Meta:
         model = ProductIntake
         fields = '__all__'

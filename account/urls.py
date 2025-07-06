@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import login_view, sign_up_view, logout_view, user_dashboard, create_fda_product_application, view_fda_product_application, create_business_cert_application, view_business_cert_application, user_applications, support_page, settings_page, edit_business_cert_application, edit_fda_product_application, fda_documentation_intro, fda_documentation_cat, fda_cosmetics_req, fda_eateries_req, fda_food_req, fda_food_thank_you
+from .views import login_view, sign_up_view, logout_view, user_dashboard, create_fda_product_application, view_fda_product_application, business_cert_home, create_business_cert_application, view_business_cert_application, llc_business_cert_app, user_applications, view_llc_business_cert_application, support_page, settings_page, edit_business_cert_application, edit_fda_product_application, fda_documentation_intro, fda_documentation_cat, fda_cosmetics_req, fda_eateries_req, fda_food_req, fda_food_thank_you
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -21,9 +21,12 @@ urlpatterns = [
     path('fda_documentation/product_application/update/<int:pk>/', edit_fda_product_application, name='edit-fda-product-application'),
 
     # Business Certificate
-    path('business_cert_application/', create_business_cert_application, name='create-business-cert-application'),
-    path('business_cert_application_details/<int:pk>/', view_business_cert_application, name='business-cert-application-details'),
-    path('update_business_certificate/<int:pk>/', edit_business_cert_application, name='edit-business-certificate-application'),
+    path('business_cert_registration/home/', business_cert_home, name='business-cert-home'),
+    path('business_cert_registration/sp_business_cert_application/', create_business_cert_application, name='create-business-cert-application'),
+    path('business_cert_registration/sp_business_cert_application_details/<int:pk>/', view_business_cert_application, name='business-cert-application-details'),
+    path('business_cert_registration/sp_update_business_certificate/<int:pk>/', edit_business_cert_application, name='edit-business-certificate-application'),
+    path('business_cert_registration/llc_business_cert_application/', llc_business_cert_app, name='llc-business-cert-app'),
+    path('business_cert_registration/llc_business_cert_application_details/<int:pk>/', view_llc_business_cert_application, name='llc-business-cert-app-details'),
 
     # Auth Paths
     path('login/', login_view, name='login'),

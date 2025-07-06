@@ -1,0 +1,191 @@
+{% extends "main/base.html" %}
+
+{% block title %}FDA Registration Rates{% endblock title %}
+
+{% block navbar %}
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="{% url "home" %}">PFS Certifications Empire</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav me-3">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "home" %}">Home</a>
+        </li>
+
+        <!-- Services Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Services
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+            <li><a class="dropdown-item" href="{% url "fda-services" %}">FDA Services</a></li>
+            <li><a class="dropdown-item" href="{% url "other-services" %}">Other Services</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "home" %}#testimonials">Testimonials</a>
+        </li>
+      </ul>
+
+      <a href="{% url "login" %}" class="btn btn-outline-success me-2">Sign In</a>
+      <a href="{% url "sign_up" %}" class="btn btn-success">Sign Up</a>
+    </div>
+  </div>
+</nav>
+{% endblock navbar %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="hero text-center">
+  <div class="container">
+    <h1 class="fw-bold">FDA Registration Rates</h1>
+    <p class="lead">Transparent pricing for product registration and facility licensing in Ghana.</p>
+  </div>
+</section>
+
+<!-- Imported Products Section -->
+<section class="py-5">
+  <div class="container">
+    <h2 class="fw-bold section-title mb-4"><i class="bi bi-box-seam me-2"></i>Imported Products</h2>
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Cosmetics and Household Chemicals</h5>
+            <p class="rate-item">Product Registration: <strong>$177</strong> (Per Product)</p>
+            <p class="rate-item">Warehouse Licensing: <strong>₵240 - ₵800</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Food Products</h5>
+            <p class="rate-item">Product Registration: <strong>₵750</strong> (Per Product)</p>
+            <p class="rate-item">Warehouse Licensing: <strong>₵240 - ₵800</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Veterinary Drugs</h5>
+            <p class="rate-item">Product Registration: <strong>$600</strong> (Per Product)</p>
+            <p class="rate-item">Warehouse Licensing: <strong>₵500</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Food Supplements</h5>
+            <p class="rate-item">Product Registration: <strong>$500</strong></p>
+            <p class="rate-item">Warehouse Licensing: <strong>₵500</strong></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Food Processing Industry -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <h2 class="fw-bold section-title mb-4"><i class="bi bi-gear-fill me-2"></i>Food Processing Industry Charges</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Cottage Industry (1 - 3 Persons)</h5>
+            <p class="rate-item">Product Registration: <strong>₵300</strong></p>
+            <p class="rate-item">Facility Registration: <strong>₵100</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Small Scale Industry (4 - 10 Persons)</h5>
+            <p class="rate-item">Product Registration: <strong>₵600</strong></p>
+            <p class="rate-item">Facility Registration: <strong>₵100</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Medium Scale Industry (10+ Persons)</h5>
+            <p class="rate-item">Product Registration: <strong>₵900</strong></p>
+            <p class="rate-item">Facility Registration: <strong>₵200</strong></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Cosmetics / Household Chemicals -->
+<section class="py-5">
+  <div class="container">
+    <h2 class="fw-bold section-title mb-4"><i class="bi bi-droplet-half me-2"></i>Cosmetics / Household Chemicals</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Cottage Industry (First-Timers)</h5>
+            <p class="rate-item">Product Registration: <strong>₵300</strong></p>
+            <p class="rate-item">Facility Registration: <strong>₵100</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Small Scale Industry</h5>
+            <p class="rate-item">Product Registration: <strong>₵600</strong></p>
+            <p class="rate-item">Facility Registration: <strong>₵100</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Medium Scale Industry</h5>
+            <p class="rate-item">Product Registration: <strong>₵750</strong></p>
+            <p class="rate-item">Facility Registration: <strong>₵200</strong></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="bg-success text-white text-center py-5">
+  <div class="container">
+    <h2 class="fw-bold mb-3">Ready to Start Your FDA Registration?</h2>
+    <p class="mb-4">Take the next step—our team is ready to support you.</p>
+    <a href="{% url 'login-redirect' %}" class="btn btn-light btn-lg">
+      <i class="bi bi-rocket-takeoff me-2"></i>Start Now
+    </a>
+  </div>
+</section>
+{% endblock content %}
