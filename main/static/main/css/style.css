@@ -43,6 +43,11 @@ body {
   color: #198754 !important;
 }
 
+.shadow-sm {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+
 /* Sidebar */
 .sidebar {
   background-color: #f8f9fa;
@@ -124,6 +129,9 @@ body {
   }
 }
 
+
+
+
 /* Testimonials */
 .testimonial-card {
   background-color: #f1f1f1;
@@ -131,6 +139,10 @@ body {
   padding: 1rem;
   margin-bottom: 1rem;
 }
+
+
+
+
 
 /* Footer */
 footer {

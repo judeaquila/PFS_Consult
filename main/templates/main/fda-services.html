@@ -3,40 +3,63 @@
 {% block title %}FDA Services{% endblock title %}
 
 {% block navbar %}
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg shadow-sm">
+<!-- sticky Navbar -->
+<nav class="navbar navbar-expand-lg sticky-top shadow-sm bg-white">
   <div class="container">
-    <a class="navbar-brand fw-bold" href="{% url "home" %}">PFS Certifications Empire</a>
+    <a class="navbar-brand fw-bold d-flex align-items-center" href="{% url "home" %}">
+      <i class="bi bi-shield-check text-success me-2"></i>
+      PFS Certifications Empire
+    </a>
+
+    <!-- Trust Badge for Mobile/Desktop -->
+    <div class="d-none d-md-flex align-items-center me-3">
+      <small class="text-success fw-semibold">
+        <i class="bi bi-star-fill"></i> 95% Success Rate | 500+ Clients
+      </small>
+    </div>
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav me-3">
         <li class="nav-item">
-          <a class="nav-link" href="{% url "home" %}">Home</a>
+          <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}">Home</a>
         </li>
 
-        <!-- Services Dropdown -->
+        <!--  Services Dropdown -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Services
           </a>
-          <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
-            <li><a class="dropdown-item" href="{% url "fda-services" %}">FDA Services</a></li>
-            <li><a class="dropdown-item" href="{% url "other-services" %}">Other Services</a></li>
+          <ul class="dropdown-menu shadow-lg" aria-labelledby="servicesDropdown">
+            <li><h6 class="dropdown-header">Certification Services</h6></li>
+            <li><a class="dropdown-item" href="{% url "fda-services" %}"><i class="bi bi-patch-check text-primary me-2"></i>FDA Services</a></li>
+            <li><a class="dropdown-item" href="{% url "other-services" %}"><i class="bi bi-briefcase text-success me-2"></i>Other Services</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><h6 class="dropdown-header">Support</h6></li>
+            <li><a class="dropdown-item" href="#consultation"><i class="bi bi-person-lines-fill text-info me-2"></i>Free Consultation</a></li>
           </ul>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="{% url "home" %}#testimonials">Testimonials</a>
+          <a class="nav-link" href="{% url "home" %}#testimonials">Success Stories</a>
+        </li>
+
+        <!-- Add Resources -->
+        <li class="nav-item">
+          <a class="nav-link" href="#resources">Resources</a>
         </li>
       </ul>
 
-      <a href="{% url "login" %}" class="btn btn-outline-success me-2">Sign In</a>
-      <a href="{% url "sign_up" %}" class="btn btn-success">Sign Up</a>
+      <!-- CTA Buttons -->
+      <a href="{% url "login" %}" class="btn btn-outline-success me-2">Client Portal</a>
+      <a href="{% url "sign_up" %}"  class="btn btn-success">Free Consultation</a>
     </div>
   </div>
 </nav>
+
 {% endblock navbar %}
 
 {% block content %}
