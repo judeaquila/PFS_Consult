@@ -1,66 +1,247 @@
 {% extends "main/base.html" %}
 
 {% block title %}Welcome to PFS Certifications Empire{% endblock title %}
+{% block style %}
+<style>
+<!--css for service section-->
+.service-card-featured {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
+.service-card-featured:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+}
+
+.service-card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1) !important;
+}
+
+.service-card-hover:hover .btn {
+  transform: scale(1.05);
+}
+
+
+<!--  CSS for Partner Section -->
+.partner-img {
+  max-width: 100%;
+  height: auto;
+  max-height: 50px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.cert-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.partner-logo {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.partner-logo:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1) !important;
+}
+
+.partner-logo:hover .partner-img {
+  transform: scale(1.05);
+}
+
+.certification-badge {
+  padding: 15px;
+  transition: transform 0.3s ease;
+}
+
+.certification-badge:hover {
+  transform: scale(1.1);
+}
+
+.certification-badge:hover .cert-img {
+  transform: scale(1.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .partner-logo {
+    height: 80px;
+  }
+
+  .partner-img {
+    max-height: 40px;
+  }
+
+  .cert-img {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+
+
+</style>
+
+
+{% endblock style %}
 {% block navbar %}
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg shadow-sm">
+<!-- sticky Navbar -->
+<nav class="navbar navbar-expand-lg sticky-top shadow-sm bg-white">
   <div class="container">
-    <a class="navbar-brand fw-bold" href="{% url "home" %}">PFS Certifications Empire</a>
+    <a class="navbar-brand fw-bold d-flex align-items-center" href="{% url "home" %}">
+      <i class="bi bi-shield-check text-success me-2"></i>
+      PFS Certifications Empire
+    </a>
+
+    <!-- Trust Badge for Mobile/Desktop -->
+    <div class="d-none d-md-flex align-items-center me-3">
+      <small class="text-success fw-semibold">
+        <i class="bi bi-star-fill"></i> 95% Success Rate | 500+ Clients
+      </small>
+    </div>
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav me-3">
         <li class="nav-item">
-          <a class="nav-link" href="{% url "home" %}">Home</a>
+          <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}">Home</a>
         </li>
 
-        <!-- Services Dropdown -->
+        <!--  Services Dropdown -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Services
           </a>
-          <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
-            <li><a class="dropdown-item" href="{% url "fda-services" %}">FDA Services</a></li>
-            <li><a class="dropdown-item" href="{% url "other-services" %}">Other Services</a></li>
+          <ul class="dropdown-menu shadow-lg" aria-labelledby="servicesDropdown">
+            <li><h6 class="dropdown-header">Certification Services</h6></li>
+            <li><a class="dropdown-item" href="{% url "fda-services" %}"><i class="bi bi-patch-check text-primary me-2"></i>FDA Services</a></li>
+            <li><a class="dropdown-item" href="{% url "other-services" %}"><i class="bi bi-briefcase text-success me-2"></i>Other Services</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><h6 class="dropdown-header">Support</h6></li>
+            <li><a class="dropdown-item" href="#consultation"><i class="bi bi-person-lines-fill text-info me-2"></i>Free Consultation</a></li>
           </ul>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="{% url "home" %}#testimonials">Testimonials</a>
+          <a class="nav-link" href="{% url "home" %}#testimonials">Success Stories</a>
+        </li>
+
+        <!-- Add Resources -->
+        <li class="nav-item">
+          <a class="nav-link" href="#resources">Resources</a>
         </li>
       </ul>
 
-      <a href="{% url "login" %}" class="btn btn-outline-success me-2">Sign In</a>
-      <a href="{% url "sign_up" %}" class="btn btn-success">Sign Up</a>
+      <!-- CTA Buttons -->
+      <a href="{% url "login" %}" class="btn btn-outline-success me-2">Client Portal</a>
+      <a href="{% url "sign_up" %}"  class="btn btn-success">Free Consultation</a>
     </div>
   </div>
 </nav>
+
 {% endblock navbar %}
 
 {% block content %}
+<!--  Hero Section -->
 <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
+    <!-- carousel 1 - Problem/Solution Focused -->
     <div class="carousel-item active hero-slide">
       <div class="hero-overlay d-flex align-items-center justify-content-center text-center">
         <div class="container" data-aos="fade-up">
-          <h1 class="display-4 fw-bold">PFS Certifications Empire</h1>
-          <p class="lead">Product Innovation, Manufacturing &amp; Certification - All in One Place</p>
-          <a href="#services" class="btn btn-light btn-lg mt-3"><i class="bi bi-arrow-down-circle"></i> Learn More</a>
+          <div class="row justify-content-center">
+            <div class="col-lg-8">
+              <h1 class="display-4 fw-bold mb-3">Get FDA Approval 3x Faster</h1>
+              <p class="lead mb-4">Skip the paperwork maze. We handle complex FDA regulations so you can focus on innovation and get to market faster.</p>
+
+              <!-- Trust Indicators -->
+              <div class="d-flex justify-content-center gap-4 mb-4 text-light">
+                <div class="text-center">
+                  <i class="bi bi-check-circle-fill fs-4 text-success"></i>
+                  <small class="d-block">95% Success Rate</small>
+                </div>
+                <div class="text-center">
+                  <i class="bi bi-clock-fill fs-4 text-warning"></i>
+                  <small class="d-block">30-Day Average</small>
+                </div>
+                <div class="text-center">
+                  <i class="bi bi-people-fill fs-4 text-info"></i>
+                  <small class="d-block">500+ Clients</small>
+                </div>
+              </div>
+
+              <!-- CTAs -->
+              <div class="d-flex flex-column flex-md-row gap-3 justify-content-center">
+                <a href="#consultation" class="btn btn-success btn-lg">
+                  <i class="bi bi-calendar-check me-2"></i>Get Free FDA Assessment
+                </a>
+                <a href="#services" class="btn btn-outline-light btn-lg">
+                  <i class="bi bi-download me-2"></i>Download FDA Guide
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- carousel 1 - Comprehensive Solution -->
     <div class="carousel-item hero-slide">
       <div class="hero-overlay d-flex align-items-center justify-content-center text-center">
         <div class="container" data-aos="fade-up">
-          <h1 class="display-4 fw-bold">Launch Your Product with Confidence</h1>
-          <p class="lead">From concept to certification, we have got you covered.</p>
-          <a href="{% url "other-services" %}" class="btn btn-light btn-lg mt-3"><i class="bi bi-briefcase"></i> Explore Services</a>
+          <div class="row justify-content-center">
+            <div class="col-lg-8">
+              <h1 class="display-4 fw-bold mb-3">From Concept to Market</h1>
+              <p class="lead mb-4">Complete product development, manufacturing, and certification services. Your one-stop solution for food industry success.</p>
+
+              <!-- Service Highlights -->
+              <div class="row text-light mb-4">
+                <div class="col-md-4">
+                  <i class="bi bi-lightbulb fs-3 text-warning"></i>
+                  <h6>Product Development</h6>
+                </div>
+                <div class="col-md-4">
+                  <i class="bi bi-gear fs-3 text-success"></i>
+                  <h6>Manufacturing</h6>
+                </div>
+                <div class="col-md-4">
+                  <i class="bi bi-shield-check fs-3 text-info"></i>
+                  <h6>Certification</h6>
+                </div>
+              </div>
+
+              <div class="d-flex flex-column flex-md-row gap-3 justify-content-center">
+                <a href="#services" class="btn btn-light btn-lg">
+                  <i class="bi bi-briefcase me-2"></i>Explore All Services
+                </a>
+                <a href="#case-studies" class="btn btn-outline-light btn-lg">
+                  <i class="bi bi-graph-up me-2"></i>View Success Stories
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
   <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
   </button>
@@ -69,82 +250,207 @@
   </button>
 </div>
 
-<!-- Services Section -->
-<section class="py-5" id="services">
-  <div class="container text-center">
-    <h2 class="mb-4 fw-bold" data-aos="fade-up">Our Services</h2>
-
-    <div class="row g-4">
-      <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
-        <div class="card p-3">
-          <i class="bi bi-patch-check-fill fs-2 text-primary mb-2"></i>
-          <h5>FDA/GSA Services</h5>
-          <p>Navigate the FDA/GSA process with our expert help.</p>
-          <a href="{% url "fda-services" %}" class="btn btn-outline-secondary"><i class="bi bi-box-arrow-up-right"></i> View More</a>
+<!-- Quick Stats Bar -->
+<div class="bg-light py-3">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-3">
+        <div class="d-flex align-items-center justify-content-center">
+          <i class="bi bi-trophy-fill text-warning me-2"></i>
+          <span><strong>500+</strong> Successful Approvals</span>
         </div>
       </div>
-      <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
-        <div class="card p-3">
-          <i class="bi bi-layers-fill fs-2 text-success mb-2"></i>
-          <h5>Product Development</h5>
-          <p>Turn your idea into a market-ready product.</p>
+      <div class="col-md-3">
+        <div class="d-flex align-items-center justify-content-center">
+          <i class="bi bi-clock-fill text-success me-2"></i>
+          <span><strong>30 Days</strong> Average Processing</span>
         </div>
       </div>
-      <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
-        <div class="card p-3">
-          <i class="bi bi-droplet-half fs-2 text-warning mb-2"></i>
-          <h5>Dehydration Services</h5>
-          <p>Preserve your products efficiently and safely.</p>
+      <div class="col-md-3">
+        <div class="d-flex align-items-center justify-content-center">
+          <i class="bi bi-shield-check text-primary me-2"></i>
+          <span><strong>95%</strong> Success Rate</span>
         </div>
       </div>
-      <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
-        <div class="card p-3">
-          <i class="bi bi-person-lines-fill fs-2 text-danger mb-2"></i>
-          <h5>Consultation</h5>
-          <p>Get expert advice for your food-related business.</p>
-        </div>
-      </div>
-
-      <!-- Additional Services -->
-      <div class="col-md-3" data-aos="fade-up" data-aos-delay="500">
-        <div class="card p-3">
-          <i class="bi bi-briefcase-fill fs-2 text-info mb-2"></i>
-          <h5>Business Registration</h5>
-          <p>Register your business with ease and compliance.</p>
-        </div>
-      </div>
-      <div class="col-md-3" data-aos="fade-up" data-aos-delay="600">
-        <div class="card p-3">
-          <i class="bi bi-box-fill fs-2 text-primary mb-2"></i>
-          <h5>Packaging Consulting</h5>
-          <p>Design functional and attractive packaging.</p>
-        </div>
-      </div>
-      <div class="col-md-3" data-aos="fade-up" data-aos-delay="700">
-        <div class="card p-3">
-          <i class="bi bi-gear-fill fs-2 text-success mb-2"></i>
-          <h5>Machinery Sourcing</h5>
-          <p>Find the right equipment for your production.</p>
-        </div>
-      </div>
-      <div class="col-md-3" data-aos="fade-up" data-aos-delay="800">
-        <div class="card p-3">
-          <i class="bi bi-journal-check fs-2 text-warning mb-2"></i>
-          <h5>Training & Audits</h5>
-          <p>Train staff and assess your facility's compliance.</p>
-        </div>
-      </div>
-      <div class="col-md-3" data-aos="fade-up" data-aos-delay="900">
-        <div class="card p-3">
-          <i class="bi bi-shield-check fs-2 text-secondary mb-2"></i>
-          <h5>Contract Manufacturing</h5>
-          <p>Outsource production or create white-label products.</p>
+      <div class="col-md-3">
+        <div class="d-flex align-items-center justify-content-center">
+          <i class="bi bi-people-fill text-info me-2"></i>
+          <span><strong>24/7</strong> Support</span>
         </div>
       </div>
     </div>
   </div>
-</section>
+</div>
 
+<!-- Services Section -->
+<section class="py-5" id="services">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="text-center mb-5">
+      <h2 class="display-5 fw-bold mb-3" data-aos="fade-up">Complete Solutions for Food Industry Success</h2>
+      <p class="lead text-muted" data-aos="fade-up" data-aos-delay="100">From FDA approval to market launch, we handle every step of your product journey</p>
+    </div>
+
+    <!-- Primary Services (Featured) -->
+    <div class="row g-4 mb-5">
+      <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="card h-100 border-0 shadow-lg service-card-featured">
+          <div class="card-body p-4">
+            <div class="d-flex align-items-center mb-3">
+              <i class="bi bi-patch-check-fill fs-1 text-primary me-3"></i>
+              <div>
+                <h4 class="mb-1">FDA/GSA Services</h4>
+                <small class="text-success fw-semibold">
+                  <i class="bi bi-star-fill"></i> Most Popular
+                </small>
+              </div>
+            </div>
+            <p class="text-muted mb-3">Navigate complex FDA regulations with our expert guidance. 95% success rate with average 30-day processing.</p>
+
+            <div class="mb-3">
+              <small class="text-muted d-block">✓ FDA Registration & Listing</small>
+              <small class="text-muted d-block">✓ Nutritional Labeling</small>
+              <small class="text-muted d-block">✓ Process Filing (FCE/SID)</small>
+              <small class="text-muted d-block">✓ Compliance Assessment</small>
+            </div>
+
+            <div class="d-flex gap-2">
+              <a href="{% url "fda-services" %}" class="btn btn-primary">
+                <i class="bi bi-arrow-right me-1"></i> Learn More
+              </a>
+              <a href="#consultation" class="btn btn-outline-primary">
+                <i class="bi bi-calendar-check me-1"></i> Free Assessment
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+        <div class="card h-100 border-0 shadow-lg service-card-featured">
+          <div class="card-body p-4">
+            <div class="d-flex align-items-center mb-3">
+              <i class="bi bi-layers-fill fs-1 text-success me-3"></i>
+              <div>
+                <h4 class="mb-1">Product Development</h4>
+                <small class="text-info fw-semibold">
+                  <i class="bi bi-lightning-fill"></i> Fast Track
+                </small>
+              </div>
+            </div>
+            <p class="text-muted mb-3">Transform your idea into a market-ready product in 90 days. Complete development and testing services.</p>
+
+            <div class="mb-3">
+              <small class="text-muted d-block">✓ Recipe Development</small>
+              <small class="text-muted d-block">✓ Shelf Life Testing</small>
+              <small class="text-muted d-block">✓ Nutritional Analysis</small>
+              <small class="text-muted d-block">✓ Market Research</small>
+            </div>
+
+            <div class="d-flex gap-2">
+              <a href="{% url "fda-services" %}" class="btn btn-success">
+                <i class="bi bi-arrow-right me-1"></i> Learn More
+              </a>
+              <a href="#consultation" class="btn btn-outline-success">
+                <i class="bi bi-lightbulb me-1"></i> Discuss Idea
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Secondary Services Grid -->
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+        <div class="card h-100 border-0 shadow service-card-hover">
+          <div class="card-body p-4 text-center">
+            <i class="bi bi-droplet-half fs-2 text-warning mb-3"></i>
+            <h5 class="mb-3">Dehydration Services</h5>
+            <p class="text-muted mb-3">Preserve your products efficiently with our advanced dehydration technology.</p>
+            <a href="{% url "fda-services" %}" class="btn btn-outline-warning">
+              <i class="bi bi-box-arrow-up-right me-1"></i> View Details
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+        <div class="card h-100 border-0 shadow service-card-hover">
+          <div class="card-body p-4 text-center">
+            <i class="bi bi-person-lines-fill fs-2 text-danger mb-3"></i>
+            <h5 class="mb-3">Expert Consultation</h5>
+            <p class="text-muted mb-3">Get personalized guidance from our food industry experts.</p>
+            <a href="#consultation" class="btn btn-outline-danger">
+              <i class="bi bi-calendar-check me-1"></i> Book Now
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+        <div class="card h-100 border-0 shadow service-card-hover">
+          <div class="card-body p-4 text-center">
+            <i class="bi bi-briefcase-fill fs-2 text-info mb-3"></i>
+            <h5 class="mb-3">Business Setup</h5>
+            <p class="text-muted mb-3">Complete business registration and compliance setup.</p>
+            <a href="{% url "fda-services" %}" class="btn btn-outline-info">
+              <i class="bi bi-box-arrow-up-right me-1"></i> Get Started
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+        <div class="card h-100 border-0 shadow service-card-hover">
+          <div class="card-body p-4 text-center">
+            <i class="bi bi-box-fill fs-2 text-primary mb-3"></i>
+            <h5 class="mb-3">Packaging Solutions</h5>
+            <p class="text-muted mb-3">Design functional and attractive packaging that complies with regulations.</p>
+            <a href="{% url "fda-services" %}" class="btn btn-outline-primary">
+              <i class="bi bi-palette me-1"></i> Design Package
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="700">
+        <div class="card h-100 border-0 shadow service-card-hover">
+          <div class="card-body p-4 text-center">
+            <i class="bi bi-gear-fill fs-2 text-success mb-3"></i>
+            <h5 class="mb-3">Equipment Sourcing</h5>
+            <p class="text-muted mb-3">Find the perfect machinery for your production needs.</p>
+            <a href="{% url "fda-services" %}" class="btn btn-outline-success">
+              <i class="bi bi-search me-1"></i> Find Equipment
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="800">
+        <div class="card h-100 border-0 shadow service-card-hover">
+          <div class="card-body p-4 text-center">
+            <i class="bi bi-shield-check fs-2 text-secondary mb-3"></i>
+            <h5 class="mb-3">Manufacturing</h5>
+            <p class="text-muted mb-3">White-label production and contract manufacturing services.</p>
+            <a href="{% url "fda-services" %}" class="btn btn-outline-secondary">
+              <i class="bi bi-factory me-1"></i> Learn More
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="text-center mt-5" data-aos="fade-up">
+      <h4 class="mb-3">Not sure which service you need?</h4>
+      <p class="text-muted mb-4">Our experts will analyze your needs and recommend the perfect solution.</p>
+      <a href="#consultation" class="btn btn-primary btn-lg">
+        <i class="bi bi-telephone me-2"></i> Get Free Consultation
+      </a>
+    </div>
+  </div>
+</section>
 
 <!-- Testimonials -->
 <section class="bg-light py-5" id="testimonials">
@@ -295,15 +601,182 @@
     </div>
 </section> {% endcomment %}
 
-<!-- Partners -->
-<section class="py-5 bg-light">
-  <div class="container text-center">
-    <h2 class="mb-4 fw-bold" data-aos="fade-up">Our Partners</h2>
-    <div class="d-flex justify-content-center flex-wrap align-items-center" data-aos="fade-up" data-aos-delay="200">
-      <img src="partner1.png" class="partner-logo" alt="Partner 1">
-      <img src="partner2.png" class="partner-logo" alt="Partner 2">
-      <img src="partner3.png" class="partner-logo" alt="Partner 3">
+
+<!--Partners Section -->
+<section class="py-5 bg-light" id="partners">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="text-center mb-5">
+      <h2 class="display-6 fw-bold mb-3" data-aos="fade-up">Trusted by Industry Leaders</h2>
+      <p class="lead text-muted" data-aos="fade-up" data-aos-delay="100">We work with top organizations to bring your products to market</p>
+    </div>
+
+    <!-- Partners Grid -->
+    <div class="row align-items-center g-4 mb-5">
+      <!-- Government & Regulatory Partners -->
+      <div class="col-12 mb-4">
+        <h5 class="text-center text-muted mb-4" data-aos="fade-up">Regulatory & Government Partners</h5>
+        <div class="row align-items-center justify-content-center g-4">
+          <div class="col-lg-2 col-md-3 col-4 text-center" data-aos="fade-up" data-aos-delay="100">
+            <div class="partner-logo bg-white p-3 rounded shadow-sm">
+              <img src="https://via.placeholder.com/120x60/4285f4/ffffff?text=FDA" alt="FDA" class="partner-img">
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-3 col-4 text-center" data-aos="fade-up" data-aos-delay="200">
+            <div class="partner-logo bg-white p-3 rounded shadow-sm">
+              <img src="https://via.placeholder.com/120x60/34a853/ffffff?text=GSA" alt="FDA" class="partner-img">
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-3 col-4 text-center" data-aos="fade-up" data-aos-delay="300">
+            <div class="partner-logo bg-white p-3 rounded shadow-sm">
+              <img src="https://via.placeholder.com/120x60/fbbc04/ffffff?text=USDA" alt="FDA" class="partner-img">
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-3 col-4 text-center" data-aos="fade-up" data-aos-delay="400">
+            <div class="partner-logo bg-white p-3 rounded shadow-sm">
+              <img src="https://via.placeholder.com/120x60/17becf/ffffff?text=HACCP" alt="FDA" class="partner-img">
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-3 col-4 text-center" data-aos="fade-up" data-aos-delay="500">
+            <div class="partner-logo bg-white p-3 rounded shadow-sm">
+              <img src="https://via.placeholder.com/120x60/ea4335/ffffff?text=FSIS" alt="FDA" class="partner-img">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Industry Partners -->
+      <div class="col-12 mb-4">
+        <h5 class="text-center text-muted mb-4" data-aos="fade-up">Industry Partners</h5>
+        <div class="row align-items-center justify-content-center g-4">
+          <div class="col-lg-2 col-md-3 col-4 text-center" data-aos="fade-up" data-aos-delay="100">
+            <div class="partner-logo bg-white p-3 rounded shadow-sm">
+              <img src="https://via.placeholder.com/120x60/0066cc/ffffff?text=Sysco" alt="Sysco" class="partner-img">
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-3 col-4 text-center" data-aos="fade-up" data-aos-delay="200">
+            <div class="partner-logo bg-white p-3 rounded shadow-sm">
+              <img src="https://via.placeholder.com/120x60/00b04f/ffffff?text=Whole+Foods" alt="Whole Foods Market" class="partner-img">
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-3 col-4 text-center" data-aos="fade-up" data-aos-delay="300">
+            <div class="partner-logo bg-white p-3 rounded shadow-sm">
+              <img src="https://via.placeholder.com/120x60/004990/ffffff?text=Kroger" alt="Kroger" class="partner-img">
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-3 col-4 text-center" data-aos="fade-up" data-aos-delay="400">
+            <div class="partner-logo bg-white p-3 rounded shadow-sm">
+              <img src="https://via.placeholder.com/120x60/0071ce/ffffff?text=Walmart" alt="Walmart" class="partner-img">
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-3 col-4 text-center" data-aos="fade-up" data-aos-delay="500">
+            <div class="partner-logo bg-white p-3 rounded shadow-sm">
+              <img src="https://via.placeholder.com/120x60/ff9900/ffffff?text=Amazon" alt="Amazon" class="partner-img">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Technology Partners -->
+      <div class="col-12 mb-4">
+        <h5 class="text-center text-muted mb-4" data-aos="fade-up">Technology & Lab Partners</h5>
+        <div class="row align-items-center justify-content-center g-4">
+          <div class="col-lg-2 col-md-3 col-4 text-center" data-aos="fade-up" data-aos-delay="100">
+            <div class="partner-logo bg-white p-3 rounded shadow-sm">
+              <img src="https://via.placeholder.com/120x60/e31e24/ffffff?text=SGS" alt="partner1" class="partner-img">
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-3 col-4 text-center" data-aos="fade-up" data-aos-delay="200">
+            <div class="partner-logo bg-white p-3 rounded shadow-sm">
+              <img src="https://via.placeholder.com/120x60/003087/ffffff?text=Eurofins" alt="partner2" class="partner-img">
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-3 col-4 text-center" data-aos="fade-up" data-aos-delay="300">
+            <div class="partner-logo bg-white p-3 rounded shadow-sm">
+              <img src="https://via.placeholder.com/120x60/00a651/ffffff?text=Intertek" alt="partner3" class="partner-img">
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-3 col-4 text-center" data-aos="fade-up" data-aos-delay="400">
+            <div class="partner-logo bg-white p-3 rounded shadow-sm">
+              <img src="https://via.placeholder.com/120x60/009639/ffffff?text=Bureau+Veritas" alt="partner4" class="partner-img">
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-3 col-4 text-center" data-aos="fade-up" data-aos-delay="500">
+            <div class="partner-logo bg-white p-3 rounded shadow-sm">
+              <img src="https://via.placeholder.com/120x60/0072ce/ffffff?text=ALS" alt="partner5" class="partner-img">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Partnership Benefits -->
+    <div class="row g-4 mb-5">
+      <div class="col-lg-4 text-center" data-aos="fade-up" data-aos-delay="100">
+        <i class="bi bi-lightning-charge-fill fs-2 text-primary mb-3"></i>
+        <h5>Accelerated Processing</h5>
+        <p class="text-muted">Direct partnerships with regulatory bodies mean faster approvals and reduced processing times.</p>
+      </div>
+      <div class="col-lg-4 text-center" data-aos="fade-up" data-aos-delay="200">
+        <i class="bi bi-shield-fill-check fs-2 text-success mb-3"></i>
+        <h5>Guaranteed Compliance</h5>
+        <p class="text-muted">Working with certified labs and regulatory partners ensures your products meet all requirements.</p>
+      </div>
+      <div class="col-lg-4 text-center" data-aos="fade-up" data-aos-delay="300">
+        <i class="bi bi-graph-up-arrow fs-2 text-warning mb-3"></i>
+        <h5>Market Access</h5>
+        <p class="text-muted">Our retail partnerships open doors to major distribution channels nationwide.</p>
+      </div>
+    </div>
+
+    <!-- Certifications & Accreditations -->
+    <div class="row">
+      <div class="col-12">
+        <div class="bg-white p-4 rounded shadow-sm" data-aos="fade-up">
+          <h5 class="text-center mb-4">Our Certifications & Accreditations</h5>
+          <div class="row align-items-center justify-content-center g-3">
+            <div class="col-lg-2 col-md-3 col-4 text-center">
+              <div class="certification-badge">
+                <img src="https://via.placeholder.com/80x80/ffc107/ffffff?text=ISO+9001" alt="CERT" class="cert-img">
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-4 text-center">
+              <div class="certification-badge">
+                <img src="https://via.placeholder.com/80x80/28a745/ffffff?text=SQF" alt="SQF Certified" class="cert-img">
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-4 text-center">
+              <div class="certification-badge">
+                <img src="https://via.placeholder.com/80x80/007bff/ffffff?text=HACCP" alt="FDA" class="cert-img">
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-4 text-center">
+              <div class="certification-badge">
+                <img src="https://via.placeholder.com/80x80/17a2b8/ffffff?text=BRC" alt="FDA" class="cert-img">
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-4 text-center">
+              <div class="certification-badge">
+                <img src="https://via.placeholder.com/80x80/dc3545/ffffff?text=FDA" alt="FDA Registered" class="cert-img">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="text-center mt-5" data-aos="fade-up">
+      <h4 class="mb-3">Ready to Join Our Success Network?</h4>
+      <p class="text-muted mb-4">Leverage our partnerships to accelerate your product's journey to market.</p>
+      <a href="#consultation" class="btn btn-primary btn-lg me-3">
+        <i class="bi bi-handshake me-2"></i> Partner With Us
+      </a>
+      <a href="#case-studies" class="btn btn-outline-primary btn-lg">
+        <i class="bi bi-graph-up me-2"></i> View Success Stories
+      </a>
     </div>
   </div>
 </section>
+
 {% endblock content %}
