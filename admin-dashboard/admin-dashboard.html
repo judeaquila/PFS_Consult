@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Pneuma Food Scientifics</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/admin-dashboard/css/admin.css">
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="#" class="sidebar-brand">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Admin Dashboard PFSGH
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Main</div>
+                    <div class="nav-item">
+                        <a href="#" class="nav-link active" data-page="overview">
+                            <i class="fas fa-chart-pie"></i>
+                            Overview
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Applications</div>
+                    
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" id="fdaDropdown" data-bs-toggle="collapse" data-bs-target="#fdaSubmenu" aria-expanded="false" aria-controls="fdaSubmenu">
+                            <i class="fas fa-clipboard-list"></i>
+                            FDA/GSA App
+                            <i class="fas fa-chevron-down ms-auto"></i>
+                        </a>
+                        <div class="collapse" id="fdaSubmenu">
+                            <ul class="nav flex-column ms-4">
+                                <li class="nav-item"><a href="#" class="nav-link" data-page="fda-food">FDA Food/Herbal</a></li>
+                                <li class="nav-item"><a href="#" class="nav-link" data-page="fda-eateries">FDA Eateries/Sit&Dine</a></li>
+                                <li class="nav-item"><a href="#" class="nav-link" data-page="fda-cosmetics">FDA Cosmetics/House</a></li>
+                                <li class="nav-item"><a href="#" class="nav-link" data-page="fda-product">FDA Product App</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="nav-item">
+                        <a href="#" class="nav-link" data-page="business-registration">
+                            <i class="fas fa-building"></i>
+                            Business Registration
+                            <span class="badge bg-info">5</span>
+                        </a>
+                    </div>
+
+                    <div class="nav-item">
+                        <a href="#" class="nav-link" data-page="packaging-coaching">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            Packaging Coaching
+                            <span class="badge bg-success">12</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Services</div>
+                    
+                    <div class="nav-item">
+                        <a href="#" class="nav-link" data-page="product-development">
+                            <i class="fas fa-flask"></i>
+                            Product Development
+                        </a>
+                    </div>
+
+                    <div class="nav-item">
+                        <a href="#" class="nav-link" data-page="dehydration-services">
+                            <i class="fas fa-fire"></i>
+                            Dehydration Services
+                        </a>
+                    </div>
+
+                    <div class="nav-item">
+                        <a href="#" class="nav-link" data-page="consultation">
+                            <i class="fas fa-handshake"></i>
+                            Consultation
+                        </a>
+                    </div>
+
+                    <div class="nav-item">
+                        <a href="#" class="nav-link" data-page="machinery-sourcing">
+                            <i class="fas fa-cogs"></i>
+                            Machinery Sourcing
+                        </a>
+                    </div>
+
+                    <div class="nav-item">
+                        <a href="#" class="nav-link" data-page="training-audit">
+                            <i class="fas fa-certificate"></i>
+                            Training & Facility Audit
+                        </a>
+                    </div>
+
+                    <div class="nav-item">
+                        <a href="#" class="nav-link" data-page="contract-manufacturing">
+                            <i class="fas fa-industry"></i>
+                            Contract Manufacturing
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Navbar -->
+            <div class="top-navbar">
+                <img src="" alt="pfsgh-image" srcset="">
+                <div class="navbar-brand">Pneuma Food Scientifics</div>
+                
+                <div class="navbar-end">
+                    <div class="notification-bell">
+                        <i class="fas fa-bell"></i>
+                        <div class="notification-badge"></div>
+                    </div>
+                    
+                    <div class="user-profile" data-bs-toggle="dropdown">
+                        <div class="user-avatar">JD</div>
+                        <div class="user-info">
+                            <div class="user-name">Jude (Admin)</div>
+                            <div class="user-email">jude@pfscerts.com</div>
+                        </div>
+                        <i class="fas fa-chevron-down" style="font-size: 0.75rem; color: var(--text-muted);"></i>
+                    </div>
+                    
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Page Header -->
+                <div class="page-header">
+                    <h1 class="page-title">Welcome, Jude (Admin)</h1>
+                    <p class="page-subtitle">Monitor your business operations and manage applications efficiently</p>
+                </div>
+
+                <!-- Statistics Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-title">Total Applications</div>
+                            <div class="stat-icon stat-total">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">23</div>
+                        <div class="stat-change text-success">
+                            <i class="fas fa-arrow-up"></i>
+                            8.2% from last month
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-title">Pending Review</div>
+                            <div class="stat-icon stat-pending">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">7</div>
+                        <div class="stat-change text-warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Needs attention
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-title">Completed This Month</div>
+                            <div class="stat-icon stat-completed">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">16</div>
+                        <div class="stat-change text-success">
+                            <i class="fas fa-arrow-up"></i>
+                            12.5% increase
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-title">Revenue (MTD)</div>
+                            <div class="stat-icon stat-review">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">GHC 45K</div>
+                        <div class="stat-change text-success">
+                            <i class="fas fa-arrow-up"></i>
+                            15.3% growth
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Applications Overview -->
+                <div class="applications-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Applications Overview</h2>
+                    </div>
+                    
+                    <div class="applications-tabs">
+                        <a href="#" class="app-tab active">Product Development</a>
+                        <a href="./dehydration-services/admin-dehydration-service-home.html" class="app-tab">Dehydration Services</a>
+                        <a href="#" class="app-tab">Business Registration</a>
+                        <a href="#" class="app-tab">Consultation</a>
+                        <a href="#" class="app-tab">Packaging Consulting</a>
+                        <a href="#" class="app-tab">Machinery Sourcing</a>
+                        <a href="#" class="app-tab">Training & Audits</a>
+                        <a href="#" class="app-tab">Contract Manufacturing</a>
+                    </div>
+
+                    <div class="applications-grid">
+                        <div class="app-stat-card stat-total">
+                            <div class="app-stat-number text-white">9</div>
+                            <div class="app-stat-label text-white">Total Applications</div>
+                        </div>
+                        <div class="app-stat-card stat-pending">
+                            <div class="app-stat-number text-white">5</div>
+                            <div class="app-stat-label text-white">Pending Applications</div>
+                        </div>
+                        <div class="app-stat-card stat-review">
+                            <div class="app-stat-number text-white">2</div>
+                            <div class="app-stat-label text-white">In Review</div>
+                        </div>
+                        <div class="app-stat-card stat-completed">
+                            <div class="app-stat-number text-white">0</div>
+                            <div class="app-stat-label text-white">Completed Documentation</div>
+                        </div>
+                        <div class="app-stat-card stat-approved">
+                            <div class="app-stat-number text-white">1</div>
+                            <div class="app-stat-label text-white">Approved</div>
+                        </div>
+                        <div class="app-stat-card stat-rejected">
+                            <div class="app-stat-number text-white">1</div>
+                            <div class="app-stat-label text-white">Rejected</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Submissions -->
+                <div class="recent-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Recent Submissions</h2>
+                    </div>
+                    
+                    <div class="submission-item">
+                        <div class="submission-icon stat-total">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div class="submission-content">
+                            <div class="submission-title">Business Registration - Global Tech Solutions</div>
+                            <div class="submission-meta">Technology Services • Submitted by Alex Johnson</div>
+                        </div>
+                        <div class="submission-time">2 hours ago</div>
+                    </div>
+
+                    <div class="submission-item">
+                        <div class="submission-icon stat-approved">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <div class="submission-content">
+                            <div class="submission-title">Packaging Coaching - Lisa Chen Artisan Crafts</div>
+                            <div class="submission-meta">Basic Program • 8 weeks duration</div>
+                        </div>
+                        <div class="submission-time">4 hours ago</div>
+                    </div>
+
+                    <div class="submission-item">
+                        <div class="submission-icon stat-pending">
+                            <i class="fas fa-flask"></i>
+                        </div>
+                        <div class="submission-content">
+                            <div class="submission-title">Product Development - Organic Food Solutions</div>
+                            <div class="submission-meta">New Product Testing • Awaiting documentation</div>
+                        </div>
+                        <div class="submission-time">6 hours ago</div>
+                    </div>
+
+                    <div class="submission-item">
+                        <div class="submission-icon stat-rejected">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="submission-content">
+                            <div class="submission-title">Dehydration Services - Farm Fresh Products</div>
+                            <div class="submission-meta">Bulk Processing • Documentation incomplete</div>
+                        </div>
+                        <div class="submission-time">1 day ago</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/admin-dashboard/js/admin.js"></script>
+</body>
+</html>
