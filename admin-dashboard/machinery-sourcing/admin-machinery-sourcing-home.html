@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machinery Sourcing Requests</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --border-color: #dee2e6;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container-fluid {
+            padding: 20px;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 0;
+        }
+
+        .search-filter-section {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .search-box {
+            position: relative;
+            display: flex;
+        }
+
+        .search-box input {
+            border-radius: 8px 0 0 8px;
+            border-right: none;
+        }
+
+        .search-btn {
+            border-radius: 0 8px 8px 0;
+            padding: 0 20px;
+        }
+
+        .filter-select {
+            border-radius: 8px;
+        }
+
+        .add-btn {
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .table-section {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--secondary-color);
+        }
+
+        .custom-table {
+            margin: 0;
+        }
+
+        .custom-table thead th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            border: none;
+            padding: 15px 10px;
+            vertical-align: middle;
+        }
+
+        .custom-table tbody td {
+            padding: 12px 10px;
+            vertical-align: middle;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .custom-table tbody tr:hover {
+            background-color: #f8f9fa;
+            transform: translateY(-1px);
+            transition: all 0.2s ease;
+        }
+
+        .status-sourcing {
+            background-color: #ffc107;
+            color: #000;
+        }
+
+        .status-quote-sent {
+            background-color: #17a2b8;
+            color: white;
+        }
+
+        .status-approved {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .status-delivered {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .action-buttons .btn {
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .action-buttons .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .stats-cards {
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+/* pagination */
+        .pagination-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .pagination .page-link {
+            border-radius: 8px;
+            margin: 0 2px;
+            border: 1px solid var(--border-color);
+            color: var(--primary-color);
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: var(--secondary-color);
+            border-color: var(--border-color);
+        }
+
+        .pagination .page-link:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: white;
+            transform: translateY(-2px);
+            transition: all 0.2s ease;
+        }
+
+
+        .modal-header {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-close {
+            filter: invert(1);
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 1.8rem;
+            }
+            
+            .action-buttons {
+                justify-content: center;
+            }
+            
+            .custom-table {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- Header Section -->
+        <div class="page-header">
+            <button class="btn btn-outline-light mb-3" onclick="history.back()">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+            <h1 class="page-title">Machinery Sourcing Requests</h1>
+            <p class="page-subtitle">Track Equipment Sourcing and Procurement</p>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="row stats-cards">
+            <div class="col-md-3 col-6 mb-3">
+                <div class="stat-card">
+                    <div class="stat-number text-warning">12</div>
+                    <div class="stat-label">Active Requests</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <div class="stat-card">
+                    <div class="stat-number text-info">8</div>
+                    <div class="stat-label">Quotes Sent</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <div class="stat-card">
+                    <div class="stat-number text-success">15</div>
+                    <div class="stat-label">Approved</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <div class="stat-card">
+                    <div class="stat-number text-secondary">23</div>
+                    <div class="stat-label">Delivered</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search and Filter Section -->
+        <div class="search-filter-section">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="search-box">
+                        <input type="text" class="form-control" id="searchInput" placeholder="Search by Client Name, Equipment Type...">
+                        <button class="btn btn-primary search-btn" >
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <select class="form-select filter-select" id="statusFilter" >
+                        <option value="">All Status</option>
+                        <option value="sourcing">Sourcing</option>
+                        <option value="quote-sent">Quote Sent</option>
+                        <option value="approved">Approved</option>
+                        <option value="delivered">Delivered</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select class="form-select filter-select" id="equipmentFilter">
+                        <option value="">All Equipment</option>
+                        <option value="processing">Processing</option>
+                        <option value="packaging">Packaging</option>
+                        <option value="testing">Testing</option>
+                        <option value="storage">Storage</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-success add-btn w-100" data-bs-toggle="modal" data-bs-target="#newRequestModal">
+                        <i class="fas fa-plus"></i> New Request
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sourcing Requests Table Section -->
+        <div class="table-section">
+            <h3 class="section-title">Sourcing Requests</h3>
+            
+            <div class="table-responsive">
+                <table class="table custom-table" id="requestsTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Request ID</th>
+                            <th>Client Name</th>
+                            <th>Equipment Type</th>
+                            <th>Specifications</th>
+                            <th>Budget Range</th>
+                            <th>Request Date</th>
+                            <th>Status</th>
+                            <th>Supplier</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="requestsTableBody">
+                        <tr>
+                            <td>1</td>
+                            <td>MS-20250624165259</td>
+                            <td>Tech Manufacturing - <em>John Smith</em></td>
+                            <td>Processing Equipment</td>
+                            <td>Industrial Mixer, 500L capacity, Stainless Steel</td>
+                            <td>GHC15,000 - GHC25,000</td>
+                            <td>2025-06-24 16:52</td>
+                            <td><span class="badge status-sourcing">Sourcing</span></td>
+                            <td>TBD</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn btn-sm btn-outline-primary" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-warning" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-info" title="Generate Report" >
+                                        <i class="fas fa-file-alt"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-success" title="Message Client" >
+                                        <i class="fas fa-comment"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger" title="Delete" >
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>MS-20250620142018</td>
+                            <td>Global Foods Inc - <em>Sarah Johnson</em></td>
+                            <td>Packaging Equipment</td>
+                            <td>Automated Sealing Machine, 200 units/min</td>
+                            <td>GHC30,000 - GHC45,000</td>
+                            <td>2025-06-20 14:20</td>
+                            <td><span class="badge status-quote-sent">Quote Sent</span></td>
+                            <td>PackTech Solutions</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn btn-sm btn-outline-primary" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-warning" title="Edit" >
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-info" title="Generate Report" >
+                                        <i class="fas fa-file-alt"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-success" title="Message Client" >
+                                        <i class="fas fa-comment"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger" title="Delete" >
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>MS-20250618093045</td>
+                            <td>Quality Labs - <em>Michael Brown</em></td>
+                            <td>Testing Equipment</td>
+                            <td>Material Testing System, Universal Testing Machine</td>
+                            <td>GHC50,000 - GHC75,000</td>
+                            <td>2025-06-18 09:30</td>
+                            <td><span class="badge status-approved">Approved</span></td>
+                            <td>TestEquip Corp</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn btn-sm btn-outline-primary" title="View Details" >
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-warning" title="Edit" >
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-info" title="Generate Report" >
+                                        <i class="fas fa-file-alt"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-success" title="Message Client">
+                                        <i class="fas fa-comment"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger" title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>MS-20250615161255</td>
+                            <td>Storage Solutions Ltd - <em>Emma Wilson</em></td>
+                            <td>Storage Equipment</td>
+                            <td>Cold Storage Unit, 1000 cubic feet, -20°C</td>
+                            <td>GHC25,000 - GHC40,000</td>
+                            <td>2025-06-15 16:12</td>
+                            <td><span class="badge status-delivered">Delivered</span></td>
+                            <td>CoolTech Industries</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn btn-sm btn-outline-primary" title="View Details" >
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-warning" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-info" title="Generate Report" >
+                                        <i class="fas fa-file-alt"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-success" title="Message Client">
+                                        <i class="fas fa-comment"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger" title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+<!-- Pagination Section -->
+        <div class="pagination-section">
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- New Request Modal -->
+    <div class="modal fade" id="newRequestModal" tabindex="-1" aria-labelledby="newRequestModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newRequestModalLabel">New Machinery Sourcing Request</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="newRequestForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="clientName" class="form-label">Client Name *</label>
+                                <input type="text" class="form-control" id="clientName" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="contactPerson" class="form-label">Contact Person *</label>
+                                <input type="text" class="form-control" id="contactPerson" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="equipmentType" class="form-label">Equipment Type *</label>
+                                <select class="form-select" id="equipmentType" required>
+                                    <option value="">Select Equipment Type</option>
+                                    <option value="processing">Processing Equipment</option>
+                                    <option value="packaging">Packaging Equipment</option>
+                                    <option value="testing">Testing Equipment</option>
+                                    <option value="storage">Storage Equipment</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="budgetRange" class="form-label">Budget Range *</label>
+                                <input type="text" class="form-control" id="budgetRange" placeholder="e.g. GHC10,000 - GHC20,000" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="specifications" class="form-label">Specifications *</label>
+                            <textarea class="form-control" id="specifications" rows="4" placeholder="Detailed equipment specifications..." required></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="urgency" class="form-label">Urgency Level</label>
+                                <select class="form-select" id="urgency">
+                                    <option value="low">Low</option>
+                                    <option value="medium" selected>Medium</option>
+                                    <option value="high">High</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="deliveryDate" class="form-label">Expected Delivery Date</label>
+                                <input type="date" class="form-control" id="deliveryDate">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-success" >Submit Request</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+</body>
+</html>

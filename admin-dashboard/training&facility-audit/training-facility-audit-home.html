@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training & Facility Audit</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --border-color: #dee2e6;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container-fluid {
+            padding: 20px;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 0;
+        }
+
+        .search-filter-section {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .search-box {
+            position: relative;
+            display: flex;
+        }
+
+        .search-box input {
+            border-radius: 8px 0 0 8px;
+            border-right: none;
+        }
+
+        .search-btn {
+            border-radius: 0 8px 8px 0;
+            padding: 0 20px;
+        }
+
+        .filter-select {
+            border-radius: 8px;
+        }
+
+        .add-btn {
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .table-section {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--secondary-color);
+        }
+
+        .custom-table {
+            margin: 0;
+        }
+
+        .custom-table thead th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            border: none;
+            padding: 15px 10px;
+            vertical-align: middle;
+        }
+
+        .custom-table tbody td {
+            padding: 12px 10px;
+            vertical-align: middle;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .custom-table tbody tr:hover {
+            background-color: #f8f9fa;
+            transform: translateY(-1px);
+            transition: all 0.2s ease;
+        }
+
+        .status-scheduled {
+            background-color: #ffc107;
+            color: #000;
+        }
+
+        .status-in-progress {
+            background-color: #17a2b8;
+            color: white;
+        }
+
+        .status-completed {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .status-overdue {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .action-buttons .btn {
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .action-buttons .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .stats-cards {
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .pagination-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .pagination .page-link {
+            border-radius: 8px;
+            margin: 0 2px;
+            border: 1px solid var(--border-color);
+            color: var(--primary-color);
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: var(--secondary-color);
+            border-color: var(--border-color);
+        }
+
+        .pagination .page-link:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: white;
+            transform: translateY(-2px);
+            transition: all 0.2s ease;
+        }
+
+        .modal-header {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-close {
+            filter: invert(1);
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 1.8rem;
+            }
+            
+            .action-buttons {
+                justify-content: center;
+            }
+            
+            .custom-table {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- Header Section -->
+        <div class="page-header">
+            <button class="btn btn-outline-light mb-3" onclick="history.back()">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+            <h1 class="page-title">Training & Facility Audit</h1>
+            <p class="page-subtitle">Manage Training Programs and Facility Audits</p>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="row stats-cards">
+            <div class="col-md-3 col-6 mb-3">
+                <div class="stat-card">
+                    <div class="stat-number text-warning">8</div>
+                    <div class="stat-label">Scheduled</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <div class="stat-card">
+                    <div class="stat-number text-info">5</div>
+                    <div class="stat-label">In Progress</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <div class="stat-card">
+                    <div class="stat-number text-success">32</div>
+                    <div class="stat-label">Completed</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <div class="stat-card">
+                    <div class="stat-number text-danger">3</div>
+                    <div class="stat-label">Overdue</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search and Filter Section -->
+        <div class="search-filter-section">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="search-box">
+                        <input type="text" class="form-control" id="searchInput" placeholder="Search by Client Name, Training Type, Facility...">
+                        <button class="btn btn-primary search-btn">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <select class="form-select filter-select" id="statusFilter">
+                        <option value="">All Status</option>
+                        <option value="scheduled">Scheduled</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                        <option value="overdue">Overdue</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select class="form-select filter-select" id="typeFilter">
+                        <option value="">All Types</option>
+                        <option value="training">Training</option>
+                        <option value="audit">Facility Audit</option>
+                        <option value="certification">Certification</option>
+                        <option value="compliance">Compliance Check</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-success add-btn w-100" data-bs-toggle="modal" data-bs-target="#newActivityModal">
+                        <i class="fas fa-plus"></i> Schedule New
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Training & Audit Activities Table Section -->
+        <div class="table-section">
+            <h3 class="section-title">Training & Audit Activities</h3>
+            
+            <div class="table-responsive">
+                <table class="table custom-table" id="activitiesTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Activity ID</th>
+                            <th>Client/Facility</th>
+                            <th>Activity Type</th>
+                            <th>Description</th>
+                            <th>Scheduled Date</th>
+                            <th>Duration</th>
+                            <th>Status</th>
+                            <th>Auditor/Trainer</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="activitiesTableBody">
+                        <tr>
+                            <td>1</td>
+                            <td>TFA-20250624001</td>
+                            <td>PharmaCorp Ltd - <em>Main Facility</em></td>
+                            <td>GMP Training</td>
+                            <td>Good Manufacturing Practices training for production staff</td>
+                            <td>2025-07-15 09:00</td>
+                            <td>2 Days</td>
+                            <td><span class="badge status-scheduled">Scheduled</span></td>
+                            <td>Dr. Alice Johnson</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn btn-sm btn-outline-primary" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-warning" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-info" title="Generate Report">
+                                        <i class="fas fa-file-alt"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-success" title="Message Client">
+                                        <i class="fas fa-comment"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger" title="Cancel">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>TFA-20250620002</td>
+                            <td>MedDevice Inc - <em>Quality Lab</em></td>
+                            <td>ISO 13485 Audit</td>
+                            <td>Annual compliance audit for medical device quality management</td>
+                            <td>2025-07-28 08:30</td>
+                            <td>3 Days</td>
+                            <td><span class="badge status-in-progress">In Progress</span></td>
+                            <td>Mark Stevens</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn btn-sm btn-outline-primary" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-warning" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-info" title="Generate Report">
+                                        <i class="fas fa-file-alt"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-success" title="Message Client">
+                                        <i class="fas fa-comment"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger" title="Cancel">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>TFA-20250618003</td>
+                            <td>BioTech Solutions - <em>Research Lab</em></td>
+                            <td>Safety Training</td>
+                            <td>Laboratory safety protocols and emergency procedures</td>
+                            <td>2025-06-25 14:00</td>
+                            <td>1 Day</td>
+                            <td><span class="badge status-completed">Completed</span></td>
+                            <td>Sarah Martinez</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn btn-sm btn-outline-primary" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-warning" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-info" title="Generate Report">
+                                        <i class="fas fa-file-alt"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-success" title="Message Client">
+                                        <i class="fas fa-comment"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary" title="Archive">
+                                        <i class="fas fa-archive"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>TFA-20250610004</td>
+                            <td>Food Processing Co - <em>Production Floor</em></td>
+                            <td>HACCP Certification</td>
+                            <td>Hazard Analysis Critical Control Points certification training</td>
+                            <td>2025-06-20 10:00</td>
+                            <td>3 Days</td>
+                            <td><span class="badge status-overdue">Overdue</span></td>
+                            <td>Robert Chen</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn btn-sm btn-outline-primary" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-warning" title="Reschedule">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-info" title="Generate Report">
+                                        <i class="fas fa-file-alt"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-success" title="Message Client">
+                                        <i class="fas fa-comment"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger" title="Cancel">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Pagination Section -->
+        <div class="pagination-section">
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- New Activity Modal -->
+    <div class="modal fade" id="newActivityModal" tabindex="-1" aria-labelledby="newActivityModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newActivityModalLabel">Schedule New Training/Audit Activity</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="newActivityForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="clientName" class="form-label">Client/Facility Name *</label>
+                                <input type="text" class="form-control" id="clientName" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="activityType" class="form-label">Activity Type *</label>
+                                <select class="form-select" id="activityType" required>
+                                    <option value="">Select Activity Type</option>
+                                    <option value="training">Training</option>
+                                    <option value="audit">Facility Audit</option>
+                                    <option value="certification">Certification</option>
+                                    <option value="compliance">Compliance Check</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description *</label>
+                            <textarea class="form-control" id="description" rows="3" placeholder="Detailed description of the training/audit activity..." required></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="scheduledDate" class="form-label">Scheduled Date & Time *</label>
+                                <input type="datetime-local" class="form-control" id="scheduledDate" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="duration" class="form-label">Duration *</label>
+                                <select class="form-select" id="duration" required>
+                                    <option value="">Select Duration</option>
+                                    <option value="half-day">Half Day (4 hours)</option>
+                                    <option value="1-day">1 Day</option>
+                                    <option value="2-days">2 Days</option>
+                                    <option value="3-days">3 Days</option>
+                                    <option value="1-week">1 Week</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="auditorTrainer" class="form-label">Assigned Auditor/Trainer *</label>
+                                <select class="form-select" id="auditorTrainer" required>
+                                    <option value="">Select Auditor/Trainer</option>
+                                    <option value="dr-alice-johnson">Dr. Alice Johnson</option>
+                                    <option value="mark-stevens">Mark Stevens</option>
+                                    <option value="sarah-martinez">Sarah Martinez</option>
+                                    <option value="robert-chen">Robert Chen</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="priority" class="form-label">Priority Level</label>
+                                <select class="form-select" id="priority">
+                                    <option value="low">Low</option>
+                                    <option value="medium" selected>Medium</option>
+                                    <option value="high">High</option>
+                                    <option value="critical">Critical</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="specialRequirements" class="form-label">Special Requirements</label>
+                            <textarea class="form-control" id="specialRequirements" rows="2" placeholder="Any special equipment, materials, or preparation needed..."></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-success">Schedule Activity</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
