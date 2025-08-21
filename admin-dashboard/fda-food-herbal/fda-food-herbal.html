@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FDA FOOD HERBAL</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/admin-dashboard/css/admin.css">
+    
+    <style>
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            transition: all 0.3s ease;
+        }
+
+        .top-navbar {
+            background: white;
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .navbar-brand {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .navbar-end {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-left: auto;
+        }
+
+        .notification-bell {
+            position: relative;
+            color: var(--text-muted);
+            font-size: 1.125rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .notification-bell:hover {
+            background-color: var(--hover-bg);
+            color: var(--secondary-color);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: 0.25rem;
+            right: 0.25rem;
+            width: 0.5rem;
+            height: 0.5rem;
+            background: var(--danger-color);
+            border-radius: 50%;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .user-profile:hover {
+            background-color: var(--hover-bg);
+        }
+
+        .user-avatar {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 0.875rem;
+        }
+
+        .user-email {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+        }
+
+        /* Content Area */
+        .content-area {
+            padding: 2rem 1.5rem;
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        /* Statistics Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: var(--card-shadow);
+            transition: all 0.2s ease;
+        }
+
+        .stat-card:hover {
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .stat-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+
+        .stat-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.125rem;
+            color: white;
+        }
+
+        .stat-value {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-change {
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        /* Search Section */
+        .search-section {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 2rem;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .search-input {
+            flex: 1;
+            border: 2px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+
+        .search-btn {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .search-btn:hover {
+            background: var(--primary-color);
+            transform: translateY(-1px);
+        }
+
+        /* Submissions Table */
+        .submissions-section {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+        }
+
+        .section-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .submissions-table {
+            width: 100%;
+            margin: 0;
+        }
+
+        .submissions-table thead th {
+            background: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            padding: 1rem;
+            border: none;
+            font-size: 0.875rem;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .submissions-table tbody td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
+            font-size: 0.875rem;
+        }
+
+        .submissions-table tbody tr:hover {
+            background-color: var(--hover-bg);
+        }
+
+        .user-cell {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .user-avatar-table {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .user-avatar-table img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-info-table {
+            flex: 1;
+        }
+
+        .user-name-table {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin: 0;
+            font-size: 0.875rem;
+        }
+
+        .user-company {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            margin: 0;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+
+        .status-yes {
+            background: rgba(39, 174, 96, 0.1);
+            color: var(--success-color);
+        }
+
+        .status-no {
+            background: rgba(231, 76, 60, 0.1);
+            color: var(--danger-color);
+        }
+
+        .status-help {
+            background: rgba(243, 156, 18, 0.1);
+            color: var(--warning-color);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            width: 2rem;
+            height: 2rem;
+            border: 1px solid var(--border-color);
+            background: white;
+            border-radius: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.75rem;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .action-view { color: var(--info-color); }
+        .action-view:hover { background: var(--info-color); color: white; }
+
+        .action-edit { color: var(--warning-color); }
+        .action-edit:hover { background: var(--warning-color); color: white; }
+
+        .action-delete { color: var(--danger-color); }
+        .action-delete:hover { background: var(--danger-color); color: white; }
+
+        .action-message { color: var(--success-color); }
+        .action-message:hover { background: var(--success-color); color: white; }
+
+        /* Color variations for different stats */
+        .stat-total { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .stat-pending { background: linear-gradient(135deg, #ffeaa7, #fdcb6e); }
+        .stat-review { background: linear-gradient(135deg, #74b9ff, #0984e3); }
+        .stat-approved { background: linear-gradient(135deg, #00b894, #00a085); }
+        .stat-rejected { background: linear-gradient(135deg, #fd79a8, #e84393); }
+        .stat-expired { background: linear-gradient(135deg, #a29bfe, #6c5ce7); }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .content-area {
+                padding: 1rem;
+            }
+
+            .search-form {
+                flex-direction: column;
+            }
+
+            .submissions-table {
+                font-size: 0.75rem;
+            }
+
+            .submissions-table thead th,
+            .submissions-table tbody td {
+                padding: 0.5rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-size: 1.25rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- Header Section -->
+        <div class="page-header">
+            <button class="btn btn-outline-light mb-3" onclick="history.back()">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+            <h1 class="page-title">FDA Food/Herbal/Pharmaceutical Submissions</h1>
+            <p class="page-subtitle">Review checklist submissions for Food, Herbal, and Pharmaceutical Product registration.</p>
+            
+        </div>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Page Header -->
+                <!-- <div class="page-header">
+                    <h1 class="page-title">
+                        <i class="fas fa-file-medical"></i>
+                        FDA Food/Herbal/Pharmaceutical Submissions
+                    </h1>
+                    <p class="page-subtitle">Review checklist submissions for Food, Herbal, and Pharmaceutical Product registration.</p>
+                </div> -->
+
+                <!-- Statistics Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-title">Total Submissions</div>
+                            <div class="stat-icon stat-total">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">1,247</div>
+                        <div class="stat-change text-success">
+                            <i class="fas fa-arrow-up"></i>
+                            +12% from last month
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-title">Pending Review</div>
+                            <div class="stat-icon stat-pending">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">89</div>
+                        <div class="stat-change text-warning">
+                            <i class="fas fa-arrow-up"></i>
+                            +5 new today
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-title">Under Review</div>
+                            <div class="stat-icon stat-review">
+                                <i class="fas fa-search"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">156</div>
+                        <div class="stat-change text-info">
+                            <i class="fas fa-minus"></i>
+                            No change
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-title">Approved</div>
+                            <div class="stat-icon stat-approved">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">856</div>
+                        <div class="stat-change text-success">
+                            <i class="fas fa-arrow-up"></i>
+                            +23 this week
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-title">Rejected</div>
+                            <div class="stat-icon stat-rejected">
+                                <i class="fas fa-times-circle"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">146</div>
+                        <div class="stat-change text-danger">
+                            <i class="fas fa-arrow-up"></i>
+                            +7 this week
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-title">Expired</div>
+                            <div class="stat-icon stat-expired">
+                                <i class="fas fa-calendar-times"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">32</div>
+                        <div class="stat-change text-warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Requires attention
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Search Section -->
+                <div class="search-section">
+                    <form class="search-form">
+                        <input type="text" class="search-input" placeholder="Search by ID, Applicant Name, Company...">
+                        <button type="submit" class="search-btn">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Submissions Table -->
+                <div class="submissions-section">
+                    <div class="section-header">
+                        <h2 class="section-title">
+                            <i class="fas fa-list"></i>
+                            Submitted Applications
+                        </h2>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="submissions-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Submitted By</th>
+                                    <th>Email Address</th>
+                                    <th>Food Handlers Card</th>
+                                    <th>Product Lab Test</th>
+                                    <th>Product Label</th>
+                                    <th>Business Certificate</th>
+                                    <th>Product Pictures</th>
+                                    <th>Product Samples</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="user-avatar-table">
+                                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" alt="Michael">
+                                            </div>
+                                            <div class="user-info-table">
+                                                <div class="user-name-table">Michael</div>
+                                                <div class="user-company">Tesha Echad Farms</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>michael@pfscerts.com</td>
+                                    <td><span class="status-badge status-no">No</span></td>
+                                    <td><span class="status-badge status-help">I need help from PFS</span></td>
+                                    <td><span class="status-badge status-help">I need help from PFS</span></td>
+                                    <td><span class="status-badge status-help">I need help from PFS</span></td>
+                                    <td><span class="status-badge status-yes">Yes</span></td>
+                                    <td><span class="status-badge status-yes">Yes</span></td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <div class="action-btn action-view" title="View Details">
+                                                <i class="fas fa-eye"></i>
+                                            </div>
+                                            <div class="action-btn action-edit" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </div>
+                                            <div class="action-btn action-delete" title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </div>
+                                            <div class="action-btn action-message" title="Message">
+                                                <i class="fas fa-comment"></i>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="user-avatar-table">
+                                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" alt="David">
+                                            </div>
+                                            <div class="user-info-table">
+                                                <div class="user-name-table">David Chen</div>
+                                                <div class="user-company">Herbal Solutions Ltd.</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>david@herbalsolutions.com</td>
+                                    <td><span class="status-badge status-yes">Yes</span></td>
+                                    <td><span class="status-badge status-no">No</span></td>
+                                    <td><span class="status-badge status-yes">Yes</span></td>
+                                    <td><span class="status-badge status-no">No</span></td>
+                                    <td><span class="status-badge status-help">I need help from PFS</span></td>
+                                    <td><span class="status-badge status-yes">Yes</span></td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <div class="action-btn action-view" title="View Details">
+                                                <i class="fas fa-eye"></i>
+                                            </div>
+                                            <div class="action-btn action-edit" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </div>
+                                            <div class="action-btn action-delete" title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </div>
+                                            <div class="action-btn action-message" title="Message">
+                                                <i class="fas fa-comment"></i>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="user-avatar-table">
+                                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face" alt="Emma">
+                                            </div>
+                                            <div class="user-info-table">
+                                                <div class="user-name-table">Emma Wilson</div>
+                                                <div class="user-company">Pharma Plus</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>emma@pharmaplus.com</td>
+                                    <td><span class="status-badge status-no">No</span></td>
+                                    <td><span class="status-badge status-yes">Yes</span></td>
+                                    <td><span class="status-badge status-yes">Yes</span></td>
+                                    <td><span class="status-badge status-yes">Yes</span></td>
+                                    <td><span class="status-badge status-no">No</span></td>
+                                    <td><span class="status-badge status-help">I need help from PFS</span></td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <div class="action-btn action-view" title="View Details">
+                                                <i class="fas fa-eye"></i>
+                                            </div>
+                                            <div class="action-btn action-edit" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </div>
+                                            <div class="action-btn action-delete" title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </div>
+                                            <div class="action-btn action-message" title="Message">
+                                                <i class="fas fa-comment"></i>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="user-avatar-table">
+                                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face" alt="James">
+                                            </div>
+                                            <div class="user-info-table">
+                                                <div class="user-name-table">James Rodriguez</div>
+                                                <div class="user-company">Natural Products Co.</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>james@naturalproducts.com</td>
+                                    <td><span class="status-badge status-yes">Yes</span></td>
+                                    <td><span class="status-badge status-yes">Yes</span></td>
+                                    <td><span class="status-badge status-help">I need help from PFS</span></td>
+                                    <td><span class="status-badge status-yes">Yes</span></td>
+                                    <td><span class="status-badge status-yes">Yes</span></td>
+                                    <td><span class="status-badge status-no">No</span></td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <div class="action-btn action-view" title="View Details">
+                                                <i class="fas fa-eye"></i>
+                                            </div>
+                                            <div class="action-btn action-edit" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </div>
+                                            <div class="action-btn action-delete" title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </div>
+                                            <div class="action-btn action-message" title="Message">
+                                                <i class="fas fa-comment"></i>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- Pagination Section -->
+                <div class="pagination-section">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1">Previous</a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <!-- Quick Actions Section -->
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="stat-card">
+                            <div class="section-header">
+                                <h3 class="section-title">
+                                    <i class="fas fa-bolt"></i>
+                                    Quick Actions
+                                </h3>
+                            </div>
+                            <div class="p-3">
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-primary">
+                                        <i class="fas fa-plus"></i> New Submission Review
+                                    </button>
+                                    <button class="btn btn-success">
+                                        <i class="fas fa-check"></i> Batch Approve
+                                    </button>
+                                    <button class="btn btn-info">
+                                        <i class="fas fa-download"></i> Export Data
+                                    </button>
+                                    <button class="btn btn-warning">
+                                        <i class="fas fa-bell"></i> Send Reminders
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="stat-card">
+                            <div class="section-header">
+                                <h3 class="section-title">
+                                    <i class="fas fa-chart-line"></i>
+                                    Recent Activity
+                                </h3>
+                            </div>
+                            <div class="p-3">
+                                <div class="activity-item d-flex align-items-center mb-3">
+                                    <div class="activity-icon bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 2rem; height: 2rem;">
+                                        <i class="fas fa-check fa-sm"></i>
+                                    </div>
+                                    <div>
+                                        <div class="fw-bold">Application Approved</div>
+                                        <small class="text-muted">Herbal Tea - Green Life Co.</small>
+                                    </div>
+                                </div>
+                                
+                                <div class="activity-item d-flex align-items-center mb-3">
+                                    <div class="activity-icon bg-info text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 2rem; height: 2rem;">
+                                        <i class="fas fa-file fa-sm"></i>
+                                    </div>
+                                    <div>
+                                        <div class="fw-bold">New Submission</div>
+                                        <small class="text-muted">Organic Supplements - Nature's Best</small>
+                                    </div>
+                                </div>
+                                
+                                <div class="activity-item d-flex align-items-center mb-3">
+                                    <div class="activity-icon bg-warning text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 2rem; height: 2rem;">
+                                        <i class="fas fa-clock fa-sm"></i>
+                                    </div>
+                                    <div>
+                                        <div class="fw-bold">Review Pending</div>
+                                        <small class="text-muted">Food Preservatives - Fresh Foods Inc.</small>
+                                    </div>
+                                </div>
+                                
+                                <div class="activity-item d-flex align-items-center">
+                                    <div class="activity-icon bg-danger text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 2rem; height: 2rem;">
+                                        <i class="fas fa-times fa-sm"></i>
+                                    </div>
+                                    <div>
+                                        <div class="fw-bold">Application Rejected</div>
+                                        <small class="text-muted">Pain Relief Cream - MediCare Ltd.</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+
+</body>

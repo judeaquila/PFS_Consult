@@ -88,7 +88,15 @@
                     case 'packaging-coaching':
                         // load your packaging coaching page  
                         window.location.href = './packaging-service/admin-packaging-service-home.html';
+                    case 'fda-food':
+                        // load FDA food page
+                        window.location.href = './fda-food-herbal/fda-food-herbal.html';
                         break;
+                    case 'fda-eateries':
+                        // load FDA eateries page
+                        window.location.href = './fda-eateries/fda-eateries.html';
+                        break;
+                        
                     case 'overview':
                         // Stay on current page
                         hideLoading();
